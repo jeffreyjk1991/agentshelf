@@ -1,11 +1,11 @@
 {
   "name": "agentshelf-marketplace",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs && python3 scripts/package_agents.py",
-    "test": "npm run build && python3 tests/smoke.py && node --test tests/api.test.mjs && node --test tests/everyday.test.mjs && node --test tests/nocode.test.mjs && node --test tests/minimal.test.mjs && node --test tests/prompt-agents.test.mjs",
+    "test": "npm run build && python3 tests/smoke.py && node --test tests/api.test.mjs && node --test tests/everyday.test.mjs && node --test tests/nocode.test.mjs && node --test tests/minimal.test.mjs && node --test tests/prompt-agents.test.mjs && node --test tests/growth.test.mjs",
     "dev": "npm run build && python3 -m http.server 4173 --directory dist"
   },
   "dependencies": {

@@ -1,5 +1,7 @@
 import {makeAssistantPrompt} from './prompt-engine.mjs';
 import {CHATS,chatForIdea} from './chat-fit.mjs';
+import {personalPrompt} from './schedule-engine.mjs';
+import {saveItem,event} from './my-agents.mjs';
 function setChat(flow,id,recommend=false){
  if(!Object.hasOwn(CHATS,id))return;
  const chat=CHATS[id],select=flow.querySelector('.chat-select'),open=flow.querySelector('.open-chat'),reason=flow.querySelector('.chat-reason');
@@ -9,14 +11,16 @@ function setChat(flow,id,recommend=false){
 }
 for(const panel of document.querySelectorAll('[data-assistant-panel]')){
  const prompt=panel.querySelector('.assistant-prompt'),status=panel.querySelector('.assistant-status'),flow=panel.querySelector('[data-chat-flow]'),button=panel.querySelector('.copy-assistant'),select=flow.querySelector('.chat-select');
+ const slug=/^\/(?:agents|tools)\/([a-z0-9-]+)\/?$/.exec(location.pathname)?.[1]||'custom';flow.querySelector('.open-chat').addEventListener('click',()=>{if(prompt.value.trim())event('open_chat',slug);});
  select.addEventListener('change',()=>setChat(flow,select.value));
- button.addEventListener('click',async()=>{if(!prompt.value.trim())return;try{await navigator.clipboard.writeText(prompt.value);button.textContent='✓ Copied — step 1';status.textContent='Now open '+CHATS[select.value].name+' and paste.';}catch{const details=prompt.closest('details');if(details)details.open=true;prompt.focus();prompt.select();status.textContent='Select and copy the instructions manually, then open your chat.';}});
+ button.addEventListener('click',async()=>{if(!prompt.value.trim())return;try{await navigator.clipboard.writeText(prompt.value);button.textContent='✓ Copied — step 1';event('copy',slug);status.textContent='Now open '+CHATS[select.value].name+' and paste.';}catch{const details=prompt.closest('details');if(details)details.open=true;prompt.focus();prompt.select();status.textContent='Select and copy the instructions manually, then open your chat.';}});
  panel.querySelector('.save-assistant')?.addEventListener('click',()=>{if(!prompt.value.trim())return;const url=URL.createObjectURL(new Blob([prompt.value],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='agentshelf-assistant.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Instructions saved.';});
 }
 const form=document.querySelector('#make-assistant');
 if(form){
  const status=document.querySelector('#builder-status'),panel=document.querySelector('#builder-result'),prompt=panel.querySelector('.assistant-prompt');
- const params=new URLSearchParams(location.search),idea=params.get('idea');if(idea&&idea.length<=2000)form.elements.goal.value=idea;
+ const params=new URLSearchParams(location.search),idea=params.get('idea');if(idea&&idea.length<=1400)form.elements.goal.value=idea;
  for(const b of form.querySelectorAll('[data-goal]'))b.addEventListener('click',()=>{form.elements.goal.value=b.dataset.goal;form.elements.goal.focus();});
- form.addEventListener('submit',e=>{e.preventDefault();try{const v=Object.fromEntries(new FormData(form));prompt.value=makeAssistantPrompt(v.goal,v.style,v.name);panel.querySelector('h2').textContent='Your assistant is ready';panel.querySelector('.copy-assistant').textContent='1. Copy instructions';panel.querySelector('.assistant-status').textContent='';setChat(panel.querySelector('[data-chat-flow]'),chatForIdea(v.goal),true);panel.hidden=false;status.textContent='';panel.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){panel.hidden=true;status.textContent=e.message;}});
+ form.addEventListener('submit',e=>{e.preventDefault();try{const v=Object.fromEntries(new FormData(form));prompt.value=makeAssistantPrompt(personalPrompt(v.goal,v.preferences,v.style),v.style,v.name);event('create','custom');panel.querySelector('h2').textContent='Your assistant is ready';panel.querySelector('.copy-assistant').textContent='1. Copy instructions';panel.querySelector('.assistant-status').textContent='';setChat(panel.querySelector('[data-chat-flow]'),chatForIdea(v.goal),true);panel.hidden=false;document.querySelector('#builder-save-status').textContent='';status.textContent='';panel.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){panel.hidden=true;status.textContent=e.message;}});
+ document.querySelector('#save-built-assistant')?.addEventListener('click',()=>{const s=document.querySelector('#builder-save-status');if(panel.hidden||!prompt.value)return;try{saveItem({key:'custom:'+crypto.randomUUID(),name:form.elements.name.value.trim()||'My assistant',prompt:prompt.value,provider:panel.querySelector('.chat-select').value});s.textContent='Saved on this device.';event('save','custom');}catch{s.textContent='Device storage unavailable.';}});
 }
