@@ -1,4 +1,5 @@
 import {runTool} from './tool-engine.mjs';
+import {event} from './my-agents.mjs';
 const form=document.querySelector('#everyday-form');
 if(form){
 const slug=form.dataset.tool,status=document.querySelector('#tool-status'),title=document.querySelector('#result-title'),body=document.querySelector('#result-content'),actions=document.querySelector('#result-actions'),placeholder=document.querySelector('#result-placeholder'),key='agentshelf:tool:v1:'+slug;let last='';
@@ -7,7 +8,7 @@ function render(r){document.querySelector('#tool-result').hidden=false;title.tex
 function checklist(items,label){if(label){body.append(elem('h3',label));copy.push(label);}for(const item of items){const l=elem('label');l.className='result-check';const c=elem('input');c.type='checkbox';l.append(c,elem('span',item));body.append(l);copy.push('- '+item);c.addEventListener('change',()=>l.classList.toggle('done',c.checked));}}
 if(r.checklist)checklist(r.checklist);for(const g of r.groups||[])checklist(g.items,g.label);last=copy.join('\n');actions.hidden=false;}
 function clear(){document.querySelector('#tool-result').hidden=true;title.textContent='Your result';placeholder.hidden=true;body.replaceChildren();actions.hidden=true;last='';}
-form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;try{const result=runTool(slug,values());render(result);status.textContent='';document.querySelector('#tool-result').scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){clear();status.textContent=e.message||'Please check the inputs.';}});
+form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;try{const result=runTool(slug,values());render(result);event('tool_run',slug);status.textContent='';document.querySelector('#tool-result').scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){clear();status.textContent=e.message||'Please check the inputs.';}});
 document.querySelector('#tool-save').addEventListener('click',()=>{try{localStorage.setItem(key,JSON.stringify(values()));status.textContent='Inputs saved on this device. Avoid saving private details on shared devices.';}catch{status.textContent='Device storage is unavailable.';}});
 document.querySelector('#tool-reset').addEventListener('click',()=>{form.reset();try{localStorage.removeItem(key);}catch{}clear();status.textContent='Reset and saved inputs cleared.';});
 try{const stored=JSON.parse(localStorage.getItem(key)||'null');if(stored&&typeof stored==='object')for(const e of form.elements){if(e.name&&typeof stored[e.name]==='string')e.value=stored[e.name];}}catch{}
