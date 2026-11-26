@@ -1,0 +1,335 @@
+[
+  {
+    "slug": "product-finder",
+    "values": {
+      "query": "Headphones",
+      "budget": 100,
+      "country": "US"
+    }
+  },
+  {
+    "slug": "price-compare",
+    "values": {
+      "a": 99,
+      "as": 8,
+      "at": 6,
+      "ad": 0,
+      "b": 109,
+      "bs": 0,
+      "bt": 7,
+      "bd": 10
+    }
+  },
+  {
+    "slug": "unit-price",
+    "values": {
+      "p1": 4.99,
+      "q1": 16,
+      "p2": 6.99,
+      "q2": 24,
+      "unit": "oz"
+    }
+  },
+  {
+    "slug": "discount-calculator",
+    "values": {
+      "price": 120,
+      "discount": 25,
+      "coupon": 10,
+      "tax": 6
+    }
+  },
+  {
+    "slug": "sale-tax-calculator",
+    "values": {
+      "price": 75,
+      "tax": 6
+    }
+  },
+  {
+    "slug": "price-watchlist",
+    "values": {
+      "query": "Headphones",
+      "target": 70,
+      "current": 95
+    }
+  },
+  {
+    "slug": "gift-finder",
+    "values": {
+      "recipient": "Friend",
+      "interest": "Cooking",
+      "budget": 40
+    }
+  },
+  {
+    "slug": "return-deadline",
+    "values": {
+      "purchase": "2026-12-10",
+      "days": 30
+    }
+  },
+  {
+    "slug": "shopping-checklist",
+    "values": {
+      "items": "Paper towels\nSoap\nPaper towels\nBatteries"
+    }
+  },
+  {
+    "slug": "flight-tracker",
+    "values": {
+      "flight": "DL123",
+      "date": ""
+    }
+  },
+  {
+    "slug": "cheap-flight-finder",
+    "values": {
+      "from": "DTW",
+      "to": "JFK",
+      "depart": "2026-12-10",
+      "back": "",
+      "people": 1
+    }
+  },
+  {
+    "slug": "hotel-finder",
+    "values": {
+      "city": "Chicago",
+      "in": "2026-12-10",
+      "out": "2026-12-12",
+      "guests": 2,
+      "budget": 150
+    }
+  },
+  {
+    "slug": "trip-budget",
+    "values": {
+      "people": 2,
+      "nights": 4,
+      "airfare": 300,
+      "hotel": 120,
+      "food": 45,
+      "activities": 100
+    }
+  },
+  {
+    "slug": "packing-list",
+    "values": {
+      "days": 5,
+      "weather": "Warm",
+      "kind": "Leisure"
+    }
+  },
+  {
+    "slug": "road-trip-cost",
+    "values": {
+      "miles": 300,
+      "mpg": 28,
+      "price": 3.5,
+      "people": 2
+    }
+  },
+  {
+    "slug": "baggage-weight",
+    "values": {
+      "limit": 23,
+      "bag1": 18,
+      "bag2": 3,
+      "unit": "kg"
+    }
+  },
+  {
+    "slug": "travel-itinerary",
+    "values": {
+      "city": "Chicago",
+      "days": 3,
+      "places": "Museum\nWalk in the park\nLocal food market\nObservation deck\nNeighborhood cafe"
+    }
+  },
+  {
+    "slug": "currency-budget",
+    "values": {
+      "amount": 100,
+      "from": "USD",
+      "to": "EUR",
+      "rate": 0.9,
+      "fee": 0
+    }
+  },
+  {
+    "slug": "grocery-list",
+    "values": {
+      "items": "Milk\nEggs\nBananas\nChicken breast\nRice\nSpinach\nYogurt\nToothpaste"
+    }
+  },
+  {
+    "slug": "meal-planner",
+    "values": {
+      "days": 7,
+      "people": 2,
+      "diet": "Mixed"
+    }
+  },
+  {
+    "slug": "pantry-meal-finder",
+    "values": {
+      "items": "Rice\nEggs\nFrozen peas\nPasta\nTomatoes"
+    }
+  },
+  {
+    "slug": "recipe-scaler",
+    "values": {
+      "original": 4,
+      "desired": 6,
+      "items": "2 | cups | flour\n1 | cup | milk\n0.5 | tsp | salt\n3 | pieces | eggs"
+    }
+  },
+  {
+    "slug": "grocery-budget",
+    "values": {
+      "budget": 100,
+      "items": "Milk | 3.49 | 2\nEggs | 4.99 | 1\nRice | 8.5 | 1\nApples | 1.25 | 6"
+    }
+  },
+  {
+    "slug": "coffee-ratio",
+    "values": {
+      "coffee": 20,
+      "ratio": 16
+    }
+  },
+  {
+    "slug": "party-food",
+    "values": {
+      "people": 12,
+      "servings": 1.25,
+      "snacks": 4,
+      "drinks": 2
+    }
+  },
+  {
+    "slug": "bill-split",
+    "values": {
+      "subtotal": 80,
+      "tax": 5,
+      "tip": 20,
+      "people": 4
+    }
+  },
+  {
+    "slug": "monthly-budget",
+    "values": {
+      "income": 3500,
+      "housing": 1200,
+      "food": 500,
+      "transport": 300,
+      "debt": 250,
+      "other": 450
+    }
+  },
+  {
+    "slug": "subscription-audit",
+    "values": {
+      "items": "Music | 11.99 | monthly\nStreaming | 15.49 | monthly\nCloud storage | 29.99 | yearly"
+    }
+  },
+  {
+    "slug": "savings-goal",
+    "values": {
+      "goal": 2000,
+      "saved": 300,
+      "months": 8
+    }
+  },
+  {
+    "slug": "hourly-pay",
+    "values": {
+      "rate": 25,
+      "hours": 40,
+      "weeks": 52
+    }
+  },
+  {
+    "slug": "fuel-economy",
+    "values": {
+      "miles": 320,
+      "gallons": 12,
+      "price": 42
+    }
+  },
+  {
+    "slug": "daily-planner",
+    "values": {
+      "start": "09:00",
+      "minutes": 30,
+      "items": "Reply to email\nGrocery shopping\nFinish report\nWalk\nPrepare dinner"
+    }
+  },
+  {
+    "slug": "habit-tracker",
+    "values": {
+      "items": "Drink water\nRead 10 pages\nWalk\nStretch\nJournal"
+    }
+  },
+  {
+    "slug": "moving-checklist",
+    "values": {
+      "kind": "Local",
+      "home": "Apartment",
+      "pets": "No"
+    }
+  },
+  {
+    "slug": "cleaning-checklist",
+    "values": {
+      "scope": "Kitchen",
+      "depth": "Quick reset"
+    }
+  },
+  {
+    "slug": "event-planner",
+    "values": {
+      "name": "Alex",
+      "date": "2026-12-10",
+      "guests": 12,
+      "budget": 300
+    }
+  },
+  {
+    "slug": "countdown",
+    "values": {
+      "date": "2026-12-10"
+    }
+  },
+  {
+    "slug": "time-zone-converter",
+    "values": {
+      "utc": "2026-12-01T15:00",
+      "zone": "America/New_York",
+      "zone2": "Europe/London"
+    }
+  },
+  {
+    "slug": "package-tracker",
+    "values": {
+      "carrier": "USPS",
+      "tracking": "1234567890"
+    }
+  },
+  {
+    "slug": "note-checklist",
+    "values": {
+      "items": "Buy groceries\nBook the hotel\nSend the report\nPick up keys"
+    }
+  },
+  {
+    "slug": "message-drafter",
+    "values": {
+      "kind": "Follow-up",
+      "name": "Alex",
+      "subject": "Friday meeting",
+      "tone": "Friendly"
+    }
+  }
+]

@@ -1,0 +1,1674 @@
+[
+  {
+    "slug": "product-finder",
+    "name": "Product Finder",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Find products within your budget and open relevant retailer searches.",
+    "fields": [
+      {
+        "id": "query",
+        "label": "What are you shopping for?",
+        "type": "text",
+        "value": "",
+        "placeholder": "Noise-cancelling headphones"
+      },
+      {
+        "id": "budget",
+        "label": "Maximum budget ($, 0 = any)",
+        "type": "number",
+        "value": 100,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "country",
+        "label": "Shopping region",
+        "type": "select",
+        "options": [
+          "US",
+          "UK",
+          "Canada",
+          "India",
+          "Other"
+        ],
+        "value": "US"
+      }
+    ],
+    "example": "Noise-cancelling headphones, $100.",
+    "method": "Creates search links using your exact product and budget. Retailer prices, availability, shipping and returns must be checked on their sites. No live price scrape.",
+    "keywords": "shop product find cheapest compare online shopping assistant",
+    "action": "Find products"
+  },
+  {
+    "slug": "price-compare",
+    "name": "Total Price Comparison",
+    "category": "Shopping",
+    "icon": "⚖",
+    "summary": "Compare the real total of two offers including delivery, taxes and discounts.",
+    "fields": [
+      {
+        "id": "a",
+        "label": "Offer A item price ($)",
+        "type": "number",
+        "value": 99,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "as",
+        "label": "A shipping ($)",
+        "type": "number",
+        "value": 8,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "at",
+        "label": "A tax ($)",
+        "type": "number",
+        "value": 6,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "ad",
+        "label": "A discount ($)",
+        "type": "number",
+        "value": 0,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "b",
+        "label": "Offer B item price ($)",
+        "type": "number",
+        "value": 109,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "bs",
+        "label": "B shipping ($)",
+        "type": "number",
+        "value": 0,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "bt",
+        "label": "B tax ($)",
+        "type": "number",
+        "value": 7,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "bd",
+        "label": "B discount ($)",
+        "type": "number",
+        "value": 10,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "A costs $113 and B costs $106.",
+    "method": "Adds price, shipping and tax and subtracts the discount for each offer. This comparison uses your entered quotes, not live retailer data.",
+    "keywords": "price comparison shipping tax compare deals",
+    "action": "Calculate"
+  },
+  {
+    "slug": "unit-price",
+    "name": "Unit Price Calculator",
+    "category": "Shopping",
+    "icon": "🏷",
+    "summary": "Compare two package sizes to find which is cheaper per unit.",
+    "fields": [
+      {
+        "id": "p1",
+        "label": "Package A price ($)",
+        "type": "number",
+        "value": 4.99,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "q1",
+        "label": "A quantity",
+        "type": "number",
+        "value": 16,
+        "min": 0.0001,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "p2",
+        "label": "Package B price ($)",
+        "type": "number",
+        "value": 6.99,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "q2",
+        "label": "B quantity",
+        "type": "number",
+        "value": 24,
+        "min": 0.0001,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "unit",
+        "label": "Same unit for both",
+        "type": "select",
+        "options": [
+          "oz",
+          "lb",
+          "g",
+          "kg",
+          "mL",
+          "L",
+          "items"
+        ],
+        "value": "oz"
+      }
+    ],
+    "example": "$4.99 for 16 oz vs. $6.99 for 24 oz.",
+    "method": "Divides each price by its quantity; only compare equivalent units.",
+    "keywords": "grocery unit price per ounce price per pound compare packages",
+    "action": "Calculate"
+  },
+  {
+    "slug": "discount-calculator",
+    "name": "Discount Calculator",
+    "category": "Shopping",
+    "icon": "%",
+    "summary": "Calculate the final price after a percentage sale and optional additional coupon.",
+    "fields": [
+      {
+        "id": "price",
+        "label": "Original price ($)",
+        "type": "number",
+        "value": 120,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "discount",
+        "label": "Sale discount (%)",
+        "type": "number",
+        "value": 25,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "coupon",
+        "label": "Extra coupon discount (%)",
+        "type": "number",
+        "value": 10,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "tax",
+        "label": "Sales tax (%)",
+        "type": "number",
+        "value": 6,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      }
+    ],
+    "example": "25% off $120 followed by 10% off and 6% tax.",
+    "method": "Applies discounts sequentially, then taxes the discounted subtotal. Actual retailer coupon eligibility may differ.",
+    "keywords": "percent off sale price coupon stacking discount calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "sale-tax-calculator",
+    "name": "Sales Tax Calculator",
+    "category": "Shopping",
+    "icon": "＋",
+    "summary": "Estimate your checkout total from a subtotal and known tax rate.",
+    "fields": [
+      {
+        "id": "price",
+        "label": "Subtotal ($)",
+        "type": "number",
+        "value": 75,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "tax",
+        "label": "Sales tax rate (%)",
+        "type": "number",
+        "value": 6,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      }
+    ],
+    "example": "$75 at 6% tax.",
+    "method": "Multiplies subtotal by the entered tax rate; does not determine local tax rules.",
+    "keywords": "sales tax total cost checkout calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "price-watchlist",
+    "name": "Price Watchlist",
+    "category": "Shopping",
+    "icon": "☆",
+    "summary": "Keep a product target price and current quote in a local watchlist.",
+    "fields": [
+      {
+        "id": "query",
+        "label": "Product",
+        "type": "text",
+        "value": "",
+        "placeholder": "Running shoes"
+      },
+      {
+        "id": "target",
+        "label": "Target price ($)",
+        "type": "number",
+        "value": 70,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "current",
+        "label": "Current observed price ($)",
+        "type": "number",
+        "value": 95,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "Target $70, observed price $95.",
+    "method": "Compares the quote you enter to your target. Save the inputs on this device and use the search link to check again. Does not monitor prices or send alerts in the background.",
+    "keywords": "price tracker watchlist product deal target price",
+    "action": "Check target"
+  },
+  {
+    "slug": "gift-finder",
+    "name": "Gift Finder",
+    "category": "Shopping",
+    "icon": "🎁",
+    "summary": "Get tailored gift ideas and shopping links by budget and interests.",
+    "fields": [
+      {
+        "id": "recipient",
+        "label": "Who is it for?",
+        "type": "text",
+        "value": "",
+        "placeholder": "Friend"
+      },
+      {
+        "id": "interest",
+        "label": "Interest",
+        "type": "select",
+        "options": [
+          "Cooking",
+          "Coffee",
+          "Travel",
+          "Reading",
+          "Fitness",
+          "Tech",
+          "Home",
+          "Art",
+          "Outdoors",
+          "General"
+        ],
+        "value": "Cooking"
+      },
+      {
+        "id": "budget",
+        "label": "Budget ($)",
+        "type": "number",
+        "value": 40,
+        "min": 1,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "A coffee lover with a $40 budget.",
+    "method": "Uses a curated interest-based idea list, then creates retailer-neutral shopping searches. Prices are not verified.",
+    "keywords": "gift ideas gifts under budget birthday holiday",
+    "action": "Find gifts"
+  },
+  {
+    "slug": "return-deadline",
+    "name": "Return Deadline Calculator",
+    "category": "Shopping",
+    "icon": "↩",
+    "summary": "Calculate the last date of a return window.",
+    "fields": [
+      {
+        "id": "purchase",
+        "label": "Purchase or delivery date",
+        "type": "date",
+        "value": ""
+      },
+      {
+        "id": "days",
+        "label": "Return window (calendar days)",
+        "type": "number",
+        "value": 30,
+        "min": 0,
+        "max": 365,
+        "step": 1
+      }
+    ],
+    "example": "A 30-day return window starting on a purchase date.",
+    "method": "Adds calendar days to the start date. Confirm the retailer’s policy, start day and exceptions.",
+    "keywords": "return policy deadline calculate return window",
+    "action": "Calculate"
+  },
+  {
+    "slug": "shopping-checklist",
+    "name": "Shopping Checklist",
+    "category": "Shopping",
+    "icon": "✓",
+    "summary": "Turn a pasted list into a mobile checklist and remove duplicates.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Items (one per line)",
+        "type": "textarea",
+        "value": "Paper towels\nSoap\nPaper towels\nBatteries",
+        "placeholder": ""
+      }
+    ],
+    "example": "Paste your household shopping list.",
+    "method": "Normalizes whitespace, removes case-insensitive exact duplicates and creates tickable items.",
+    "keywords": "shopping list checklist phone list maker",
+    "action": "Make checklist"
+  },
+  {
+    "slug": "flight-tracker",
+    "name": "Flight Tracker",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Look up a flight by airline and flight number, with links to live status sources.",
+    "fields": [
+      {
+        "id": "flight",
+        "label": "Flight number",
+        "type": "text",
+        "value": "",
+        "placeholder": "DL123"
+      },
+      {
+        "id": "date",
+        "label": "Flight date (optional)",
+        "type": "date",
+        "value": "",
+        "optional": true
+      }
+    ],
+    "example": "DL123 on your travel date.",
+    "method": "Normalizes an airline flight number and provides flight-status searches and Flightradar24. AgentShelf does not receive live aircraft data or send alerts; verify the date and status with your airline.",
+    "keywords": "track flight flight status departure arrival flight number tracker live flight",
+    "action": "Find flight"
+  },
+  {
+    "slug": "cheap-flight-finder",
+    "name": "Cheap Flight Finder",
+    "category": "Travel",
+    "icon": "↗",
+    "summary": "Open flight searches for your airports, dates and travelers.",
+    "fields": [
+      {
+        "id": "from",
+        "label": "Departure airport (IATA)",
+        "type": "text",
+        "value": "",
+        "placeholder": "DTW"
+      },
+      {
+        "id": "to",
+        "label": "Destination airport (IATA)",
+        "type": "text",
+        "value": "",
+        "placeholder": "JFK"
+      },
+      {
+        "id": "depart",
+        "label": "Departure date",
+        "type": "date",
+        "value": ""
+      },
+      {
+        "id": "back",
+        "label": "Return date (optional)",
+        "type": "date",
+        "value": "",
+        "optional": true
+      },
+      {
+        "id": "people",
+        "label": "Travelers",
+        "type": "number",
+        "value": 1,
+        "min": 1,
+        "max": 9,
+        "step": 1
+      }
+    ],
+    "example": "DTW to JFK, one traveler.",
+    "method": "Builds a dated route search with optional return and passenger count. Compare final fares and baggage rules on the booking site. No fare quotes are generated here.",
+    "keywords": "find cheap flights airfare search plane ticket travel",
+    "action": "Search flights"
+  },
+  {
+    "slug": "hotel-finder",
+    "name": "Hotel Finder",
+    "category": "Travel",
+    "icon": "▣",
+    "summary": "Find hotel search links with dates, guests and a nightly budget.",
+    "fields": [
+      {
+        "id": "city",
+        "label": "Destination",
+        "type": "text",
+        "value": "",
+        "placeholder": "Chicago"
+      },
+      {
+        "id": "in",
+        "label": "Check-in",
+        "type": "date",
+        "value": ""
+      },
+      {
+        "id": "out",
+        "label": "Check-out",
+        "type": "date",
+        "value": ""
+      },
+      {
+        "id": "guests",
+        "label": "Guests",
+        "type": "number",
+        "value": 2,
+        "min": 1,
+        "max": 12,
+        "step": 1
+      },
+      {
+        "id": "budget",
+        "label": "Nightly budget ($)",
+        "type": "number",
+        "value": 150,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "Chicago, two guests, $150 per night.",
+    "method": "Builds destination and date searches. Search links do not guarantee a room or final price.",
+    "keywords": "hotel search accommodation booking budget travel",
+    "action": "Find hotels"
+  },
+  {
+    "slug": "trip-budget",
+    "name": "Trip Budget Calculator",
+    "category": "Travel",
+    "icon": "＄",
+    "summary": "Estimate the complete cost of a trip and the cost per traveler.",
+    "fields": [
+      {
+        "id": "people",
+        "label": "Travelers",
+        "type": "number",
+        "value": 2,
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "id": "nights",
+        "label": "Nights",
+        "type": "number",
+        "value": 4,
+        "min": 0,
+        "max": 365,
+        "step": 1
+      },
+      {
+        "id": "airfare",
+        "label": "Round-trip transport per person ($)",
+        "type": "number",
+        "value": 300,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "hotel",
+        "label": "Total lodging per night ($)",
+        "type": "number",
+        "value": 120,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "food",
+        "label": "Food per person per day ($)",
+        "type": "number",
+        "value": 45,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "activities",
+        "label": "Activities and local transport per person ($)",
+        "type": "number",
+        "value": 100,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "Two travelers, four nights, flights, hotel, food and activities.",
+    "method": "Adds transport, lodging, food for nights plus one day, and activities. Divide by traveler count.",
+    "keywords": "vacation travel budget trip cost estimator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "packing-list",
+    "name": "Travel Packing List",
+    "category": "Travel",
+    "icon": "▤",
+    "summary": "Generate a travel checklist for weather, trip duration and activity.",
+    "fields": [
+      {
+        "id": "days",
+        "label": "Trip length (days)",
+        "type": "number",
+        "value": 5,
+        "min": 1,
+        "max": 60,
+        "step": 1
+      },
+      {
+        "id": "weather",
+        "label": "Weather",
+        "type": "select",
+        "options": [
+          "Warm",
+          "Cool",
+          "Cold",
+          "Mixed"
+        ],
+        "value": "Warm"
+      },
+      {
+        "id": "kind",
+        "label": "Trip type",
+        "type": "select",
+        "options": [
+          "Leisure",
+          "Business",
+          "Beach",
+          "Hiking"
+        ],
+        "value": "Leisure"
+      }
+    ],
+    "example": "Five-day cold-weather trip.",
+    "method": "Uses practical packing rules; adds climate and activity-specific items. Check airline baggage and destination requirements separately.",
+    "keywords": "packing checklist vacation travel clothes trip planner",
+    "action": "Make packing list"
+  },
+  {
+    "slug": "road-trip-cost",
+    "name": "Road Trip Fuel Cost",
+    "category": "Travel",
+    "icon": "◉",
+    "summary": "Estimate fuel expenses for a driving route.",
+    "fields": [
+      {
+        "id": "miles",
+        "label": "Distance (miles)",
+        "type": "number",
+        "value": 300,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "mpg",
+        "label": "Vehicle efficiency (MPG)",
+        "type": "number",
+        "value": 28,
+        "min": 0.1,
+        "max": 300,
+        "step": "any"
+      },
+      {
+        "id": "price",
+        "label": "Gas price ($/gallon)",
+        "type": "number",
+        "value": 3.5,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "people",
+        "label": "People splitting fuel",
+        "type": "number",
+        "value": 2,
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "example": "300 miles, 28 MPG, $3.50 per gallon.",
+    "method": "Divides miles by MPG, multiplies by fuel price and splits the total. Excludes tolls and other vehicle costs.",
+    "keywords": "road trip gas cost calculator fuel estimate",
+    "action": "Calculate"
+  },
+  {
+    "slug": "baggage-weight",
+    "name": "Baggage Weight Calculator",
+    "category": "Travel",
+    "icon": "▧",
+    "summary": "Check the remaining allowance for luggage and a second bag.",
+    "fields": [
+      {
+        "id": "limit",
+        "label": "Total baggage allowance",
+        "type": "number",
+        "value": 23,
+        "min": 0,
+        "max": 300,
+        "step": "any"
+      },
+      {
+        "id": "bag1",
+        "label": "Bag 1 weight",
+        "type": "number",
+        "value": 18,
+        "min": 0,
+        "max": 300,
+        "step": "any"
+      },
+      {
+        "id": "bag2",
+        "label": "Bag 2 weight",
+        "type": "number",
+        "value": 3,
+        "min": 0,
+        "max": 300,
+        "step": "any"
+      },
+      {
+        "id": "unit",
+        "label": "Weight unit",
+        "type": "select",
+        "options": [
+          "kg",
+          "lb"
+        ],
+        "value": "kg"
+      }
+    ],
+    "example": "23 kg allowance, 18 kg and 3 kg bags.",
+    "method": "Subtracts combined bag weight from total allowance. Per-bag limits and airline fees may differ.",
+    "keywords": "luggage weight baggage allowance calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "travel-itinerary",
+    "name": "Travel Itinerary Planner",
+    "category": "Travel",
+    "icon": "▦",
+    "summary": "Turn a destination and a list of things to do into a flexible daily itinerary.",
+    "fields": [
+      {
+        "id": "city",
+        "label": "Destination",
+        "type": "text",
+        "value": "",
+        "placeholder": "New York"
+      },
+      {
+        "id": "days",
+        "label": "Number of days",
+        "type": "number",
+        "value": 3,
+        "min": 1,
+        "max": 14,
+        "step": 1
+      },
+      {
+        "id": "places",
+        "label": "Things you want to do (one per line)",
+        "type": "textarea",
+        "value": "Museum\nWalk in the park\nLocal food market\nObservation deck\nNeighborhood cafe",
+        "placeholder": ""
+      }
+    ],
+    "example": "Three days with five attractions.",
+    "method": "Distributes your chosen stops across days with flexible time slots. It does not verify locations, opening hours or travel times; use map links for each.",
+    "keywords": "itinerary maker trip planner day by day travel",
+    "action": "Plan itinerary"
+  },
+  {
+    "slug": "currency-budget",
+    "name": "Travel Currency Converter",
+    "category": "Travel",
+    "icon": "⇄",
+    "summary": "Convert a known exchange rate into an estimated travel spending amount.",
+    "fields": [
+      {
+        "id": "amount",
+        "label": "Amount in your home currency",
+        "type": "number",
+        "value": 100,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "from",
+        "label": "Home currency",
+        "type": "text",
+        "value": "USD",
+        "placeholder": ""
+      },
+      {
+        "id": "to",
+        "label": "Destination currency",
+        "type": "text",
+        "value": "EUR",
+        "placeholder": ""
+      },
+      {
+        "id": "rate",
+        "label": "Destination units per home unit",
+        "type": "number",
+        "value": 0.9,
+        "min": 0.000001,
+        "max": 1000000,
+        "step": "any"
+      },
+      {
+        "id": "fee",
+        "label": "Conversion fee (%)",
+        "type": "number",
+        "value": 0,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      }
+    ],
+    "example": "100 USD at a manually entered rate of 0.9 EUR per USD.",
+    "method": "Uses your entered rate, subtracting the specified percentage fee. No live foreign-exchange data is used.",
+    "keywords": "manual currency conversion travel money exchange rate calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "grocery-list",
+    "name": "Grocery List Maker",
+    "category": "Food",
+    "icon": "🥑",
+    "summary": "Organize groceries by aisle and tick them off while shopping.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Groceries (one per line)",
+        "type": "textarea",
+        "value": "Milk\nEggs\nBananas\nChicken breast\nRice\nSpinach\nYogurt\nToothpaste",
+        "placeholder": ""
+      }
+    ],
+    "example": "Milk, eggs, bananas, chicken, rice and spinach.",
+    "method": "Groups commonly recognized foods into store departments, keeps unknown items under Other, and removes exact duplicates.",
+    "keywords": "grocery list generator grocery shopping checklist by aisle",
+    "action": "Make grocery list"
+  },
+  {
+    "slug": "meal-planner",
+    "name": "Weekly Meal Planner",
+    "category": "Food",
+    "icon": "🍽",
+    "summary": "Build an easy meal plan and a matching grocery checklist.",
+    "fields": [
+      {
+        "id": "days",
+        "label": "Days to plan",
+        "type": "number",
+        "value": 7,
+        "min": 1,
+        "max": 7,
+        "step": 1
+      },
+      {
+        "id": "people",
+        "label": "People",
+        "type": "number",
+        "value": 2,
+        "min": 1,
+        "max": 12,
+        "step": 1
+      },
+      {
+        "id": "diet",
+        "label": "Meal preference",
+        "type": "select",
+        "options": [
+          "Mixed",
+          "Vegetarian",
+          "Vegan"
+        ],
+        "value": "Mixed"
+      }
+    ],
+    "example": "Seven dinners for two people.",
+    "method": "Rotates through curated dinner options and combines their ingredient names. Quantities are estimated as servings, not precise grocery weights. Adapt for allergies and dietary needs.",
+    "keywords": "weekly meal plan grocery list dinner ideas family",
+    "action": "Plan meals"
+  },
+  {
+    "slug": "pantry-meal-finder",
+    "name": "Pantry Meal Finder",
+    "category": "Food",
+    "icon": "🥣",
+    "summary": "Find simple recipe ideas from ingredients already in your kitchen.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Ingredients you have (one per line)",
+        "type": "textarea",
+        "value": "Rice\nEggs\nFrozen peas\nPasta\nTomatoes",
+        "placeholder": ""
+      }
+    ],
+    "example": "Rice, eggs, peas, pasta and tomatoes.",
+    "method": "Ranks curated recipes by exact normalized ingredient overlap and lists missing ingredients. Check food freshness, allergies and cooking instructions.",
+    "keywords": "what can i cook with ingredients pantry recipe finder",
+    "action": "Find meals"
+  },
+  {
+    "slug": "recipe-scaler",
+    "name": "Recipe Scaler",
+    "category": "Food",
+    "icon": "🥄",
+    "summary": "Scale ingredient quantities for more or fewer servings.",
+    "fields": [
+      {
+        "id": "original",
+        "label": "Original servings",
+        "type": "number",
+        "value": 4,
+        "min": 0.1,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "desired",
+        "label": "Desired servings",
+        "type": "number",
+        "value": 6,
+        "min": 0.1,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "items",
+        "label": "Ingredients (decimal quantity | unit | name, one per line)",
+        "type": "textarea",
+        "value": "2 | cups | flour\n1 | cup | milk\n0.5 | tsp | salt\n3 | pieces | eggs",
+        "placeholder": ""
+      }
+    ],
+    "example": "Scale four servings to six.",
+    "method": "Multiplies quantities by desired servings divided by original servings. Enter decimals; cooking times may not scale.",
+    "keywords": "recipe converter multiply recipe servings ingredient calculator",
+    "action": "Scale recipe"
+  },
+  {
+    "slug": "grocery-budget",
+    "name": "Grocery Budget Calculator",
+    "category": "Food",
+    "icon": "🧺",
+    "summary": "Estimate grocery spending from item prices and quantities.",
+    "fields": [
+      {
+        "id": "budget",
+        "label": "Shopping budget ($)",
+        "type": "number",
+        "value": 100,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "items",
+        "label": "Item | unit price | quantity",
+        "type": "textarea",
+        "value": "Milk | 3.49 | 2\nEggs | 4.99 | 1\nRice | 8.5 | 1\nApples | 1.25 | 6",
+        "placeholder": ""
+      }
+    ],
+    "example": "A $100 budget and a list of expected item costs.",
+    "method": "Multiplies entered prices by quantities, adds the line totals and compares with your budget. No live grocery prices.",
+    "keywords": "grocery shopping budget food cost list calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "coffee-ratio",
+    "name": "Coffee Brew Ratio Calculator",
+    "category": "Food",
+    "icon": "☕",
+    "summary": "Calculate water and coffee amounts for a preferred brew ratio.",
+    "fields": [
+      {
+        "id": "coffee",
+        "label": "Ground coffee (grams)",
+        "type": "number",
+        "value": 20,
+        "min": 0.1,
+        "max": 2000,
+        "step": "any"
+      },
+      {
+        "id": "ratio",
+        "label": "Water-to-coffee ratio",
+        "type": "number",
+        "value": 16,
+        "min": 1,
+        "max": 100,
+        "step": "any"
+      }
+    ],
+    "example": "20 g coffee at 1:16.",
+    "method": "Multiplies coffee weight by the water-to-coffee ratio. Water grams approximate milliliters for home brewing.",
+    "keywords": "coffee water ratio brew calculator pour over",
+    "action": "Calculate"
+  },
+  {
+    "slug": "party-food",
+    "name": "Party Food Planner",
+    "category": "Food",
+    "icon": "🎉",
+    "summary": "Estimate food and drinks for a small gathering using your own serving targets.",
+    "fields": [
+      {
+        "id": "people",
+        "label": "Guests",
+        "type": "number",
+        "value": 12,
+        "min": 1,
+        "max": 500,
+        "step": 1
+      },
+      {
+        "id": "servings",
+        "label": "Main servings per guest",
+        "type": "number",
+        "value": 1.25,
+        "min": 0,
+        "max": 10,
+        "step": "any"
+      },
+      {
+        "id": "snacks",
+        "label": "Snack pieces per guest",
+        "type": "number",
+        "value": 4,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "drinks",
+        "label": "Nonalcoholic drinks per guest",
+        "type": "number",
+        "value": 2,
+        "min": 0,
+        "max": 20,
+        "step": "any"
+      }
+    ],
+    "example": "12 guests, 1.25 main portions each.",
+    "method": "Multiplies guest count by user-entered serving targets and rounds up. Consider event duration and allergies.",
+    "keywords": "party food quantity guest calculator event catering",
+    "action": "Calculate"
+  },
+  {
+    "slug": "bill-split",
+    "name": "Bill Split & Tip Calculator",
+    "category": "Money",
+    "icon": "÷",
+    "summary": "Split a restaurant bill or shared expense with tax and tip.",
+    "fields": [
+      {
+        "id": "subtotal",
+        "label": "Bill before tax and tip ($)",
+        "type": "number",
+        "value": 80,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "tax",
+        "label": "Tax amount ($)",
+        "type": "number",
+        "value": 5,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "tip",
+        "label": "Tip on subtotal (%)",
+        "type": "number",
+        "value": 20,
+        "min": 0,
+        "max": 100,
+        "step": "any"
+      },
+      {
+        "id": "people",
+        "label": "People",
+        "type": "number",
+        "value": 4,
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "example": "$80 subtotal, $5 tax, 20% tip, four people.",
+    "method": "Adds the tax amount and tip calculated on the subtotal, then divides by the number of people.",
+    "keywords": "tip calculator split bill restaurant group dinner",
+    "action": "Calculate"
+  },
+  {
+    "slug": "monthly-budget",
+    "name": "Monthly Budget Planner",
+    "category": "Money",
+    "icon": "▥",
+    "summary": "Calculate what remains after monthly essentials and planned spending.",
+    "fields": [
+      {
+        "id": "income",
+        "label": "Monthly take-home income ($)",
+        "type": "number",
+        "value": 3500,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "housing",
+        "label": "Housing and utilities ($)",
+        "type": "number",
+        "value": 1200,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "food",
+        "label": "Groceries and meals ($)",
+        "type": "number",
+        "value": 500,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "transport",
+        "label": "Transport ($)",
+        "type": "number",
+        "value": 300,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "debt",
+        "label": "Debt payments ($)",
+        "type": "number",
+        "value": 250,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "other",
+        "label": "Other planned expenses ($)",
+        "type": "number",
+        "value": 450,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "$3,500 take-home income and regular expenses.",
+    "method": "Subtracts entered spending from take-home pay and reports the remainder. General budgeting worksheet, not personalized financial advice.",
+    "keywords": "personal budget monthly expense calculator paycheck budgeting",
+    "action": "Calculate"
+  },
+  {
+    "slug": "subscription-audit",
+    "name": "Subscription Cost Calculator",
+    "category": "Money",
+    "icon": "⟳",
+    "summary": "List recurring subscriptions and see their monthly and yearly costs.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Name | price | billing period (monthly or yearly)",
+        "type": "textarea",
+        "value": "Music | 11.99 | monthly\nStreaming | 15.49 | monthly\nCloud storage | 29.99 | yearly",
+        "placeholder": ""
+      }
+    ],
+    "example": "Three subscriptions with monthly and annual billing.",
+    "method": "Normalizes annual charges to monthly equivalents and totals both periods. Cancel manually with each provider.",
+    "keywords": "subscription tracker recurring expense annual monthly cost",
+    "action": "Calculate"
+  },
+  {
+    "slug": "savings-goal",
+    "name": "Savings Goal Calculator",
+    "category": "Money",
+    "icon": "◎",
+    "summary": "Calculate how much to save each month for a goal.",
+    "fields": [
+      {
+        "id": "goal",
+        "label": "Savings target ($)",
+        "type": "number",
+        "value": 2000,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "saved",
+        "label": "Already saved ($)",
+        "type": "number",
+        "value": 300,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "months",
+        "label": "Months until goal",
+        "type": "number",
+        "value": 8,
+        "min": 1,
+        "max": 600,
+        "step": 1
+      }
+    ],
+    "example": "$2,000 target, $300 saved, eight months.",
+    "method": "Divides remaining goal amount by the entered number of months. Does not assume investment growth or interest.",
+    "keywords": "savings goal monthly savings calculator",
+    "action": "Calculate"
+  },
+  {
+    "slug": "hourly-pay",
+    "name": "Hourly to Annual Pay Calculator",
+    "category": "Money",
+    "icon": "⌚",
+    "summary": "Estimate gross pay from an hourly wage and work schedule.",
+    "fields": [
+      {
+        "id": "rate",
+        "label": "Hourly pay ($)",
+        "type": "number",
+        "value": 25,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "hours",
+        "label": "Hours per week",
+        "type": "number",
+        "value": 40,
+        "min": 0,
+        "max": 168,
+        "step": "any"
+      },
+      {
+        "id": "weeks",
+        "label": "Paid weeks per year",
+        "type": "number",
+        "value": 52,
+        "min": 0,
+        "max": 53,
+        "step": "any"
+      }
+    ],
+    "example": "$25 per hour, 40 hours weekly, 52 paid weeks.",
+    "method": "Multiplies hourly rate by weekly hours and paid weeks. Gross estimates before taxes, benefits and overtime.",
+    "keywords": "hourly to salary annual monthly weekly gross pay",
+    "action": "Calculate"
+  },
+  {
+    "slug": "fuel-economy",
+    "name": "Fuel Economy Calculator",
+    "category": "Money",
+    "icon": "⛽",
+    "summary": "Calculate your vehicle’s miles per gallon and fuel cost per mile.",
+    "fields": [
+      {
+        "id": "miles",
+        "label": "Miles driven",
+        "type": "number",
+        "value": 320,
+        "min": 0.01,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "gallons",
+        "label": "Gallons used",
+        "type": "number",
+        "value": 12,
+        "min": 0.01,
+        "max": 100000000,
+        "step": "any"
+      },
+      {
+        "id": "price",
+        "label": "Total fuel cost ($)",
+        "type": "number",
+        "value": 42,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "320 miles on 12 gallons costing $42.",
+    "method": "Divides miles by gallons and total fuel cost by miles.",
+    "keywords": "calculate mpg fuel economy cost per mile",
+    "action": "Calculate"
+  },
+  {
+    "slug": "daily-planner",
+    "name": "Daily Task Planner",
+    "category": "Daily life",
+    "icon": "☀",
+    "summary": "Turn your to-do list into a simple timed daily schedule.",
+    "fields": [
+      {
+        "id": "start",
+        "label": "Start time (24-hour HH:MM)",
+        "type": "text",
+        "value": "09:00",
+        "placeholder": ""
+      },
+      {
+        "id": "minutes",
+        "label": "Minutes per task",
+        "type": "number",
+        "value": 30,
+        "min": 5,
+        "max": 240,
+        "step": 1
+      },
+      {
+        "id": "items",
+        "label": "Tasks in priority order (one per line)",
+        "type": "textarea",
+        "value": "Reply to email\nGrocery shopping\nFinish report\nWalk\nPrepare dinner",
+        "placeholder": ""
+      }
+    ],
+    "example": "Five tasks starting at 9 AM with 30 minutes each.",
+    "method": "Schedules entered tasks sequentially with your chosen time block. Tasks are not executed or synced to a calendar.",
+    "keywords": "daily planner schedule generator to do list time blocking",
+    "action": "Plan day"
+  },
+  {
+    "slug": "habit-tracker",
+    "name": "Habit Checklist",
+    "category": "Daily life",
+    "icon": "✓",
+    "summary": "Create a daily habit checklist and tick off today’s progress.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Habits (one per line)",
+        "type": "textarea",
+        "value": "Drink water\nRead 10 pages\nWalk\nStretch\nJournal",
+        "placeholder": ""
+      }
+    ],
+    "example": "Five small daily habits.",
+    "method": "Builds a local checklist; save its inputs on your device. Completion is for the current result, not a long-term streak service.",
+    "keywords": "daily habits tracker checklist morning routine",
+    "action": "Make checklist"
+  },
+  {
+    "slug": "moving-checklist",
+    "name": "Moving Checklist",
+    "category": "Daily life",
+    "icon": "▣",
+    "summary": "Create a practical move-out and move-in checklist.",
+    "fields": [
+      {
+        "id": "kind",
+        "label": "Move type",
+        "type": "select",
+        "options": [
+          "Local",
+          "Long distance"
+        ],
+        "value": "Local"
+      },
+      {
+        "id": "home",
+        "label": "Home",
+        "type": "select",
+        "options": [
+          "Apartment",
+          "House"
+        ],
+        "value": "Apartment"
+      },
+      {
+        "id": "pets",
+        "label": "Pets",
+        "type": "select",
+        "options": [
+          "No",
+          "Yes"
+        ],
+        "value": "No"
+      }
+    ],
+    "example": "Long-distance move from an apartment with pets.",
+    "method": "Builds a checklist for packing, utilities, address updates, records, moving day and special requirements.",
+    "keywords": "moving house apartment checklist move in move out",
+    "action": "Make checklist"
+  },
+  {
+    "slug": "cleaning-checklist",
+    "name": "Cleaning Checklist",
+    "category": "Daily life",
+    "icon": "⌂",
+    "summary": "Generate a room-by-room home cleaning checklist.",
+    "fields": [
+      {
+        "id": "scope",
+        "label": "Area",
+        "type": "select",
+        "options": [
+          "Kitchen",
+          "Bathroom",
+          "Bedroom",
+          "Living room",
+          "Whole home"
+        ],
+        "value": "Kitchen"
+      },
+      {
+        "id": "depth",
+        "label": "Cleaning type",
+        "type": "select",
+        "options": [
+          "Quick reset",
+          "Deep clean"
+        ],
+        "value": "Quick reset"
+      }
+    ],
+    "example": "Whole home quick reset.",
+    "method": "Combines room-specific tasks and optional deep-clean tasks. Follow product instructions and never mix cleaning chemicals.",
+    "keywords": "home cleaning schedule checklist chores room",
+    "action": "Make checklist"
+  },
+  {
+    "slug": "event-planner",
+    "name": "Event Planner",
+    "category": "Daily life",
+    "icon": "♢",
+    "summary": "Plan a simple event timeline and budget per guest.",
+    "fields": [
+      {
+        "id": "name",
+        "label": "Event name",
+        "type": "text",
+        "value": "",
+        "placeholder": "Birthday dinner"
+      },
+      {
+        "id": "date",
+        "label": "Event date",
+        "type": "date",
+        "value": ""
+      },
+      {
+        "id": "guests",
+        "label": "Guests",
+        "type": "number",
+        "value": 12,
+        "min": 1,
+        "max": 1000,
+        "step": 1
+      },
+      {
+        "id": "budget",
+        "label": "Total budget ($)",
+        "type": "number",
+        "value": 300,
+        "min": 0,
+        "max": 100000000,
+        "step": "any"
+      }
+    ],
+    "example": "Birthday dinner for 12 with $300 budget.",
+    "method": "Calculates budget per guest and creates a planning checklist relative to the event date. Confirm bookings yourself.",
+    "keywords": "event planning party checklist birthday budget",
+    "action": "Plan event"
+  },
+  {
+    "slug": "countdown",
+    "name": "Days Until Calculator",
+    "category": "Daily life",
+    "icon": "◷",
+    "summary": "Find how many calendar days remain until a date.",
+    "fields": [
+      {
+        "id": "date",
+        "label": "Target date",
+        "type": "date",
+        "value": ""
+      }
+    ],
+    "example": "Find days until a birthday or trip.",
+    "method": "Compares local calendar dates using UTC day arithmetic to avoid daylight-saving errors.",
+    "keywords": "days until date countdown calculator how many days",
+    "action": "Calculate"
+  },
+  {
+    "slug": "time-zone-converter",
+    "name": "Time Zone Converter",
+    "category": "Daily life",
+    "icon": "🌐",
+    "summary": "Convert a UTC date and time into several local time zones.",
+    "fields": [
+      {
+        "id": "utc",
+        "label": "UTC date and time (YYYY-MM-DDTHH:MM)",
+        "type": "datetime-local",
+        "value": "2026-12-01T15:00",
+        "placeholder": ""
+      },
+      {
+        "id": "zone",
+        "label": "First time zone",
+        "type": "select",
+        "options": [
+          "America/New_York",
+          "America/Chicago",
+          "America/Los_Angeles",
+          "Europe/London",
+          "Europe/Paris",
+          "Asia/Kolkata",
+          "Asia/Tokyo",
+          "Australia/Sydney",
+          "UTC"
+        ],
+        "value": "America/New_York"
+      },
+      {
+        "id": "zone2",
+        "label": "Second time zone",
+        "type": "select",
+        "options": [
+          "Europe/London",
+          "America/New_York",
+          "America/Chicago",
+          "America/Los_Angeles",
+          "Europe/Paris",
+          "Asia/Kolkata",
+          "Asia/Tokyo",
+          "Australia/Sydney",
+          "UTC"
+        ],
+        "value": "Europe/London"
+      }
+    ],
+    "example": "15:00 UTC in New York and London.",
+    "method": "Uses the browser’s IANA time-zone database to format the same UTC instant in both zones, including daylight saving.",
+    "keywords": "time zone conversion meeting time UTC local clock",
+    "action": "Calculate"
+  },
+  {
+    "slug": "package-tracker",
+    "name": "Package Tracker",
+    "category": "Daily life",
+    "icon": "📦",
+    "summary": "Open official carrier tracking pages using your tracking number.",
+    "fields": [
+      {
+        "id": "carrier",
+        "label": "Carrier",
+        "type": "select",
+        "options": [
+          "USPS",
+          "UPS",
+          "FedEx",
+          "DHL Express",
+          "Other"
+        ],
+        "value": "USPS"
+      },
+      {
+        "id": "tracking",
+        "label": "Tracking number",
+        "type": "text",
+        "value": "",
+        "placeholder": "Enter tracking number"
+      }
+    ],
+    "example": "Select UPS and enter your tracking number.",
+    "method": "Builds a link to the selected carrier’s tracking page. Your number is sent only when you follow the link. No delivery data or alerts are fetched here.",
+    "keywords": "track package delivery tracking number USPS UPS FedEx DHL",
+    "action": "Track package"
+  },
+  {
+    "slug": "note-checklist",
+    "name": "Notes to Checklist",
+    "category": "Daily life",
+    "icon": "☷",
+    "summary": "Convert simple pasted notes into an actionable, editable checklist.",
+    "fields": [
+      {
+        "id": "items",
+        "label": "Tasks or notes (one per line)",
+        "type": "textarea",
+        "value": "Buy groceries\nBook the hotel\nSend the report\nPick up keys",
+        "placeholder": ""
+      }
+    ],
+    "example": "Paste a list of action items.",
+    "method": "Turns nonempty unique lines into checkable tasks; does not infer commitments from prose or summarize with AI.",
+    "keywords": "convert text into checklist notes to do list",
+    "action": "Make checklist"
+  },
+  {
+    "slug": "message-drafter",
+    "name": "Quick Message Drafter",
+    "category": "Daily life",
+    "icon": "✉",
+    "summary": "Create a polite message for common everyday situations.",
+    "fields": [
+      {
+        "id": "kind",
+        "label": "Message type",
+        "type": "select",
+        "options": [
+          "Follow-up",
+          "Request",
+          "Thank you",
+          "Reschedule",
+          "Apology"
+        ],
+        "value": "Follow-up"
+      },
+      {
+        "id": "name",
+        "label": "Recipient name",
+        "type": "text",
+        "value": "",
+        "placeholder": "Alex"
+      },
+      {
+        "id": "subject",
+        "label": "What is it about?",
+        "type": "text",
+        "value": "",
+        "placeholder": "Friday meeting"
+      },
+      {
+        "id": "tone",
+        "label": "Tone",
+        "type": "select",
+        "options": [
+          "Friendly",
+          "Professional"
+        ],
+        "value": "Friendly"
+      }
+    ],
+    "example": "A professional follow-up to Alex about Friday’s meeting.",
+    "method": "Combines your input with a transparent message template. It does not send messages or use an AI model; review before sending.",
+    "keywords": "write quick message follow up thank you reschedule template",
+    "action": "Draft message"
+  }
+]
