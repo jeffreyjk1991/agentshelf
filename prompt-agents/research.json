@@ -1,0 +1,195 @@
+{
+  "asOf": "2026-11-26",
+  "method": "Demand-informed editorial shortlist of 100 distinct chat-based tasks, not a verified top-100 search-volume ranking. Direct keyword-volume service returned Insufficient plan. Selection combines published worldwide Google search estimates for adjacent AI tool keywords with observed AI use categories, emphasizing practical everyday help, writing, learning and work. Media-related agents create briefs or prompts, not media assets. Provider suggestions are editorial, not measured model rankings.",
+  "sources": [
+    {
+      "title": "Builders HQ keyword data",
+      "url": "https://buildershq.net/keywords",
+      "coverage": "Worldwide Google Search, Oct 2025–Sep 2026 average; publisher reports Google Ads Keyword Planner, fetched Nov 11, 2026. Rounded estimates for selected broad keywords, not agent-specific volumes."
+    },
+    {
+      "title": "How People Use ChatGPT",
+      "url": "https://www.nber.org/papers/w34255",
+      "coverage": "Sept 2025; practical guidance, seeking information and writing are nearly 80% of conversations; nonwork exceeds 70%."
+    },
+    {
+      "title": "OpenAI Signals",
+      "url": "https://openai.com/signals/data/",
+      "coverage": "September 2026 individual usage data; high-level usage categories, not agent keyword search volumes."
+    },
+    {
+      "title": "Anthropic Economic Index",
+      "url": "https://www.anthropic.com/economic-index",
+      "coverage": "June 2026; writing, homework, business and other task patterns. Claude usage is not market-wide search demand."
+    }
+  ],
+  "keywordExamples": [
+    {
+      "keyword": "ai translator",
+      "monthlySearches": 110000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai presentation maker",
+      "monthlySearches": 90500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai fitness",
+      "monthlySearches": 74000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai receptionist",
+      "monthlySearches": 74000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai prompt generator",
+      "monthlySearches": 74000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai resume builder",
+      "monthlySearches": 60500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai math solver",
+      "monthlySearches": 49500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai note taker",
+      "monthlySearches": 49500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai for research",
+      "monthlySearches": 40500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai grammar checker",
+      "monthlySearches": 40500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai summarizer",
+      "monthlySearches": 40500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai coding assistant",
+      "monthlySearches": 60500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai room design",
+      "monthlySearches": 27100,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai in excel",
+      "monthlySearches": 27100,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai tutor",
+      "monthlySearches": 22200,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai quiz generator",
+      "monthlySearches": 9900,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai customer service",
+      "monthlySearches": 9900,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai travel planner",
+      "monthlySearches": 8100,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai cover letter generator",
+      "monthlySearches": 6600,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai flashcards",
+      "monthlySearches": 6600,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai for small business",
+      "monthlySearches": 5400,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai workflow automation",
+      "monthlySearches": 4400,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai image generator",
+      "monthlySearches": 2240000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai video generator",
+      "monthlySearches": 1500000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai photo editor",
+      "monthlySearches": 2240000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai logo generator",
+      "monthlySearches": 165000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai music generator",
+      "monthlySearches": 301000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai caption generator",
+      "monthlySearches": 12100,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai website builder",
+      "monthlySearches": 110000,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai app builder",
+      "monthlySearches": 40500,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    },
+    {
+      "keyword": "ai for finance",
+      "monthlySearches": 33100,
+      "scope": "Worldwide, published 12-month average Oct 2025–Sep 2026"
+    }
+  ],
+  "categoryCounts": {
+    "Writing": 10,
+    "Career": 10,
+    "Learning": 10,
+    "Shopping": 10,
+    "Travel": 10,
+    "Home": 10,
+    "Money": 10,
+    "Business": 10,
+    "Creative": 10,
+    "Research & Tech": 10
+  }
+}

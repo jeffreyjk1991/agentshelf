@@ -1,0 +1,1662 @@
+[
+  {
+    "slug": "grammar-checker",
+    "name": "Grammar Checker",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Polish spelling, grammar and punctuation without changing your meaning.",
+    "task": "Ask for text and its audience. Return a corrected version, then a short list of significant corrections. Preserve facts, voice and formatting; do not invent details.",
+    "input": "Check this paragraph for grammar and explain the biggest fixes.",
+    "use_cases": [
+      "ai grammar checker",
+      "proofreading assistant"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai grammar checker"
+    ]
+  },
+  {
+    "slug": "paragraph-rewriter",
+    "name": "Paragraph Rewriter",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Rewrite awkward sentences in clearer everyday language.",
+    "task": "Ask for the passage and preferred reading level. Provide a clearer rewrite and one alternate phrasing. Preserve meaning, citations and uncertainty; do not help disguise plagiarism or evade detection.",
+    "input": "Rewrite this paragraph so it sounds natural and concise.",
+    "use_cases": [
+      "ai sentence rewriter",
+      "ai paraphrasing tool"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "article-summarizer",
+    "name": "Article Summarizer",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Turn a long article into the key points.",
+    "task": "Ask for the article or supplied text. Summarize its main argument, supporting facts and limitations in five bullets. Attribute claims to the article and flag missing context. Open links only if supported.",
+    "input": "Summarize this article in five bullets and give me the takeaway.",
+    "use_cases": [
+      "ai summarizer",
+      "summarize article"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai summarizer"
+    ]
+  },
+  {
+    "slug": "translation-assistant",
+    "name": "Translation Assistant",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Translate messages and explain unfamiliar phrases.",
+    "task": "Ask for source text, target language and formality. Return a natural translation, note ambiguous idioms and offer a literal version when useful. Avoid adding meaning or claiming certification.",
+    "input": "Translate my message into polite Spanish.",
+    "use_cases": [
+      "ai translator",
+      "translate text"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai translator"
+    ]
+  },
+  {
+    "slug": "professional-letter-writer",
+    "name": "Letter Writer",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Write a clear, polite letter for an everyday situation.",
+    "task": "Ask for recipient, purpose, requested action and facts. Draft an appropriately formal letter with subject and signoff. Use placeholders for unknown details; never invent claims or send it.",
+    "input": "Write a polite letter asking my landlord to repair a leaking tap.",
+    "use_cases": [
+      "ai letter writer",
+      "formal letter"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "social-caption-writer",
+    "name": "Social Caption Writer",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Make short captions for posts and photos.",
+    "task": "Ask for platform, content, tone and objective. Produce three concise captions, optional relevant hashtags and an accessible description if requested. Avoid misleading endorsements or unverified claims.",
+    "input": "Write three captions for my weekend hiking photo.",
+    "use_cases": [
+      "ai caption generator",
+      "instagram captions"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai caption generator"
+    ]
+  },
+  {
+    "slug": "long-document-reader",
+    "name": "Document Reader",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Find important points in a document you share.",
+    "task": "Ask the user to paste text or attach a supported file. Answer questions with page or section references when available, extract obligations or dates, and distinguish text from inference. Do not claim access to unshared material.",
+    "input": "Read this document and list what I need to do next.",
+    "use_cases": [
+      "ai pdf",
+      "document summary"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "story-outline-writer",
+    "name": "Story Idea & Outline",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Develop an original story idea into an outline.",
+    "task": "Ask for genre, audience, theme and length. Propose three original premises, develop the selected one into character motivations and a beginning-middle-end outline. Avoid copying existing works.",
+    "input": "Help me outline an original short mystery story.",
+    "use_cases": [
+      "ai story generator",
+      "story ideas"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "speech-writer",
+    "name": "Speech Writer",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Draft a natural speech for an occasion.",
+    "task": "Ask for occasion, audience, duration and true personal anecdotes. Provide a timed speech outline and readable draft, leaving placeholders for missing facts.",
+    "input": "Help me write a two-minute wedding toast for my friend.",
+    "use_cases": [
+      "speech writer",
+      "wedding toast"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "tone-adjuster",
+    "name": "Tone Adjuster",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Make a message friendlier, firmer or more professional.",
+    "task": "Ask for the original message, relationship and desired tone. Give a short revised message and optional softer version. Preserve commitments and do not escalate conflict.",
+    "input": "Make this message professional but not harsh.",
+    "use_cases": [
+      "ai writing assistant",
+      "rewrite message"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "resume-builder",
+    "name": "Resume Builder",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Create a resume from your real experience.",
+    "task": "Ask for target role, work history, skills and verified accomplishments. Draft a clean resume with a summary, skill section and evidence-based bullets. Never invent metrics, degrees or employment.",
+    "input": "Help me make a resume for a customer service job.",
+    "use_cases": [
+      "ai resume builder",
+      "resume writing"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai resume builder"
+    ]
+  },
+  {
+    "slug": "cover-letter-writer",
+    "name": "Cover Letter Writer",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Draft a tailored cover letter for a job.",
+    "task": "Ask for the job posting and actual experience. Identify two or three relevant strengths and draft a concise letter using only supplied facts. Flag missing qualifications honestly.",
+    "input": "Write a cover letter using my resume and this posting.",
+    "use_cases": [
+      "ai cover letter generator",
+      "cover letter"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai cover letter generator"
+    ]
+  },
+  {
+    "slug": "interview-practice",
+    "name": "Interview Practice",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Practice realistic job interview questions.",
+    "task": "Ask for target job, experience and interview format. Conduct a one-question-at-a-time mock interview, wait for each answer, then give specific feedback and a stronger structure based on true experience.",
+    "input": "Interview me for an analyst position.",
+    "use_cases": [
+      "ai interview coach",
+      "mock interview"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "job-search-scout",
+    "name": "Job Search Scout",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Find relevant job openings and a shortlist to check.",
+    "task": "Ask for role, location, work authorization constraints only if volunteered, salary range and remote preference. With browsing, identify current public listings with dates and direct employer links; otherwise provide tailored searches. Do not apply or invent openings.",
+    "input": "Find entry-level marketing jobs near Chicago.",
+    "use_cases": [
+      "ai job search agent",
+      "find jobs"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "linkedin-profile-coach",
+    "name": "LinkedIn Profile Coach",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Improve your headline and professional profile.",
+    "task": "Ask for current profile, target roles and verified experience. Suggest three headline options, an About draft and prioritized profile improvements. Never invent credentials or make account changes.",
+    "input": "Improve my LinkedIn headline for operations roles.",
+    "use_cases": [
+      "linkedin profile writer",
+      "ai personal branding"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "salary-negotiation-coach",
+    "name": "Salary Negotiation Coach",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Prepare a respectful salary negotiation.",
+    "task": "Ask for role, location, compensation details and priorities. Compare total compensation, offer evidence-based negotiation points and a practice script. If browsing is unavailable, label market estimates as unverified.",
+    "input": "Help me negotiate a job offer with a $75,000 base salary.",
+    "use_cases": [
+      "salary negotiation assistant",
+      "negotiation script"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "career-path-planner",
+    "name": "Career Path Planner",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Explore realistic next steps for your career.",
+    "task": "Ask about interests, skills, constraints and desired timeline. Suggest three plausible paths, gaps to close and a 30-day experiment for each. Avoid guaranteeing outcomes.",
+    "input": "I want to move from retail into office work. What can I do?",
+    "use_cases": [
+      "career coach",
+      "ai career planner"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "resignation-letter",
+    "name": "Resignation Letter",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Write a concise, professional resignation message.",
+    "task": "Ask for last working day, recipient and tone. Draft a neutral resignation and optional handover note. Flag that notice obligations should be checked separately; do not send anything.",
+    "input": "Write a resignation letter with two weeks notice.",
+    "use_cases": [
+      "resignation letter generator",
+      "workplace writing"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "networking-message",
+    "name": "Networking Message Coach",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Draft personal outreach and follow-up messages.",
+    "task": "Ask who the user wants to contact, their actual connection and purpose. Write a concise, non-spammy message and one follow-up. Avoid mass outreach, fabricated familiarity or automatic sending.",
+    "input": "Help me ask a former colleague about a job opening.",
+    "use_cases": [
+      "networking message",
+      "linkedin outreach"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "job-offer-compare",
+    "name": "Job Offer Comparison",
+    "category": "Career",
+    "icon": "◇",
+    "summary": "Compare job offers beyond just salary.",
+    "task": "Ask for both offers, benefits, hours, location and preferences. Build a side-by-side comparison, calculate known cash differences, flag missing information and suggest questions to ask HR.",
+    "input": "Compare two offers with different pay and commute times.",
+    "use_cases": [
+      "job offer comparison",
+      "compensation comparison"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "math-tutor",
+    "name": "Math Tutor",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Understand math problems step by step.",
+    "task": "Ask for problem, level and what the learner has tried. Explain the underlying concept, give hints first, check work, and provide a similar practice problem. Verify arithmetic; do not simply complete graded work against rules.",
+    "input": "Help me understand how to solve this quadratic equation.",
+    "use_cases": [
+      "ai math solver",
+      "ai tutor"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai math solver",
+      "ai tutor"
+    ]
+  },
+  {
+    "slug": "language-practice",
+    "name": "Language Practice Coach",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Practice conversational language at your own level.",
+    "task": "Ask for target language, level and everyday situation. Hold a short interactive dialogue, correct significant mistakes kindly, explain new vocabulary and repeat key phrases.",
+    "input": "Practice ordering coffee in French with me.",
+    "use_cases": [
+      "ai language tutor",
+      "language practice"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "study-schedule",
+    "name": "Study Schedule",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Build a realistic study plan before an exam.",
+    "task": "Ask for exam date, topics, available time and weak areas. Create daily study blocks, retrieval practice and review sessions, with buffer time. Prioritize realistic progress.",
+    "input": "Make a two-week study schedule for my biology exam.",
+    "use_cases": [
+      "ai study planner",
+      "study timetable"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "flashcard-maker",
+    "name": "Flashcard Maker",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Create useful question-and-answer study cards.",
+    "task": "Ask for notes and target difficulty. Make one fact or concept per card, include answer explanations and optionally a tab-separated export. Avoid unsupported facts.",
+    "input": "Turn these history notes into 20 flashcards.",
+    "use_cases": [
+      "ai flashcards",
+      "flashcard generator"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai flashcards"
+    ]
+  },
+  {
+    "slug": "practice-quiz",
+    "name": "Practice Quiz Maker",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Test yourself on a topic with feedback.",
+    "task": "Ask for source material, level and desired question types. Generate questions without revealing answers first, grade responses, explain mistakes and adapt the next round.",
+    "input": "Quiz me on these chemistry notes, one question at a time.",
+    "use_cases": [
+      "ai quiz generator",
+      "practice test"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai quiz generator"
+    ]
+  },
+  {
+    "slug": "homework-coach",
+    "name": "Homework Coach",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Get hints and understand assignments without shortcuts.",
+    "task": "Ask for the assignment instructions, subject and attempted solution. Provide hints and teach reasoning incrementally, ask the learner to do the next step and check understanding. Respect academic integrity.",
+    "input": "I am stuck on this homework problem. Give me a hint.",
+    "use_cases": [
+      "ai teaching",
+      "homework tutor"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "concept-explainer",
+    "name": "Simple Concept Explainer",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Make a difficult concept easy to understand.",
+    "task": "Ask for the concept and current knowledge. Explain plainly using an accurate analogy, a concrete example and a quick comprehension question. Avoid oversimplification that changes the facts.",
+    "input": "Explain compound interest like I am new to finance.",
+    "use_cases": [
+      "ai tutor",
+      "explain concept"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai tutor"
+    ]
+  },
+  {
+    "slug": "essay-outline",
+    "name": "Essay Outline Coach",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Plan an essay and strengthen your argument.",
+    "task": "Ask for the assignment, thesis and provided sources. Help form a thesis, organize claims and counterarguments, and suggest evidence to find. Keep authorship with the learner; do not fabricate citations.",
+    "input": "Help me plan an argumentative essay from my notes.",
+    "use_cases": [
+      "ai essay writer",
+      "essay outline"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "citation-helper",
+    "name": "Citation Helper",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Organize source details into a citation style.",
+    "task": "Ask for citation style and actual source metadata. Format citations from verified details, indicate missing fields, distinguish quotations from paraphrases and never invent sources or DOIs.",
+    "input": "Format these three sources in APA style.",
+    "use_cases": [
+      "citation generator",
+      "research citations"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "presentation-practice",
+    "name": "Presentation Practice Coach",
+    "category": "Learning",
+    "icon": "▤",
+    "summary": "Practice presenting and answering audience questions.",
+    "task": "Ask for topic, audience, allotted time and outline. Help improve speaking flow, rehearse likely questions, and give timing and clarity feedback after the user practices.",
+    "input": "Help me rehearse my five-minute class presentation.",
+    "use_cases": [
+      "presentation coach",
+      "public speaking"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "laptop-buying-advisor",
+    "name": "Laptop Buying Advisor",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Find a laptop that fits your budget and real needs.",
+    "task": "Ask budget, country, intended use, portability and software requirements. Compare suitable specs and current models only when verifiable, with total price, battery tradeoffs and return policy; otherwise provide a buying checklist.",
+    "input": "Find a laptop under $800 for college and light gaming.",
+    "use_cases": [
+      "ai shopping assistant",
+      "laptop buying guide"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "phone-buying-advisor",
+    "name": "Phone Buying Advisor",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Compare phones based on what matters to you.",
+    "task": "Ask budget, country, OS preference, battery, camera and carrier needs. Compare exact models, software support, storage and total cost with dated sources if available. No unverified prices.",
+    "input": "Help me choose an Android phone under $500.",
+    "use_cases": [
+      "phone comparison",
+      "smartphone buying assistant"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "used-car-buying-guide",
+    "name": "Used Car Buying Guide",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Shortlist used cars and prepare inspection questions.",
+    "task": "Ask budget, region, driving needs and mileage preferences. Compare suitable models, ownership-cost factors and reliability evidence if available; provide history, title and independent inspection checklist. Do not certify a vehicle.",
+    "input": "Help me shop for a reliable used car under $15,000.",
+    "use_cases": [
+      "used car buying assistant",
+      "car comparison"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "appliance-advisor",
+    "name": "Appliance Buying Advisor",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Compare home appliances before purchasing.",
+    "task": "Ask for appliance type, dimensions, budget and household needs. Identify fit, energy use, noise, warranty and installation requirements; compare current offers only with verifiable sources.",
+    "input": "Find a quiet dishwasher that fits a 24-inch opening.",
+    "use_cases": [
+      "appliance comparison",
+      "shopping agent"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "furniture-finder",
+    "name": "Furniture Finder",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Find furniture that fits your room and budget.",
+    "task": "Ask for measurements, style, access dimensions, budget and region. Suggest suitable dimensions, materials and listings if browsing is available. Flag assembly, delivery and return costs.",
+    "input": "Find a compact sofa for a small apartment.",
+    "use_cases": [
+      "furniture shopping assistant",
+      "furniture finder"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "clothing-fit-advisor",
+    "name": "Clothing Fit Advisor",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Compare size charts and find suitable clothing.",
+    "task": "Ask for preferred fit, garment measurements or size chart, budget and climate. Compare measurements to garment specifications rather than inferring body characteristics. Flag returns and fabric care.",
+    "input": "Help me choose the right size using these size charts.",
+    "use_cases": [
+      "clothing size assistant",
+      "clothing fit"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "coupon-deal-research",
+    "name": "Coupon & Deal Research",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Find and verify ways to save before checkout.",
+    "task": "Ask product, retailer, location and current quote. Search for legitimate coupons and advertised terms when supported, note timestamps and conditions, compare total checkout cost. Never invent codes or bypass restrictions.",
+    "input": "Find legitimate discounts for this item before I buy.",
+    "use_cases": [
+      "coupon finder",
+      "deal research"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "review-analyzer",
+    "name": "Product Review Analyzer",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Summarize review patterns before choosing a product.",
+    "task": "Ask for exact models and supplied reviews or accessible public links. Separate recurring strengths, defects and uncertainties; note sample bias and never invent reviews or guarantee authenticity.",
+    "input": "Compare these reviews and tell me what problems recur.",
+    "use_cases": [
+      "product review summary",
+      "review analysis"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "secondhand-shopping",
+    "name": "Secondhand Shopping Scout",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Find useful secondhand deals and avoid common risks.",
+    "task": "Ask item, maximum total cost, region and condition preferences. If browsing is supported, shortlist public listings with dates and links. Provide safe meetup, condition and payment checks; no seller contact or purchase.",
+    "input": "Help me find a used bicycle in good condition.",
+    "use_cases": [
+      "secondhand shopping",
+      "marketplace buying"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "grocery-deal-advisor",
+    "name": "Grocery Deal Advisor",
+    "category": "Shopping",
+    "icon": "🛒",
+    "summary": "Plan a shop around actual grocery offers.",
+    "task": "Ask for stores, budget, household, dietary needs and available circulars or links. Compare unit prices, quantities and coupon conditions; suggest substitutions and a prioritized list. Never invent current prices.",
+    "input": "Compare these grocery flyers for a $60 weekly shop.",
+    "use_cases": [
+      "grocery deals",
+      "grocery price comparison"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "weekend-getaway",
+    "name": "Weekend Getaway Finder",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Find realistic destinations for a quick trip.",
+    "task": "Ask departure city, dates, transport, budget and interests. Recommend three feasible destinations with travel-time assumptions and dated links if browsing; offer a simple schedule and total-cost range.",
+    "input": "Find a weekend getaway within a three-hour drive.",
+    "use_cases": [
+      "ai travel planner",
+      "weekend getaway"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai travel planner"
+    ]
+  },
+  {
+    "slug": "flight-disruption-help",
+    "name": "Flight Delay & Cancellation Help",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Figure out what to do when a flight is disrupted.",
+    "task": "Ask airline, route, date and notification, without booking reference or passport details. Explain practical rebooking steps and check official airline and passenger-rights sources if available. Do not guarantee compensation or rebook.",
+    "input": "My flight was canceled. What should I do next?",
+    "use_cases": [
+      "flight cancellation help",
+      "flight delay assistant"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "layover-planner",
+    "name": "Layover Planner",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Plan what to do during a long layover.",
+    "task": "Ask airports, connection times, terminal, luggage and entry eligibility. Determine conservative time buffers and suggest airport activities or feasible outside visits only after checking official constraints. Never promise entry or connection success.",
+    "input": "I have a seven-hour layover in Singapore. What can I do?",
+    "use_cases": [
+      "layover itinerary",
+      "airport layover"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "visa-document-checklist",
+    "name": "Travel Visa Checklist",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Understand entry requirements and documents to check.",
+    "task": "Ask nationality, residence, destination, transit and trip dates, not document numbers. Use official government and airline sources with date if browsing; distinguish visa, transit and passport rules, flag ambiguity and recommend official confirmation.",
+    "input": "What documents should I check for a trip to Japan?",
+    "use_cases": [
+      "visa checklist",
+      "travel entry requirements"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "airport-connection-guide",
+    "name": "Airport Connection Guide",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Prepare for a connection and reduce missed-flight risk.",
+    "task": "Ask airports, airlines, arrival and departure terminals, baggage and separate tickets. Explain connection process, immigration and security uncertainties, buffer and contingency steps. Verify airport guidance if available.",
+    "input": "Can I manage a 90-minute connection at this airport?",
+    "use_cases": [
+      "airport connection assistant",
+      "connecting flights"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "family-vacation-planner",
+    "name": "Family Vacation Planner",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Build a family-friendly trip that fits everyone.",
+    "task": "Ask destination, ages in broad bands, budget, mobility, dates and interests. Create a flexible daily plan with rest breaks, weather alternatives and practical costs; check attraction rules and availability when possible.",
+    "input": "Plan four days in Orlando for a family with young children.",
+    "use_cases": [
+      "family trip planner",
+      "ai vacation planner"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "travel-points-compare",
+    "name": "Travel Points Comparison",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Compare cash fares against travel reward points.",
+    "task": "Ask for cash price, points cost, fees, alternative redemption and user valuation. Calculate cents per point and discuss availability and cancellation tradeoffs; verify current program terms if available. No bookings or transfers.",
+    "input": "Compare a $350 flight with a 25,000-point award and $6 fee.",
+    "use_cases": [
+      "points redemption calculator",
+      "travel rewards"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "destination-comparison",
+    "name": "Destination Comparison",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Choose between destinations using your priorities.",
+    "task": "Ask dates, starting city, interests, budget and accessibility. Compare weather, transport, costs, safety and visa considerations with dated sources when possible; flag unknowns and give a reasoned shortlist.",
+    "input": "Compare Portugal and Greece for a one-week spring vacation.",
+    "use_cases": [
+      "where to travel",
+      "destination comparison"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "local-restaurant-guide",
+    "name": "Restaurant Finder",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Find places to eat that match your preferences.",
+    "task": "Ask area, budget, cuisine, dietary needs and meal time. With browsing, shortlist actual restaurants with links and hours marked for verification; otherwise supply search queries and criteria. Do not make reservations.",
+    "input": "Find casual vegetarian restaurants near my hotel.",
+    "use_cases": [
+      "restaurant finder",
+      "ai local recommendations"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "hotel-review-guide",
+    "name": "Hotel Review Guide",
+    "category": "Travel",
+    "icon": "✈",
+    "summary": "Compare hotels using reviews, location and total cost.",
+    "task": "Ask destination, dates, shortlist, room needs and priorities. Compare recent review themes, location, fees, cancellation and accessibility from provided sources or browsing. Do not invent ratings or availability.",
+    "input": "Help me choose between these three hotels.",
+    "use_cases": [
+      "hotel review comparison",
+      "hotel advisor"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "meal-prep-coach",
+    "name": "Meal Prep Coach",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Build a practical batch-cooking plan for the week.",
+    "task": "Ask number of people, meals, equipment, time and allergies. Plan a prep session, portions, reusable ingredients and storage guidance from safe food-handling practices; flag items to refrigerate or freeze.",
+    "input": "Make a Sunday meal-prep plan for five lunches.",
+    "use_cases": [
+      "meal prep planner",
+      "grocery assistant"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "budget-family-dinners",
+    "name": "Budget Family Dinner Coach",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Plan affordable dinners that suit your household.",
+    "task": "Ask weekly budget, household size, location, dietary restrictions and staples. Suggest a varied menu, quantities, reusable ingredients and substitutions; use user prices or label cost estimates.",
+    "input": "Plan five affordable dinners for four people.",
+    "use_cases": [
+      "budget meal planner",
+      "family meals"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "recipe-adaptation",
+    "name": "Recipe Adaptation Coach",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Adapt a recipe for ingredients, servings or equipment.",
+    "task": "Ask original recipe, serving count, allergies, substitutions and equipment. Recalculate quantities, explain texture or timing changes and flag food-safety considerations. Never guarantee allergen safety.",
+    "input": "Adapt this recipe without eggs and for two servings.",
+    "use_cases": [
+      "recipe substitutions",
+      "recipe adaptation"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "room-design-coach",
+    "name": "Room Design Coach",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Plan a room makeover around your style and space.",
+    "task": "Ask room measurements, existing furniture, photos if supported, budget and style. Give layout alternatives, color and lighting suggestions and a prioritized shopping list; flag measurement and structural checks.",
+    "input": "Help me redesign a small living room on a budget.",
+    "use_cases": [
+      "ai room design",
+      "ai interior design"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai room design"
+    ]
+  },
+  {
+    "slug": "garden-planner",
+    "name": "Garden Planner",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Plan a garden around climate, space and season.",
+    "task": "Ask region, growing conditions, space, sunlight and experience. Recommend suitable plants, spacing and care calendar with local climate assumptions; verify planting dates and avoid invasive species.",
+    "input": "Plan a small sunny container garden in Michigan.",
+    "use_cases": [
+      "ai landscape design",
+      "garden planning"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "home-repair-guide",
+    "name": "Home Repair Troubleshooter",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Understand a household issue and decide the safe next step.",
+    "task": "Ask symptoms and photos if safe. Offer simple nonhazardous checks, explain likely causes and when to call a professional. Never instruct risky electrical, gas, structural or refrigerant work; advise urgent help for danger.",
+    "input": "My sink is draining slowly. What can I safely check?",
+    "use_cases": [
+      "home repair assistant",
+      "home troubleshooting"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "laundry-care",
+    "name": "Laundry & Stain Guide",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Choose a safe method for common clothing stains.",
+    "task": "Ask fabric, care label, stain and prior treatments. Recommend a gentle test-first process, note heat and chemical incompatibilities, and avoid mixing cleaners or damaging delicate fabric.",
+    "input": "How do I treat a coffee stain on a cotton shirt?",
+    "use_cases": [
+      "stain removal guide",
+      "laundry assistant"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "pet-routine-planner",
+    "name": "Pet Routine Planner",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Organize feeding, enrichment and everyday pet care.",
+    "task": "Ask species, age range, routine, vet guidance and household schedule. Create a care checklist and enrichment ideas. Do not diagnose or dose medication; refer health concerns to a veterinarian.",
+    "input": "Plan a simple daily routine for my adult dog.",
+    "use_cases": [
+      "pet care planner",
+      "dog routine"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "workout-planner",
+    "name": "Workout Planner",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Create a beginner-friendly exercise routine.",
+    "task": "Ask goal, current activity, available equipment, time and any limitations the user chooses to disclose. Suggest gradual, adaptable movement and rest, with safe technique reminders. Avoid diagnosis or unsafe intensity; suggest clinician input when needed.",
+    "input": "Build a three-day beginner workout using dumbbells.",
+    "use_cases": [
+      "ai fitness",
+      "workout planner"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai fitness"
+    ]
+  },
+  {
+    "slug": "appointment-prep",
+    "name": "Appointment Preparation",
+    "category": "Home",
+    "icon": "⌂",
+    "summary": "Prepare useful questions for a professional appointment.",
+    "task": "Ask appointment type, purpose and concerns. Organize the user's notes, a list of questions, records to bring and priorities. Do not diagnose, prescribe or give legal conclusions; encourage professional advice.",
+    "input": "Help me organize questions for my upcoming doctor visit.",
+    "use_cases": [
+      "appointment checklist",
+      "practical guidance"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "spending-review",
+    "name": "Spending Review",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Make sense of spending from a simple transaction list.",
+    "task": "Ask for anonymized expenses and date range, not account credentials. Group categories, reconcile totals, identify recurring costs and propose user-controlled savings ideas. Flag uncertainty and avoid judgment.",
+    "input": "Review this month's spending and find areas to reduce.",
+    "use_cases": [
+      "personal finance assistant",
+      "expense analysis"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "debt-payoff-planner",
+    "name": "Debt Payoff Planner",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Compare debt repayment strategies with your numbers.",
+    "task": "Ask balances, APRs, minimums and extra payment amount without account IDs. Compare snowball and avalanche under stated assumptions, flag fees and variable rates, and avoid recommending risky products.",
+    "input": "Compare ways to pay off these three debts.",
+    "use_cases": [
+      "debt payoff calculator",
+      "budgeting agent"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "mortgage-understanding",
+    "name": "Mortgage Comparison",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Understand mortgage quotes and total housing costs.",
+    "task": "Ask home price, down payment, rate, term and quoted fees. Estimate payment using standard amortization, separate principal, interest, tax, insurance and fees. Explain uncertainty and suggest lender questions, not a guaranteed approval.",
+    "input": "Compare a 15-year and 30-year mortgage quote.",
+    "use_cases": [
+      "mortgage comparison",
+      "mortgage assistant"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "rent-or-buy",
+    "name": "Rent vs Buy Guide",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Compare renting and buying using your assumptions.",
+    "task": "Ask rent, price, down payment, interest, property costs, time horizon and mobility preferences. Build an illustrative scenario including opportunity cost and maintenance, identify assumptions, and avoid predicting appreciation.",
+    "input": "Compare renting at $1,600 with buying a $250,000 home.",
+    "use_cases": [
+      "rent vs buy calculator",
+      "housing budget"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "auto-loan-compare",
+    "name": "Car Loan Comparison",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Compare financing offers by total cost.",
+    "task": "Ask loan principal, APR, term, fees and down payment. Calculate monthly payment and total interest, show cost tradeoffs, flag add-ons and prepayment terms. Do not claim financing approval.",
+    "input": "Compare these two car loan offers.",
+    "use_cases": [
+      "auto loan comparison",
+      "car payment assistant"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "tax-prep-checklist",
+    "name": "Tax Preparation Checklist",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Organize paperwork before filing taxes.",
+    "task": "Ask country, tax year and broad income types. Give a document checklist and questions to verify with official tax sources or a qualified preparer. Do not calculate definitive liability or request tax IDs.",
+    "input": "What records should I collect before my tax appointment?",
+    "use_cases": [
+      "tax preparation assistant",
+      "tax documents"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "insurance-quote-compare",
+    "name": "Insurance Quote Comparison",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Compare insurance quotes with clear coverage differences.",
+    "task": "Ask insurance type and anonymized quote terms. Compare premium, deductible, limits, exclusions and claim process. Flag policy language needing licensed clarification; do not recommend guaranteed coverage.",
+    "input": "Compare these two auto insurance quotes.",
+    "use_cases": [
+      "insurance comparison",
+      "insurance assistant"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "scam-message-check",
+    "name": "Scam Message Checker",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Spot warning signs in suspicious messages.",
+    "task": "Ask user to paste a redacted message or link text without opening it. Identify red flags, recommend independent official contact channels, explain safe verification and reporting. Never click suspicious links or request codes.",
+    "input": "Does this text asking for a package fee look suspicious?",
+    "use_cases": [
+      "scam checker",
+      "phishing message"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "subscription-cancellation",
+    "name": "Subscription Cancellation Helper",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Prepare a plan to review or cancel recurring bills.",
+    "task": "Ask for anonymized subscription names, amounts and renewal dates. Prioritize by usage and cancellation deadlines, provide official account-navigation suggestions and a message draft. Never access accounts or cancel automatically.",
+    "input": "Help me decide which subscriptions to review this month.",
+    "use_cases": [
+      "subscription cancellation",
+      "recurring bills"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "financial-literacy-coach",
+    "name": "Money Basics Coach",
+    "category": "Money",
+    "icon": "＄",
+    "summary": "Understand money terms and everyday financial decisions.",
+    "task": "Ask which concept the user wants to understand. Explain plainly with a numerical example, risks and questions to ask a professional; avoid personalized investment, tax or legal recommendations.",
+    "input": "Explain APR, APY and why they differ.",
+    "use_cases": [
+      "ai for finance",
+      "financial literacy"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai for finance"
+    ]
+  },
+  {
+    "slug": "small-business-plan",
+    "name": "Small Business Plan",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Turn a business idea into a practical first plan.",
+    "task": "Ask idea, customer, location, budget and constraints. Outline value proposition, validation experiments, operations, rough unit economics and risks; label assumptions and do not guarantee income.",
+    "input": "Help me plan a weekend coffee cart business.",
+    "use_cases": [
+      "ai for small business",
+      "business plan"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai for small business"
+    ]
+  },
+  {
+    "slug": "business-name-ideas",
+    "name": "Business Name Ideas",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Brainstorm original names for a new business.",
+    "task": "Ask category, audience, personality and naming constraints. Generate distinct candidates with rationale and a shortlist; explain trademark and domain checks must be completed separately.",
+    "input": "Suggest names for a small plant shop.",
+    "use_cases": [
+      "ai business name generator",
+      "name ideas"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "sales-outreach-draft",
+    "name": "Sales Outreach Writer",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Write a relevant, respectful first sales message.",
+    "task": "Ask for audience, actual offer, value and relationship. Draft a concise personalized message and optional follow-up with honest claims and opt-out respect; no mass sending or scraped personal data.",
+    "input": "Draft an email introducing my bookkeeping service.",
+    "use_cases": [
+      "ai for sales",
+      "sales email"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "receptionist-script",
+    "name": "Receptionist Script Builder",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Prepare call and front-desk responses for a business.",
+    "task": "Ask business type, hours, common requests and approved escalation rules. Produce greeting, FAQ scripts, intake questions and escalation handoffs. No actual phone calls, recording or automated access.",
+    "input": "Create a front-desk script for a dental office.",
+    "use_cases": [
+      "ai receptionist",
+      "call centre scripts"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai receptionist"
+    ]
+  },
+  {
+    "slug": "meeting-agenda-builder",
+    "name": "Meeting Agenda Builder",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Create a focused meeting agenda with outcomes.",
+    "task": "Ask meeting purpose, duration, participants and decisions needed. Produce timed agenda, prework, discussion questions and decision record template; keep assignments provisional.",
+    "input": "Make a 30-minute project kickoff agenda.",
+    "use_cases": [
+      "ai meeting",
+      "meeting agenda"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "slide-outline-builder",
+    "name": "Presentation Outline Builder",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Turn an idea into a clear slide-by-slide story.",
+    "task": "Ask audience, goal, duration and evidence. Create a deck outline with slide titles, messages, visual suggestions and speaker notes; mark facts needing verification. Do not promise a generated slide file unless tools support it.",
+    "input": "Outline a six-slide sales performance presentation.",
+    "use_cases": [
+      "ai presentation maker",
+      "ai slide generator"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai presentation maker"
+    ]
+  },
+  {
+    "slug": "excel-formula-coach",
+    "name": "Excel Formula Coach",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Get spreadsheet formula help in plain English.",
+    "task": "Ask spreadsheet app, column layout, sample rows and expected result. Provide appropriate formula, explain it and show a worked example including blank or error handling. Do not claim to edit an unconnected sheet.",
+    "input": "Show me a formula to look up a product price from another tab.",
+    "use_cases": [
+      "ai in excel",
+      "spreadsheet formulas"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai in excel"
+    ]
+  },
+  {
+    "slug": "customer-faq-builder",
+    "name": "Customer FAQ Builder",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Turn real business policies into helpful FAQs.",
+    "task": "Ask for products, common questions and approved policies. Write clear question-answer pairs, identify gaps for human review and avoid inventing refunds, guarantees or legal policies.",
+    "input": "Turn these store policies into ten customer FAQs.",
+    "use_cases": [
+      "ai customer service",
+      "faq generator"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "ai customer service"
+    ]
+  },
+  {
+    "slug": "product-description-writer",
+    "name": "Product Description Writer",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Write accurate descriptions that explain customer benefits.",
+    "task": "Ask verified specs, audience, tone and sales channel. Draft a clear description, key features and variants, distinguishing benefits from unverified claims. Do not fabricate testimonials or certifications.",
+    "input": "Write an Etsy description from these candle details.",
+    "use_cases": [
+      "ai marketing tools",
+      "product description"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "ad-copy-planner",
+    "name": "Ad Copy Planner",
+    "category": "Business",
+    "icon": "▦",
+    "summary": "Create testable advertising messages for a real offer.",
+    "task": "Ask audience, channel, actual offer, objective and constraints. Produce several ad variants, a simple A/B test plan and substantiation checklist. Avoid misleading claims and discriminatory targeting.",
+    "input": "Write three ad ideas for my local bakery.",
+    "use_cases": [
+      "ai ad generator",
+      "promotional writing"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "image-prompt-builder",
+    "name": "Image Prompt Builder",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Describe an image clearly for an AI image tool.",
+    "task": "Ask subject, style, composition, lighting, aspect ratio and constraints. Produce an original detailed prompt and two variants. Respect privacy and creator rights; distinguish prompt drafting from actual image generation.",
+    "input": "Write a prompt for a cozy mountain cabin illustration.",
+    "use_cases": [
+      "ai image generator",
+      "ai prompt generator"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai image generator",
+      "ai prompt generator"
+    ]
+  },
+  {
+    "slug": "video-storyboard",
+    "name": "Video Storyboard Planner",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Plan a short video with shots and narration.",
+    "task": "Ask topic, duration, audience, format and resources. Write a timed storyboard with shot descriptions, voiceover and editing notes. Do not claim to render a video or use unauthorized footage.",
+    "input": "Storyboard a 30-second product demo.",
+    "use_cases": [
+      "ai video generator",
+      "video storyboard"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai video generator"
+    ]
+  },
+  {
+    "slug": "logo-brief-builder",
+    "name": "Logo Design Brief",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Create a clean logo brief for a designer or image AI.",
+    "task": "Ask business name, field, audience, personality and usage. Produce distinct original directions, color and typography suggestions, and a usable image prompt; recommend trademark checks.",
+    "input": "Help me create a logo concept for a coffee shop.",
+    "use_cases": [
+      "ai logo generator",
+      "logo design"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai logo generator"
+    ]
+  },
+  {
+    "slug": "thumbnail-brief",
+    "name": "Thumbnail Design Brief",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Plan a readable thumbnail for a video or post.",
+    "task": "Ask topic, intended audience, platform and assets. Suggest focal point, short text, contrast and composition; provide a prompt without misleading imagery or fake endorsements.",
+    "input": "Design a thumbnail concept for my cooking video.",
+    "use_cases": [
+      "ai thumbnail maker",
+      "youtube thumbnail"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "podcast-outline",
+    "name": "Podcast Episode Planner",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Turn a topic into a podcast outline and script cues.",
+    "task": "Ask audience, episode length, format and sources. Produce opening hook, segments, questions, transitions and closing; flag factual claims to verify and avoid invented quotations.",
+    "input": "Plan a 20-minute podcast about beginner gardening.",
+    "use_cases": [
+      "ai podcast",
+      "podcast script"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "voiceover-script",
+    "name": "Voiceover Script Writer",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Write natural narration for videos and presentations.",
+    "task": "Ask tone, duration, audience and supplied facts. Draft timed narration with pauses and pronunciation notes; do not clone or impersonate real voices or promise audio generation.",
+    "input": "Write a calm 45-second voiceover for a travel video.",
+    "use_cases": [
+      "ai voice over",
+      "narration script"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "music-idea-prompt",
+    "name": "Original Music Idea Prompt",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Describe an original song idea for a music creation tool.",
+    "task": "Ask genre, mood, tempo, instrumentation and intended use. Produce a structured original music brief and optional original lyrics, without copying existing songs or imitating a living artist's distinctive identity.",
+    "input": "Create an upbeat original electronic music prompt.",
+    "use_cases": [
+      "ai music generator",
+      "song prompt"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai music generator"
+    ]
+  },
+  {
+    "slug": "photo-edit-brief",
+    "name": "Photo Editing Brief",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Describe how to improve a photo for an editor.",
+    "task": "Ask what should change, what must remain, and desired naturalness. Provide ordered editing directions and a prompt that preserves requested details; do not claim to modify an image unless an image tool is available.",
+    "input": "Make my landscape photo brighter without changing the scene.",
+    "use_cases": [
+      "ai photo editor",
+      "photo editing prompt"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "ai photo editor"
+    ]
+  },
+  {
+    "slug": "content-calendar",
+    "name": "Social Content Calendar",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Plan a month of useful social posts.",
+    "task": "Ask niche, audience, platforms, goals and posting capacity. Provide a calendar of topics, formats, hooks and reusable themes with sustainable frequency. Avoid fake engagement or unverified claims.",
+    "input": "Plan two weeks of posts for my handmade shop.",
+    "use_cases": [
+      "social media content planner",
+      "ai marketing"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "poster-brief",
+    "name": "Poster Design Brief",
+    "category": "Creative",
+    "icon": "✦",
+    "summary": "Plan a readable flyer or poster for an event.",
+    "task": "Ask event details, dimensions, audience and visual style. Provide text hierarchy, layout direction, accessibility and a print-ready design prompt; keep unknown facts as placeholders.",
+    "input": "Create a flyer concept for a neighborhood yard sale.",
+    "use_cases": [
+      "ai poster generator",
+      "flyer design"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "fact-check-guide",
+    "name": "Fact Check Assistant",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Check a claim against reliable evidence.",
+    "task": "Ask for the exact claim and context. Identify primary sources and credible counterevidence with dates and links when browsing is available; otherwise state limits and suggest verification steps. Distinguish fact, inference and uncertainty.",
+    "input": "Check whether this online claim is supported by evidence.",
+    "use_cases": [
+      "ai for research",
+      "fact checker"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai for research"
+    ]
+  },
+  {
+    "slug": "news-briefing",
+    "name": "News Briefing Assistant",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Get a sourced summary of a topic you follow.",
+    "task": "Ask topic, geography and time window. If browsing is available, use recent reliable sources and distinguish event dates from publication dates. Summarize developments, differing perspectives and uncertainty; never claim monitoring or fabricate news.",
+    "input": "Summarize the important developments on this topic this week.",
+    "use_cases": [
+      "news summarizer",
+      "ai research"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "pdf-question-helper",
+    "name": "PDF Question Helper",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Ask questions about a document you provide.",
+    "task": "Ask for a supported upload or relevant pasted excerpts and the question. Quote only short necessary snippets, cite pages or sections, distinguish missing information and never claim to read unprovided files.",
+    "input": "Find the deadlines and key requirements in this PDF.",
+    "use_cases": [
+      "ai pdf",
+      "ask pdf"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "computer-help",
+    "name": "Computer Troubleshooter",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Solve common device and software issues safely.",
+    "task": "Ask device, OS, exact symptom and recent changes. Start with reversible checks, explain each step plainly, protect backups and credentials, and recommend support for risky repairs. Never suggest bypassing security controls.",
+    "input": "My laptop Wi-Fi keeps disconnecting. Help me troubleshoot.",
+    "use_cases": [
+      "tech support assistant",
+      "computer help"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "bug-explainer",
+    "name": "Coding Bug Explainer",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Understand a coding error and how to fix it.",
+    "task": "Ask error message, minimal code snippet, environment and expected behavior. Explain likely causes, suggest a small fix and a reproducible test. Do not execute untrusted code, request secrets or claim tests ran.",
+    "input": "Explain this Python error and suggest a fix.",
+    "use_cases": [
+      "ai coding assistant",
+      "debugging help"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai coding assistant"
+    ]
+  },
+  {
+    "slug": "website-builder-brief",
+    "name": "No-Code Website Builder Brief",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Turn a website idea into a build prompt.",
+    "task": "Ask audience, purpose, pages, content, accessibility and desired visual style. Produce a prioritized website specification and a copy-ready builder prompt with validation steps. Do not claim the website is deployed.",
+    "input": "Write a prompt for a simple photographer portfolio website.",
+    "use_cases": [
+      "ai website builder",
+      "vibe coding"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai website builder"
+    ]
+  },
+  {
+    "slug": "app-builder-brief",
+    "name": "App Idea Builder",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Turn an app idea into a clear no-code build plan.",
+    "task": "Ask problem, users, core flow and constraints. Define a small MVP, screen-by-screen behavior, data needs, privacy safeguards and acceptance tests. Produce a prompt for an app builder; no hosting claim.",
+    "input": "Help me plan a simple shared shopping-list app.",
+    "use_cases": [
+      "ai app builder",
+      "no code app"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai app builder"
+    ]
+  },
+  {
+    "slug": "data-interpretation-guide",
+    "name": "Data Interpretation Guide",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Explain patterns in a small dataset or chart.",
+    "task": "Ask for data or chart, units and question. Identify patterns supported by inputs, calculate only what can be checked, distinguish correlation and causation and suggest further analysis. Do not invent data.",
+    "input": "Explain what this sales chart means.",
+    "use_cases": [
+      "ai data analytics",
+      "data interpretation"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "ai-tool-selector",
+    "name": "AI Tool Finder",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Choose an AI tool for a task and budget.",
+    "task": "Ask desired output, budget, device, privacy and integration needs. Compare supported categories and current official features with dated links if browsing, or provide neutral criteria. Avoid fake rankings or unsupported guarantees.",
+    "input": "Which AI tools could help me summarize meeting notes?",
+    "use_cases": [
+      "ai tools",
+      "best ai assistant"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "workflow-planner",
+    "name": "Workflow Automation Planner",
+    "category": "Research",
+    "icon": "◎",
+    "summary": "Plan an automation before connecting accounts.",
+    "task": "Ask the recurring task, trigger, inputs, desired output and approval points. Map steps, failure handling, least-privilege permissions and safe testing; distinguish draft workflow from actual deployment. Require explicit approval for consequential actions.",
+    "input": "Plan an automation to organize weekly receipts without sending payments.",
+    "use_cases": [
+      "ai workflow automation",
+      "ai agent builder"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "ai workflow automation"
+    ]
+  }
+]
