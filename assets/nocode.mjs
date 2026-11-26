@@ -5,6 +5,7 @@ function setChat(flow,id,recommend=false){
  const chat=CHATS[id],select=flow.querySelector('.chat-select'),open=flow.querySelector('.open-chat'),reason=flow.querySelector('.chat-reason');
  if(recommend){flow.dataset.recommended=id;for(const option of select.options)option.textContent=CHATS[option.value].name+(option.value===id?' · suggested':'');}
  select.value=id;open.href=chat.url;open.textContent='2. Open '+chat.name+' ↗';reason.textContent=id===flow.dataset.recommended?chat.why:'Use the chat you prefer. Paste the copied instructions there.';
+ const logo=flow.querySelector('.chat-logo'),setup=flow.querySelector('.setup-link'),steps=flow.querySelector('.setup-steps'),note=flow.querySelector('.setup-note'),help=flow.querySelector('.setup-help');if(logo)logo.src=chat.logo;if(setup){setup.href=chat.setupUrl;setup.textContent='Open '+chat.setupName+' ↗';}if(steps)steps.replaceChildren(...chat.steps.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));if(note)note.textContent=chat.note;if(help)help.href=chat.help;
 }
 for(const panel of document.querySelectorAll('[data-assistant-panel]')){
  const prompt=panel.querySelector('.assistant-prompt'),status=panel.querySelector('.assistant-status'),flow=panel.querySelector('[data-chat-flow]'),button=panel.querySelector('.copy-assistant'),select=flow.querySelector('.chat-select');
