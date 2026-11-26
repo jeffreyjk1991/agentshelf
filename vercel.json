@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && node --test tests/minimal.test.mjs",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
