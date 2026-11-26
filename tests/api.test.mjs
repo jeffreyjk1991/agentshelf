@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {normalizeSubmission,eventFields,validateRequest} from '../lib/api.mjs';
+const valid={name:'Example Agent',repository_url:'https://github.com/Owner/Example.git',category:'Coding',license:'MIT',description:'A useful example with detailed instructions.',consent:true};
+test('submission normalization',()=>assert.equal(normalizeSubmission(valid).repository_url,'https://github.com/owner/example'));
+test('reject invalid or untrusted links',()=>{for(const repository_url of ['http://github.com/a/b','https://github.com.evil.test/a/b','https://github.com/a/b/tree/main','https://github.com/a/b?q=1','https://user@github.com/a/b'])assert.throws(()=>normalizeSubmission({...valid,repository_url}));});
+test('require consent and supported license',()=>{assert.throws(()=>normalizeSubmission({...valid,consent:false}));assert.throws(()=>normalizeSubmission({...valid,license:'proprietary'}));});
+test('validate events',()=>{assert.deepEqual(eventFields({slug:'seo-auditor',event:'download'}),{slug:'seo-auditor',event:'download'});assert.throws(()=>eventFields({slug:'../../x',event:'delete'}));});
+test('cross-origin and method checks',()=>{const req={method:'POST',headers:{origin:'https://example.test',host:'example.test','content-type':'application/json'},body:valid};assert.equal(validateRequest(req),null);assert.equal(validateRequest({...req,method:'GET'})[0],405);assert.equal(validateRequest({...req,headers:{...req.headers,origin:'https://bad.test'}})[0],403);});
