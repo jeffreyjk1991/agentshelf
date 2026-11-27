@@ -16,6 +16,14 @@ test('production connection is restricted to the dedicated AIBin Neon database a
  assert.equal(selectDatabaseUrl({...env,POSTGRES_URL:direct}),direct);
  assert.equal(selectDatabaseUrl({...env,DATABASE_URL:other,POSTGRES_URL:url}),url);
  assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:direct,DATABASE_URL:url}),direct);
+ assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:"'"+url+"'"}),url);
+ assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:"psql '"+url+"'"}),url);
+ assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:'AIBIN_DATABASE_URL="'+url+'"'}),url);
+ assert.equal(selectDatabaseUrl({...env,NEON_DATABASE_URL:url}),url);
+ const compute=url.replace('bb3qfk0l-pooler','bb3qfk0l-h3c-pooler');
+ assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:compute}),compute);
+ assert.throws(()=>selectDatabaseUrl({...env,AIBIN_DATABASE_URL:url.replace('bb3qfk0l-pooler','other-project-pooler')}));
+ assert.throws(()=>selectDatabaseUrl({...env,AIBIN_DATABASE_URL:"psql '"+other+"'"}));
  assert.throws(()=>selectDatabaseUrl({...env,DATABASE_URL:other}));
  assert.equal(selectDatabaseUrl({...env,AIBIN_DATABASE_URL:other,POSTGRES_URL:url}),url);
  assert.equal(selectDatabaseUrl({...env,DATABASE_URL:'invalid',POSTGRES_PRISMA_URL:direct}),direct);
