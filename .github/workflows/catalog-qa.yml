@@ -37,3 +37,25 @@ jobs:
           persist-credentials: false
       - name: Check production homepage, all listing URLs and five live agent APIs
         run: node scripts/check-production.mjs
+  browser-chat-handoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      VERCEL_ENV: production
+      VERCEL: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build catalog
+        run: npm run build
+      - name: Install isolated browser test dependency
+        run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.56.1
+      - name: Test actual browser clicks and clipboard fallback
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            CHROME_BIN="$(command -v google-chrome)" node scripts/check-chat-handoff.mjs
+          else
+            npx playwright install chromium
+            node scripts/check-chat-handoff.mjs
+          fi

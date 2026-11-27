@@ -2,7 +2,7 @@ import fs from 'node:fs';
 const base='https://www.aibin.me';
 const groups=[['agents','catalog.json'],['agents','prompt-agents/catalog.json'],['automations','automations/catalog.json'],['tools','everyday/catalog.json'],['live-agents','live-agents/catalog.json']];
 const entries=groups.flatMap(([prefix,file])=>JSON.parse(fs.readFileSync(file,'utf8')).map(a=>({prefix,...a})));
-const failures=[],stats={compatibilityCards:0,pagesOk:0,pagesFailed:0,downloadLinksOk:0,downloadLinksMissing:0,liveOk:0,liveFailed:0};
+const failures=[],stats={compatibilityCards:0,handoffLinksOk:0,pagesOk:0,pagesFailed:0,downloadLinksOk:0,downloadLinksMissing:0,liveOk:0,liveFailed:0};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const request=(path,options={})=>fetch(base+path,{...options,headers:{'User-Agent':'AIBin authorized marketplace QA/1.0',...(options.headers||{})},signal:AbortSignal.timeout(15000),redirect:'error'});
 const fail=(type,slug,error)=>failures.push({type,slug,error:String(error).slice(0,240)});
@@ -32,6 +32,7 @@ async function worker(){
    if(!r.ok||!html.includes('<h1>')||!html.includes('<title>'))throw Error('Invalid page HTTP '+r.status);
    stats.pagesOk++;
    if(a.prefix!=='live-agents'){
+    const launch=html.match(/class="btn primary ready-use" data-launch-mode="(prefill|copy)" href="([^"]+)"/);if(launch&&html.includes('ready-copy-primary')&&html.includes('ready-open-fallback'))stats.handoffLinksOk++;else fail('chat-handoff',a.slug,'New launch control or clipboard fallback missing');
     const target='/downloads/'+a.slug+'-agent.txt';
     if(html.includes('href="'+target+'" download'))stats.downloadLinksOk++;
     else{stats.downloadLinksMissing++;fail('download-link',a.slug,'Ready-to-download link missing');}

@@ -1,3 +1,4 @@
+import {copyAgentText} from './chat-launch.mjs';
 import {CHATS} from './chat-fit.mjs';
 const KEY='agentshelf:saved:v2';
 export function readSaved(){try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a.filter(x=>x&&typeof x.key==='string'&&typeof x.name==='string').slice(0,150):[];}catch{return [];}}
@@ -5,7 +6,7 @@ export function saveItem(item){const items=readSaved(),i=items.findIndex(x=>x.ke
 export function removeItem(key){localStorage.setItem(KEY,JSON.stringify(readSaved().filter(x=>x.key!==key)));}
 export function validItem(item){return !!(item&&typeof item.name==='string'&&item.name.length>0&&item.name.length<=100&&typeof item.prompt==='string'&&item.prompt.length>=5&&item.prompt.length<=7000&&Object.hasOwn(CHATS,item.provider));}
 export function shareUrl(item){if(!validItem(item))throw Error('Invalid or oversized assistant.');return location.origin+'/shared-agent#'+encodeURIComponent(JSON.stringify({name:item.name,prompt:item.prompt,provider:item.provider}));}
-export async function copy(text){try{await navigator.clipboard.writeText(text);return true;}catch{return false;}}
+export const copy=copyAgentText;
 export function event(type,slug='site'){if(navigator.globalPrivacyControl||navigator.doNotTrack==='1'||localStorageSafe('agentshelf:analytics-off')==='1')return;fetch('/api/engagement',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type,slug}),keepalive:true}).catch(()=>{});}
 function localStorageSafe(k){try{return localStorage.getItem(k);}catch{return null;}}
 function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
