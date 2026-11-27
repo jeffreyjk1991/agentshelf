@@ -1,3 +1,4 @@
+import {classifyReferral,landingKind} from './referral-source.mjs';
 import {copyAgentText} from './chat-launch.mjs';
 import {CHATS} from './chat-fit.mjs';
 const KEY='agentshelf:saved:v2';
@@ -7,7 +8,7 @@ export function removeItem(key){localStorage.setItem(KEY,JSON.stringify(readSave
 export function validItem(item){return !!(item&&typeof item.name==='string'&&item.name.length>0&&item.name.length<=100&&typeof item.prompt==='string'&&item.prompt.length>=5&&item.prompt.length<=7000&&Object.hasOwn(CHATS,item.provider));}
 export function shareUrl(item){if(!validItem(item))throw Error('Invalid or oversized assistant.');return location.origin+'/shared-agent#'+encodeURIComponent(JSON.stringify({name:item.name,prompt:item.prompt,provider:item.provider}));}
 export const copy=copyAgentText;
-export function event(type,slug='site'){if(navigator.globalPrivacyControl||navigator.doNotTrack==='1'||localStorageSafe('agentshelf:analytics-off')==='1')return;fetch('/api/engagement',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type,slug}),keepalive:true}).catch(()=>{});}
+export function event(type,slug='site',attribution){if(navigator.globalPrivacyControl||navigator.doNotTrack==='1'||localStorageSafe('agentshelf:analytics-off')==='1')return;fetch('/api/engagement',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type,slug,...(attribution&&['first_visit','return_visit'].includes(type)?attribution:{})}),keepalive:true}).catch(()=>{});}
 function localStorageSafe(k){try{return localStorage.getItem(k);}catch{return null;}}
 function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
 function button(text,fn){const b=node('button',text,'text-button');b.type='button';b.addEventListener('click',fn);return b;}
@@ -32,5 +33,5 @@ if(shared){
  const status=document.querySelector('#shared-status');
  try{if(location.hash.length>45000)throw Error('Share link is too long.');const item=JSON.parse(decodeURIComponent(location.hash.slice(1)));if(!validItem(item))throw Error('Invalid share link.');document.querySelector('#shared-name').textContent=item.name;document.querySelector('#shared-prompt').value=item.prompt;const a=document.querySelector('#shared-open');a.href=CHATS[item.provider].url;a.textContent='Open '+CHATS[item.provider].name+' ↗';shared.hidden=false;document.querySelector('#shared-copy').onclick=async()=>{status.textContent=await copy(item.prompt)?'Copied.':'Select and copy the instructions.';};document.querySelector('#shared-save').onclick=()=>{try{saveItem({...item,key:'custom:'+crypto.randomUUID()});status.textContent='Saved on this device.';}catch{status.textContent='Device storage unavailable.';}};}catch{status.textContent='This share link is missing or invalid.';}
 }
-if(!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'&&localStorageSafe('agentshelf:analytics-off')!=='1'){try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000)event(last?'return_visit':'first_visit',slug||'site');localStorage.setItem('agentshelf:last-visit',String(now));}catch{}}
+if(!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'&&localStorageSafe('agentshelf:analytics-off')!=='1'){try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000){event(last?'return_visit':'first_visit',slug||'site',{source:classifyReferral(location.search,document.referrer,location.origin),landingKind:landingKind(path)});}localStorage.setItem('agentshelf:last-visit',String(now));}catch{}}
 const optOut=document.querySelector('#analytics-opt-out');if(optOut){optOut.checked=localStorageSafe('agentshelf:analytics-off')==='1';optOut.addEventListener('change',()=>{try{localStorage.setItem('agentshelf:analytics-off',optOut.checked?'1':'0');}catch{}});}

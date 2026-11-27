@@ -54,5 +54,5 @@ test('SEO preserves canonicals and adds crawlable feature pages and social metad
  assert.ok(home.includes('content="summary_large_image"'));if(home.includes('content="index,follow"'))assert.ok(home.includes('property="og:image"'));
  assert.ok(builder.includes('"@type":"WebApplication"'));assert.ok(builder.includes('AIBin Vibe Agent Builder'));
  for(const name of ['experience-core.mjs','experience.mjs','offline.mjs','my-agents.mjs','submit-agent.mjs']){const p=spawnSync(process.execPath,['--check','dist/assets/'+name],{encoding:'utf8'});assert.equal(p.status,0,p.stderr);}
- assert.ok(read('assets/my-agents.mjs').includes("event(last?'return_visit':'first_visit',slug||'site')"));assert.ok(read('assets/experience.mjs').includes('if(request!==revision)return'));assert.ok(read('assets/experience.mjs').includes('catalogPromise=null'));assert.ok(read('assets/experience.mjs').includes('shareFile&&navigator.canShare'));
+ assert.ok(read('assets/my-agents.mjs').includes("event(last?'return_visit':'first_visit',slug||'site',"));assert.ok(read('assets/experience.mjs').includes('if(request!==revision)return'));assert.ok(read('assets/experience.mjs').includes('catalogPromise=null'));assert.ok(read('assets/experience.mjs').includes('shareFile&&navigator.canShare'));
 });
