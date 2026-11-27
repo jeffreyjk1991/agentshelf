@@ -10,10 +10,11 @@ export function recurringIntent(goal){
  return 'once';
 }
 export function chooseTemplate(goal,templates,frequency){
- const terms=searchTerms(goal);
+ const generic=new Set(['daily','weekly','monthly','every','each','morning','afternoon','evening','recurring','repeat','automatically','notify','alert','monitor','check','checking','watch','keep','time','day','week','month']);
+ const terms=searchTerms(goal).filter(t=>!generic.has(t));
  if(!terms.length)return null;
  const candidates=(Array.isArray(templates)?templates:[]).filter(t=>t&&typeof t.task==='string'&&typeof t.name==='string'&&(frequency==='once'?t.kind==='assistant':t.kind==='scheduled'));
- const ranked=candidates.map(t=>({t,score:scoreTask(goal,t.name,t.summary+' '+(t.keywords||''))})).sort((a,b)=>b.score-a.score);
+ const ranked=candidates.map(t=>({t,score:scoreTask(terms.join(' '),t.name,t.summary+' '+(t.keywords||''))})).sort((a,b)=>b.score-a.score);
  return ranked[0]&&ranked[0].score>=(terms.length===1?1000:40)?ranked[0].t:null;
 }
 export function buildVibeAgent({goal,frequency='auto',provider='auto',templates=[]}){
