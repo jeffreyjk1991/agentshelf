@@ -85,6 +85,21 @@ try{
    await go(p,'/tools/product-finder');await p.locator('.ai-alternative > summary').click();await p.locator('.ready-edit > summary').click();await p.locator('.ready-variables [data-label="What are you shopping for?"]').fill('Coffee grinder');assert.match(await p.locator('.ready-prompt').inputValue(),/Coffee grinder/);assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
+ await run('Collection heroes, finite motion, responsive cards and prompt downloads',async()=>{
+  for(const w of [320,390,768,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/agent-teams');await visible(p,'.collection-flow');assert.equal(await p.locator('.team-collection-card').count(),3);
+   assert.equal(await p.locator('.flow-node').count(),4);assert.ok(await p.locator('.flow-node').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).animationIterationCount==='1'&&parseFloat(getComputedStyle(n).animationDuration)<1)));
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Team page overflow '+w);
+   assert.ok(await p.locator('.collection-card').evaluateAll(nodes=>nodes.every(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&n.scrollWidth<=n.clientWidth+1;})),'Team cards clipped '+w);
+   await p.locator('.team-collection-card').first().click();await visible(p,'.team-role');assert.equal(await p.locator('.team-role').count(),4);assert.equal(await p.locator('.flow-node').count(),4);assert.equal(await p.locator('.ready-edit').getAttribute('open'),null);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Team detail overflow '+w);
+   await p.locator('.market-nav').getByRole('link',{name:'Prompts',exact:true}).click();await visible(p,'.collection-flow');assert.equal(await p.locator('.pack-collection-card').count(),4);assert.equal(await p.locator('.flow-node').count(),3);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Prompt page overflow '+w);
+   assert.equal(await p.locator('.pack-contents[open]').count(),0);
+   const pack=p.locator('.pack-collection-card').first();await pack.locator('summary').click();assert.equal(await pack.locator('.intent-row:visible').count(),6);
+   if(w===390){const waiting=p.waitForEvent('download');await pack.locator('.pack-download').click();const d=await waiting;assert.equal(d.suggestedFilename(),'aibin-everyday-agent-pack.md');assert.match(await fs.readFile(await d.path(),'utf8'),/AIBin — Everyday planning/);}
+   await p.emulateMedia({reducedMotion:'reduce'});assert.ok(await p.locator('.flow-node,.flow-output').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).animationName==='none')));assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Agent team navigation, four specialists, customization and downloads',async()=>{
   const {c,p,errors}=await ctx();try{
    await go(p,'/');await p.locator('.home-help a[href="/agent-teams"]').click();await visible(p,'h1');assert.equal(new URL(p.url()).pathname,'/agent-teams');assert.equal(await p.locator('.intent-list .intent-row').count(),3);
@@ -136,4 +151,4 @@ try{
   }finally{community=[];await c.close();}
  });
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all nine browser scenario groups; all APIs mocked, no production records written.');
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all ten browser scenario groups; all APIs mocked, no production records written.');
