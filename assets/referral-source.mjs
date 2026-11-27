@@ -10,8 +10,8 @@ export function classifyReferral(search,referrer,origin){
 export function landingKind(path){
  if(path==='/')return 'home';
  if(path==='/make-agent')return 'builder';
- if(/^\/(?:agents|tools|automations|live-agents)\/[a-z0-9-]+$/.test(path))return 'listing';
- if(path==='/ai-agent-directory'||/^\/ai-agents-for-(chatgpt|claude|gemini)$/.test(path)||['/open-source','/automations','/live-agents'].includes(path))return 'directory';
+ if(/^\/(?:agents|tools|automations|live-agents|agent-teams)\/[a-z0-9-]+$/.test(path))return 'listing';
+ if(path==='/ai-agent-directory'||/^\/ai-agents-for-(chatgpt|claude|gemini)$/.test(path)||['/open-source','/automations','/live-agents','/agent-teams'].includes(path))return 'directory';
  if(path==='/how-to'||path.startsWith('/how-to/'))return 'guide';
  return 'other';
 }

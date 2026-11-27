@@ -13,3 +13,11 @@ with zipfile.ZipFile(output/'aibin-agent-runner.zip','w',zipfile.ZIP_DEFLATED) a
     z.write(root/'lib'/'live-engine.mjs','live-engine.mjs')
     z.write(root/'agent-runner'/'README.md','README.md')
     z.write(root/'LICENSE','LICENSE')
+
+# Team packages: four separate specialist model calls, independent from the existing 12 starters.
+for team in json.loads((root/'agent-teams'/'catalog.json').read_text(encoding='utf-8')):
+    with zipfile.ZipFile(output/f"{team['slug']}.zip",'w',zipfile.ZIP_DEFLATED) as z:
+        z.writestr('team.json',json.dumps(team,indent=2,ensure_ascii=False))
+        z.write(root/'agent-teams'/'team.py','team.py')
+        z.write(root/'agent-teams'/'README.md','README.md')
+        z.write(root/'LICENSE','LICENSE')

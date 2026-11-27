@@ -1,0 +1,167 @@
+[
+  {
+    "slug": "research-team",
+    "name": "AI Research & Report Team",
+    "category": "Research",
+    "icon": "🔎",
+    "provider": "gemini",
+    "summary": "Turn a question and source material into a structured, evidence-checked research brief.",
+    "deliverable": "A research brief with key findings, evidence, uncertainties, source references and recommended next steps.",
+    "example": "Compare two project management tools using their supplied pricing and documentation. Identify the best fit for a five-person team.",
+    "sample": "Illustrative only: a source inventory → comparison matrix → evidence and uncertainty audit → decision-ready brief. If pricing sources are missing, the final report flags pricing as unverified instead of inventing it.",
+    "fields": [
+      {
+        "label": "Research question",
+        "placeholder": "Compare two software tools for a small business"
+      },
+      {
+        "label": "Audience",
+        "placeholder": "Small business owner"
+      },
+      {
+        "label": "Report format",
+        "options": [
+          "Executive brief",
+          "Detailed comparison",
+          "Source-backed report"
+        ]
+      },
+      {
+        "label": "Constraints",
+        "placeholder": "Region, time period, budget"
+      }
+    ],
+    "roles": [
+      {
+        "id": "planner",
+        "name": "Research Planner",
+        "task": "Define the question, scope, comparison criteria, and evidence needed. Identify what is available versus missing. Do not assert research findings."
+      },
+      {
+        "id": "analyst",
+        "name": "Evidence Analyst",
+        "task": "Analyze supplied sources and prior scope. Separate reported facts from inference. Use only sources actually provided or genuinely accessible in the host chat. Do not fabricate quotations, citations, URLs or current facts."
+      },
+      {
+        "id": "reviewer",
+        "name": "Fact Checker",
+        "task": "Challenge unsupported claims, arithmetic, inconsistencies, recency and source quality. List what needs verification. Do not describe a claim as independently verified merely because another agent said it."
+      },
+      {
+        "id": "writer",
+        "name": "Report Lead",
+        "task": "Produce the final brief, with findings, evidence identifiers, uncertainties and recommendations. Resolve reviewer objections where supported; retain unresolved gaps. Include a source list only for real supplied or accessible sources."
+      }
+    ]
+  },
+  {
+    "slug": "software-team",
+    "name": "AI Software Development Team",
+    "category": "Coding",
+    "icon": "💻",
+    "provider": "claude",
+    "summary": "Turn an app idea, bug report or feature brief into a reviewed implementation and test plan.",
+    "deliverable": "A scoped implementation, file-by-file code or pseudocode, tests, review findings and deployment checklist.",
+    "example": "Build a small responsive expense tracker that stores entries locally, supports categories and includes tests for totals.",
+    "sample": "Illustrative only: requirements and acceptance criteria → proposed implementation → code/security review → corrected implementation and verification checklist. Untested code is marked untested.",
+    "fields": [
+      {
+        "label": "Project or bug",
+        "placeholder": "Build a local expense tracker"
+      },
+      {
+        "label": "Language / stack",
+        "placeholder": "JavaScript, HTML and CSS"
+      },
+      {
+        "label": "Output",
+        "options": [
+          "Code and tests",
+          "Implementation plan",
+          "Review existing code"
+        ]
+      },
+      {
+        "label": "Constraints",
+        "placeholder": "No backend, mobile first"
+      }
+    ],
+    "roles": [
+      {
+        "id": "architect",
+        "name": "Product Architect",
+        "task": "Clarify scope, requirements, acceptance criteria, architecture and risks. Work within the user's stack and constraints."
+      },
+      {
+        "id": "developer",
+        "name": "Developer",
+        "task": "Propose a concrete implementation or focused patch with file paths, code, assumptions and tests. Keep secrets out of source. Do not execute commands or modify repositories."
+      },
+      {
+        "id": "reviewer",
+        "name": "QA & Security Reviewer",
+        "task": "Review the proposed code for correctness, edge cases, privacy, security, accessibility and test coverage. Distinguish static review from actual execution."
+      },
+      {
+        "id": "lead",
+        "name": "Engineering Lead",
+        "task": "Deliver a corrected implementation and verification checklist, incorporating valid review findings. Label any tests not run. Do not claim deployment, execution, or file changes unless the host actually did them with authorization."
+      }
+    ]
+  },
+  {
+    "slug": "customer-support-team",
+    "name": "AI Customer Support Team",
+    "category": "Business",
+    "icon": "💬",
+    "provider": "chatgpt",
+    "summary": "Turn a customer question and approved policy into a reviewed response draft and escalation plan.",
+    "deliverable": "A ticket classification, policy-based response draft, missing information, escalation decision and human review checklist.",
+    "example": "A customer reports a late delivery and asks for a refund. Use the supplied returns and delivery policy; prepare a draft reply for review.",
+    "sample": "Illustrative only: triage labels the late delivery and refund request → policy specialist checks provided terms → reply writer drafts a response → QA lead flags any unapproved refund or promises for human review.",
+    "fields": [
+      {
+        "label": "Business / product",
+        "placeholder": "Online clothing shop"
+      },
+      {
+        "label": "Support issue",
+        "placeholder": "Late shipment, refund request"
+      },
+      {
+        "label": "Reply tone",
+        "options": [
+          "Warm and concise",
+          "Professional",
+          "Friendly"
+        ]
+      },
+      {
+        "label": "Policy and escalation constraints",
+        "placeholder": "Use approved return policy; no refund without approval"
+      }
+    ],
+    "roles": [
+      {
+        "id": "triage",
+        "name": "Ticket Triage Agent",
+        "task": "Classify the request, identify urgency, missing facts and any sensitive or escalation issues. Do not request passwords, card numbers or unnecessary personal data."
+      },
+      {
+        "id": "policy",
+        "name": "Policy Specialist",
+        "task": "Use supplied approved policy and case facts to identify permitted options and policy gaps. Do not invent policies, account state, refund eligibility or delivery status."
+      },
+      {
+        "id": "writer",
+        "name": "Response Writer",
+        "task": "Draft a helpful customer reply based on supported facts and policy. Clearly indicate uncertain items. Do not promise refunds, discounts, delivery dates or actions that have not been authorized."
+      },
+      {
+        "id": "reviewer",
+        "name": "Support QA Lead",
+        "task": "Review the draft for accuracy, empathy, privacy, policy and escalation. Return the polished unsent response, internal notes and required human approvals. Never send a reply, change an account or issue a refund."
+      }
+    ]
+  }
+]

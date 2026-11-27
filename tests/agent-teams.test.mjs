@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import {teams,teamPrompt} from '../scripts/agent-teams.mjs';import {customizationFields} from '../scripts/customize-agent.mjs';import {landingKind} from '../assets/referral-source.mjs';
+const read=p=>fs.readFileSync('dist/'+p,'utf8');
+test('three distinct four-specialist teams have crawlable pages, no-code instructions, optional preferences and runnable downloads',()=>{
+ const manifest=JSON.parse(read('agent-teams.json')),hub=read('agent-teams.html'),home=read('index.html');
+ assert.equal(manifest.count,3);assert.equal(new Set(teams.map(t=>t.slug)).size,3);assert.ok(home.includes('href="/agent-teams"'));assert.equal((home.match(/ data-agent /g)||[]).length,213);
+ for(const t of teams){const h=read('agent-teams/'+t.slug+'.html');assert.equal(t.roles.length,4);assert.equal(new Set(t.roles.map(r=>r.id)).size,4);assert.ok(hub.includes('/agent-teams/'+t.slug));for(const role of t.roles)assert.ok(h.includes(role.name.replaceAll('&','&amp;')));assert.ok(h.includes('data-ready-agent'));assert.ok(h.includes('Customize (optional)'));assert.equal(customizationFields(t.slug).length,4);assert.equal(read('downloads/'+t.slug+'-agent.txt'),teamPrompt(t)+'\n');assert.ok(fs.existsSync('dist/downloads/'+t.slug+'.zip'));assert.ok(h.includes('four role-based stages in one chat'));assert.ok(h.includes('separate model calls'));assert.ok(read('llms-full.txt').includes('/agent-teams/'+t.slug));assert.equal(landingKind('/agent-teams/'+t.slug),'listing');if(home.includes('content="index,follow"'))assert.ok(read('sitemap.xml').includes('/agent-teams/'+t.slug+'</loc>'));}
+ assert.ok(read('llms.txt').includes('/agent-teams.json'));assert.equal(landingKind('/agent-teams'),'directory');assert.ok(hub.includes('not a verified ranking by search volume'));
+});

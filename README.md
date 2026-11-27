@@ -5,6 +5,7 @@
 ## Free AI agent templates and practical examples
 
 - [AI agent directory](https://www.aibin.me/ai-agent-directory): 213 helpers (208 instruction downloads; five public-data workflows).
+- [AI agent teams](https://www.aibin.me/agent-teams): three four-specialist workflows with runnable Python team downloads or no-code role-based chat instructions.
 - [Create your own AI agent](https://www.aibin.me/make-agent): free, local instruction builder.
 - [Free agent packs](https://www.aibin.me/agent-packs): 24 original instructions for everyday life, careers, media and work. [Everyday](https://www.aibin.me/downloads/aibin-everyday-agent-pack.md) · [Career](https://www.aibin.me/downloads/aibin-career-agent-pack.md) · [Creator](https://www.aibin.me/downloads/aibin-creator-agent-pack.md) · [Work](https://www.aibin.me/downloads/aibin-work-agent-pack.md).
 - [AI agents for ChatGPT](https://www.aibin.me/ai-agents-for-chatgpt), [Claude](https://www.aibin.me/ai-agents-for-claude) and [Gemini](https://www.aibin.me/ai-agents-for-gemini).

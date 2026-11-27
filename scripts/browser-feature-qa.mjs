@@ -72,6 +72,20 @@ try{
    await go(p,'/tools/product-finder');await p.locator('.ai-alternative > summary').click();await p.locator('.ready-edit > summary').click();await p.locator('.ready-variables [data-label="What are you shopping for?"]').fill('Coffee grinder');assert.match(await p.locator('.ready-prompt').inputValue(),/Coffee grinder/);assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
+ await run('Agent team navigation, four specialists, customization and downloads',async()=>{
+  const {c,p,errors}=await ctx();try{
+   await go(p,'/');await p.locator('.home-help a[href="/agent-teams"]').click();await visible(p,'h1');assert.equal(new URL(p.url()).pathname,'/agent-teams');assert.equal(await p.locator('.intent-list .intent-row').count(),3);
+   for(const slug of ['research-team','software-team','customer-support-team']){
+    await go(p,'/agent-teams/'+slug);assert.equal(await p.locator('.team-role').count(),4);const detail=p.locator('.ready-edit');assert.equal(await detail.getAttribute('open'),null);
+    const initial=await p.locator('.ready-prompt').inputValue();await detail.locator('summary').click();await detail.locator('[data-custom-field]').first().fill('Fixture task');
+    assert.match(await p.locator('.ready-prompt').inputValue(),/Fixture task/);assert.equal(await p.locator('.ready-use').getAttribute('data-launch-mode'),'copy');
+    await detail.locator('.ready-copy').click();await p.waitForFunction(()=>document.querySelector('.ready-status').textContent.includes('Copied.'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),await p.locator('.ready-prompt').inputValue());
+    await detail.locator('.ready-reset').click();assert.equal(await p.locator('.ready-prompt').inputValue(),initial);
+    const waiting=p.waitForEvent('download');await p.locator('.team-runner a[download]').click();const d=await waiting;assert.equal(d.suggestedFilename(),slug+'.zip');const b=await fs.readFile(await d.path());assert.equal(b.subarray(0,2).toString(),'PK');
+   }
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
  await run('Recurring request and explicit one-time override',async()=>{
   const {c,p,errors}=await ctx();try{
    await go(p,'/');await create(p,'Check my flight prices every Tuesday');assert.ok((await p.locator('.vibe-mode').textContent()).includes('Weekly'));assert.match(await p.locator('.vibe-prompt').inputValue(),/only if this chat supports scheduling/);assert.match(await p.locator('.vibe-limits').textContent(),/Not active/);
@@ -109,4 +123,4 @@ try{
   }finally{community=[];await c.close();}
  });
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all seven browser scenario groups; all APIs mocked, no production records written.');
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all eight browser scenario groups; all APIs mocked, no production records written.');

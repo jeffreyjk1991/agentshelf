@@ -3,7 +3,8 @@ const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const entries=new Map([
  ...[...read('catalog.json'),...read('prompt-agents/catalog.json')].map(a=>[a.slug,{...a,kind:'assistant'}]),
  ...read('automations/catalog.json').map(a=>[a.slug,{...a,kind:'scheduled'}]),
- ...read('everyday/catalog.json').map(a=>[a.slug,{...a,kind:'tool'}])
+ ...read('everyday/catalog.json').map(a=>[a.slug,{...a,kind:'tool'}]),
+ ...read('agent-teams/catalog.json').map(a=>[a.slug,{...a,kind:'team'}])
 ]);
 const text=(label,placeholder='')=>({label,placeholder});
 const select=(label,...options)=>({label,options});
@@ -87,6 +88,7 @@ const categories={
 };
 export function customizationFields(slug){
  const a=entries.get(slug);if(!a)return [text('Task or preferences','What would you like to change?'),result];
+ if(a.kind==='team')return a.fields;
  if(a.kind==='scheduled')return [...a.questions.map(q=>text(q.label,q.placeholder)),select('Repeat','One-time check','Daily','Weekly','Monthly'),select('Preferred time','Morning','Afternoon','Evening','Choose in my chat')];
  if(a.kind==='tool')return a.fields.slice(0,3).map(f=>f.type==='select'?select(f.label,...f.options):text(f.label,f.placeholder||String(f.value??'').slice(0,100)));
  return specific[slug]||categories[a.category]||[text('Task or context',String(a.input||'').slice(0,150)),result];

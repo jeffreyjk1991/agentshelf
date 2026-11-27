@@ -6,7 +6,7 @@ for(const domain of ['aibin.me','www.aibin.me']){
  const results=await Promise.allSettled([resolve4(domain),resolve6(domain),resolveCname(domain),resolveNs(domain),resolveTxt(domain)]);
  console.log('PUBLIC_DNS',JSON.stringify({domain,ipv4:results[0].status==='fulfilled'?results[0].value:[],ipv6:results[1].status==='fulfilled'?results[1].value:[],cname:results[2].status==='fulfilled'?results[2].value:[],nameservers:results[3].status==='fulfilled'?results[3].value:[],googleVerificationRecords:results[4].status==='fulfilled'?results[4].value.filter(a=>a.join('').startsWith('google-site-verification=')).length:0,txtLookup:results[4].status}));
 }
-const targets=['https://aibin.me/','https://aibin.me/agents/resume-builder',host+'/',host+'/robots.txt',host+'/sitemap.xml',host+'/'+name,host+'/'+name.replace('.html',''),host+'/agents/resume-builder',host+'/make-agent',host+'/ai-agent-directory'];
+const targets=['https://aibin.me/','https://aibin.me/agents/resume-builder',host+'/',host+'/robots.txt',host+'/sitemap.xml',host+'/'+name,host+'/'+name.replace('.html',''),host+'/agents/resume-builder',host+'/make-agent',host+'/ai-agent-directory',host+'/agent-teams',host+'/agent-teams/research-team',host+'/agent-teams/software-team',host+'/agent-teams/customer-support-team'];
 for(const url of targets){
  try{
   const r=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(15000),headers:{'User-Agent':'AIBin public SEO diagnostic/1.0'}});

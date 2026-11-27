@@ -206,6 +206,16 @@
       "source": "/agent-packs.html",
       "destination": "/agent-packs",
       "permanent": true
+    },
+    {
+      "source": "/agent-teams.html",
+      "destination": "/agent-teams",
+      "permanent": true
+    },
+    {
+      "source": "/agent-teams/:slug([a-z0-9-]+).html",
+      "destination": "/agent-teams/:slug",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -340,6 +350,14 @@
     {
       "source": "/agent-packs",
       "destination": "/agent-packs.html"
+    },
+    {
+      "source": "/agent-teams",
+      "destination": "/agent-teams.html"
+    },
+    {
+      "source": "/agent-teams/:slug([a-z0-9-]+)",
+      "destination": "/agent-teams/:slug.html"
     }
   ]
 }
