@@ -95,3 +95,16 @@ if(creatorRoot){
  readCommunity().then(a=>{groups=groupCreators(a);render();}).catch(()=>{status.textContent='Creator directory temporarily unavailable.';});
 }
 export {shareCard};
+
+
+// Illustrations are intentionally static without JS; replay restarts only local CSS motion.
+for(const flow of document.querySelectorAll('.collection-flow')){
+ const replay=flow.querySelector('.flow-replay');if(!replay)continue;
+ replay.hidden=false;
+ replay.addEventListener('click',()=>{
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  flow.classList.remove('is-playing');
+  void flow.offsetWidth;
+  flow.classList.add('is-playing');
+ });
+}
