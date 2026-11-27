@@ -202,7 +202,7 @@
 .future-hero .home-headline h1{padding-right:calc(var(--robot-size) + 8px);text-indent:0;font-size:clamp(32px,5.7vw,65px);white-space:nowrap}
 .future-hero .home-headline h1 br{display:none}
 .future-hero .home-headline h1>span{display:block;width:calc(100% + var(--robot-size) + 8px);text-align:center;white-space:normal;font-size:clamp(42px,7vw,76px)}
-.home-robot{position:absolute;right:0;top:0;width:var(--robot-size);height:auto;aspect-ratio:1;pointer-events:none;display:block;overflow:hidden}
+.home-robot{position:absolute;right:0;top:-30px;width:var(--robot-size);height:auto;aspect-ratio:1;pointer-events:none;display:block;overflow:hidden}
 .home-robot-art{display:block;width:100%;height:100%;overflow:hidden;animation:home-robot-greet 2.15s ease-in-out 2}
 .home-robot .robot-body{transform-box:fill-box;transform-origin:center;animation:home-robot-bob 2.15s ease-in-out 2}
 .home-robot .robot-wave{transform-origin:73px 65px;animation:home-robot-wave 1.2s ease-in-out .2s 3}
@@ -211,6 +211,7 @@
 .home-robot .robot-orbit{animation:home-robot-orbit 2.1s ease-in-out 2}
 @media(max-width:700px){
  .home-headline{--robot-size:clamp(60px,16vw,76px)}
+ .home-robot{top:-24px}
  .future-hero .home-headline h1{font-size:clamp(25px,8vw,43px)}
  .future-hero .home-headline h1>span{font-size:clamp(39px,10.4vw,51px)}
 }
