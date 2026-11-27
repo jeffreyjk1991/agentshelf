@@ -45,6 +45,17 @@ try{
    assert.deepEqual(errors,[]);
   }finally{await c.close();}}
  });
+ await run('Primary navigation reaches every major section at phone and desktop widths',async()=>{
+  const paths=[['Explore','/'],['AI Agents','/open-source'],['Agent Teams','/agent-teams'],['Prompt Packs','/agent-packs'],['Automations','/automations'],['AI Tools','/tools'],['Create','/make-agent'],['My Agents','/my-agents']];
+  for(const w of [320,390,768,1024,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/');const nav=p.locator('.market-nav');
+   assert.equal(await nav.locator('a').count(),8);
+   assert.ok(await nav.locator('a').evaluateAll(links=>links.every(a=>{const r=a.getBoundingClientRect();return r.width>0&&r.height>=32&&r.left>=-1&&r.right<=innerWidth+1;})),'Navigation clipped at '+w);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Header overflow at '+w);
+   if(w===390||w===1280){for(const [name,path] of paths){await nav.getByRole('link',{name,exact:true}).click();await p.waitForLoadState('domcontentloaded');assert.equal(new URL(p.url()).pathname,path);assert.equal(await p.locator('.market-nav [aria-current]').count(),1);assert.ok(await p.locator('.market-nav [aria-current]').textContent()===name);}}
+   await nav.getByRole('link',{name:'AI Tools',exact:true}).click();await p.waitForSelector('#search-grid.library-ready');assert.equal(await p.locator('#search-grid > [data-agent]').count(),46);assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),12);await p.locator('#search').fill('unit price');assert.match(await p.locator('#search-grid > [data-agent]:visible').first().textContent(),/Unit Price/i);await p.locator('#search').fill('');await p.locator('#show-more').click();assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),46);assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Personalized builder, retry, invalidation, clipboard, download and save',async()=>{
   const {c,p,errors}=await ctx();try{
    catalogFailures=1;await go(p,'/');await create(p,'Find job openings for a data analyst every morning');assert.ok((await p.locator('.vibe-prompt').inputValue()).includes('Find job openings for a data analyst'));
@@ -123,4 +134,4 @@ try{
   }finally{community=[];await c.close();}
  });
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all eight browser scenario groups; all APIs mocked, no production records written.');
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all nine browser scenario groups; all APIs mocked, no production records written.');

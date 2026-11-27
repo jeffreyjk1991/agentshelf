@@ -216,6 +216,11 @@
       "source": "/agent-teams/:slug([a-z0-9-]+).html",
       "destination": "/agent-teams/:slug",
       "permanent": true
+    },
+    {
+      "source": "/tools.html",
+      "destination": "/tools",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -358,6 +363,10 @@
     {
       "source": "/agent-teams/:slug([a-z0-9-]+)",
       "destination": "/agent-teams/:slug.html"
+    },
+    {
+      "source": "/tools",
+      "destination": "/tools.html"
     }
   ]
 }
