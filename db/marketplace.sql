@@ -1,0 +1,13 @@
+-- Apply to the dedicated AIBin marketplace database after growth.sql.
+CREATE TABLE IF NOT EXISTS marketplace_votes (item_slug text NOT NULL CHECK(item_slug ~ '^[a-z0-9-]{1,80}$'), voter_id uuid NOT NULL, value smallint NOT NULL CHECK(value IN (-1,0,1)), updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(item_slug,voter_id));
+CREATE INDEX IF NOT EXISTS marketplace_votes_updated_idx ON marketplace_votes(updated_at);
+CREATE INDEX IF NOT EXISTS marketplace_votes_voter_idx ON marketplace_votes(voter_id);
+CREATE TABLE IF NOT EXISTS marketplace_links (id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY, name text NOT NULL CHECK(length(name) BETWEEN 3 AND 100), url text NOT NULL UNIQUE CHECK(length(url)<=400), description text NOT NULL CHECK(length(description) BETWEEN 15 AND 500), creator text NOT NULL CHECK(length(creator) BETWEEN 2 AND 50), platform text NOT NULL, status text NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','approved','rejected')), created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX IF NOT EXISTS marketplace_links_status_idx ON marketplace_links(status,created_at);
+CREATE TABLE IF NOT EXISTS marketplace_limits (scope text NOT NULL, minute_bucket bigint NOT NULL, hits integer NOT NULL CHECK(hits>0), PRIMARY KEY(scope,minute_bucket));
+CREATE INDEX IF NOT EXISTS marketplace_limits_bucket_idx ON marketplace_limits(minute_bucket);
+CREATE OR REPLACE VIEW marketplace_vote_totals AS SELECT item_slug,sum(value)::integer AS score,count(*) FILTER(WHERE value=1)::integer AS upvotes,count(*) FILTER(WHERE value=-1)::integer AS downvotes,COALESCE(sum(value) FILTER(WHERE updated_at>now()-interval '7 days'),0)::integer AS recent FROM marketplace_votes GROUP BY item_slug;
+INSERT INTO engagement_catalog(slug,name,category) VALUES
+('live-topic-research','Live Topic Research Agent','Research'),('live-github-scout','Open-Source GitHub Scout','Coding'),('live-tech-news','Technology News Scout','Research'),('live-currency-compare','Currency Rate Comparison Agent','Travel'),('live-holiday-planner','Public Holiday Planner Agent','Travel') ON CONFLICT(slug) DO UPDATE SET name=EXCLUDED.name,category=EXCLUDED.category;
+-- Run the original seed and competitor-demand-seed.sql for earlier slugs.
+DO $$ BEGIN IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname='agentshelf_app') THEN GRANT SELECT,INSERT,UPDATE ON marketplace_votes,marketplace_limits TO agentshelf_app; GRANT SELECT,INSERT ON marketplace_links TO agentshelf_app; GRANT USAGE,SELECT ON SEQUENCE marketplace_links_id_seq TO agentshelf_app; GRANT SELECT ON marketplace_vote_totals TO agentshelf_app; END IF; END $$;

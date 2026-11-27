@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "live-topic-research",
+    "name": "Live Topic Research Agent",
+    "category": "Research",
+    "icon": "⌕",
+    "summary": "Research a topic using real Wikipedia results, source links and concise reference extracts.",
+    "question": "What would you like to research?",
+    "example": "geothermal energy",
+    "source": "Wikipedia",
+    "sourceUrl": "https://www.mediawiki.org/wiki/API:Search",
+    "keywords": "live research agent topic research source finder wikipedia ai research",
+    "output": "A ranked list of relevant encyclopedia entries and short extracts with source links.",
+    "limit": "Wikipedia is a starting point, not a comprehensive research service. Verify important claims against primary sources.",
+    "steps": [
+      "Search public encyclopedia articles.",
+      "Collect relevant entries and extracts.",
+      "Return the sources for further reading."
+    ]
+  },
+  {
+    "slug": "live-github-scout",
+    "name": "Open-Source GitHub Scout",
+    "category": "Coding",
+    "icon": "⌘",
+    "summary": "Find real public GitHub repositories and compare stars, languages and declared licenses.",
+    "question": "What kind of repository do you need?",
+    "example": "python task scheduler",
+    "source": "GitHub",
+    "sourceUrl": "https://docs.github.com/en/rest/search/search#search-repositories",
+    "keywords": "github agent open source repository finder ai agent github search projects",
+    "output": "A shortlist of repositories, descriptions, star counts, languages and licenses.",
+    "limit": "Stars are not a quality or security certification. Inspect the source, dependencies and license before installing.",
+    "steps": [
+      "Search public repositories.",
+      "Read and rank repository metadata.",
+      "Return original repository links."
+    ]
+  },
+  {
+    "slug": "live-tech-news",
+    "name": "Technology News Scout",
+    "category": "Research",
+    "icon": "◉",
+    "summary": "Find recent matching technology stories on Hacker News, with dates and original discussion links.",
+    "question": "What technology topic interests you?",
+    "example": "AI agents",
+    "source": "Hacker News / Algolia",
+    "sourceUrl": "https://hn.algolia.com/api",
+    "keywords": "technology news agent live tech news ai news scout hacker news research",
+    "output": "A chronological list of matching stories and discussion links.",
+    "limit": "Hacker News is one community, not a comprehensive news feed. Verify original reporting; this is not a scheduled alert.",
+    "steps": [
+      "Search recent stories matching the topic.",
+      "Collect dates and discussion metadata.",
+      "Return a reading list."
+    ]
+  },
+  {
+    "slug": "live-currency-compare",
+    "name": "Currency Rate Comparison Agent",
+    "category": "Travel",
+    "icon": "↔",
+    "summary": "Compare published currency reference rates and calculate converted amounts using actual rate data.",
+    "question": "Amount and currencies",
+    "example": "100 USD EUR GBP JPY",
+    "source": "Frankfurter",
+    "sourceUrl": "https://frankfurter.dev/",
+    "keywords": "currency exchange rate agent travel currency compare currency converter live reference rates",
+    "output": "Converted amounts for up to four currencies and the reference-rate date.",
+    "limit": "Reference rates are not bank or card quotes. Actual fees and spreads differ.",
+    "steps": [
+      "Validate the amount and currency codes.",
+      "Fetch reference rates.",
+      "Calculate amounts and show the rate date."
+    ]
+  },
+  {
+    "slug": "live-holiday-planner",
+    "name": "Public Holiday Planner Agent",
+    "category": "Travel",
+    "icon": "▦",
+    "summary": "Look up actual public holidays by country and year for travel and time-off planning.",
+    "question": "Country code and year",
+    "example": "US 2027",
+    "source": "Nager.Date",
+    "sourceUrl": "https://date.nager.at/Api",
+    "keywords": "public holiday agent holiday calendar country travel planning public holidays dates",
+    "output": "A chronological holiday list including local names and national or regional scope.",
+    "limit": "Holiday calendars can change. Confirm important closures with official authorities.",
+    "steps": [
+      "Validate country and year.",
+      "Fetch the public holiday calendar.",
+      "Sort dates and show regional scope."
+    ]
+  }
+]
