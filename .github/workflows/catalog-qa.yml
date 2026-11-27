@@ -18,9 +18,7 @@ jobs:
       - name: Runtime versions
         run: node --version && python3 --version
       - name: Build and run all existing tests
-        run: npm test
-      - name: Test every catalog entry
-        run: node --test tests/catalog-quality.test.mjs
+        run: npm run verify:deploy
   public-data-providers:
     runs-on: ubuntu-latest
     timeout-minutes: 3
