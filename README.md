@@ -76,3 +76,5 @@ Built-in listings retain AIBin as their actual creator in metadata and use 18 ca
 
 ## Social, photography and video expansion
 Six additional ready-to-use prompt agents expand the catalog to 207 built-in listings and 202 chat-compatible instruction downloads. New coverage includes social hooks/hashtags, Instagram carousels, passport-photo preparation, professional headshots, video edit decision lists, and long-video-to-Shorts editing. Existing broad categories are reused so the home filters stay simple. The community submission form also accepts “Not sure — choose for me” as a moderation cue when a contributor does not know the best category; it does not create a new public marketplace category.
+
+Media listings now have separate Social media, Photography and Video discovery filters and indexable category pages. The single submission form supports those categories, a not-sure moderation cue and no preferred chat. Passport-photo preparation checks current official requirements rather than promising acceptance of generated or retouched identity photos.

@@ -15,7 +15,7 @@ const home=read('dist/index.html'),sitemap=read('dist/sitemap.xml'),examples=jso
 const all=groups.flatMap(([route,items,kind])=>items.map(a=>({route,kind,a})));
 test('complete catalog: each listing and each browser example occurs exactly once',()=>{
  assert.equal(all.length,207);assert.equal(new Set(all.map(x=>x.a.slug)).size,207);
- assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,18);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
+ assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,21);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
 });
 for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  const url='/'+route+'/'+a.slug,html=read('dist'+url+'.html');
@@ -44,3 +44,5 @@ for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
   }
  }
 });
+
+test('dedicated media category landing pages and passport photo limitations',()=>{for(const [category,slug] of [['Social media','social-media'],['Photography','photography'],['Video','video']]){assert.ok(home.includes('data-filter="'+category+'"'));assert.ok(read('dist/categories/'+slug+'.html').includes(category+' AI agents'));}const p=read('dist/agents/passport-photo-maker.html');assert.ok(p.includes('digitally altered photos'));});

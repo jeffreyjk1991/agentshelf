@@ -29,7 +29,7 @@ const crawlable=!!base&&process.env.VERCEL_ENV!=='preview';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const categories=[...new Set(catalog.map(x=>x.category))].sort();
 const assistantCategories=[...new Set(assistants.map(x=>x.category))].sort();
-const categorySlug=c=>c.toLowerCase();
+const categorySlug=c=>c==='Social media'?'social-media':c.toLowerCase();
 const links=[];
 function page(url,title,description,body,{index=true,tool=null}={}){
   const canonical=base+url; if(index)links.push(url);

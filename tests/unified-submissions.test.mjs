@@ -47,3 +47,5 @@ test('one submission form with matching fields, no voting JS, redirects and true
  assert.ok(!home.includes('href="/publish"')&&!form.includes('href="/publish"'));
  const config=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(config.redirects.some(x=>x.source==='/publish'&&x.destination==='/community'&&x.permanent));
 });
+
+test('submitters can select a media category and no preferred chat',()=>{for(const category of ['Social media','Photography','Video'])assert.equal(normalizeAgentSubmission({...valid,category,provider:'any'}).category,category);assert.equal(normalizeAgentSubmission({...valid,category:'unsure',provider:'any'}).provider,'any');assert.ok(fs.readFileSync('dist/community.html','utf8').includes('No preference / Not sure'));});

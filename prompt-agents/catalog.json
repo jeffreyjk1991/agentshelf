@@ -88,7 +88,7 @@
   {
     "slug": "social-caption-writer",
     "name": "Social Media Caption Generator",
-    "category": "Writing",
+    "category": "Social media",
     "icon": "✎",
     "summary": "Generate ready-to-post captions for Instagram, TikTok, LinkedIn and other social posts.",
     "task": "Ask for platform, content, tone and objective. Produce three concise captions, optional relevant hashtags and an accessible description if requested. Avoid misleading endorsements or unverified claims.",
@@ -1342,7 +1342,7 @@
   {
     "slug": "video-storyboard",
     "name": "Video Storyboard Planner",
-    "category": "Creative",
+    "category": "Video",
     "icon": "✦",
     "summary": "Plan a short video with shots and narration.",
     "task": "Ask topic, duration, audience, format and resources. Write a timed storyboard with shot descriptions, voiceover and editing notes. Do not claim to render a video or use unauthorized footage.",
@@ -1444,7 +1444,7 @@
   {
     "slug": "photo-edit-brief",
     "name": "Photo Editing Brief",
-    "category": "Creative",
+    "category": "Photography",
     "icon": "✦",
     "summary": "Describe how to improve a photo for an editor.",
     "task": "Ask what should change, what must remain, and desired naturalness. Provide ordered editing directions and a prompt that preserves requested details; do not claim to modify an image unless an image tool is available.",
@@ -1462,7 +1462,7 @@
   {
     "slug": "content-calendar",
     "name": "Social Content Calendar",
-    "category": "Creative",
+    "category": "Social media",
     "icon": "✦",
     "summary": "Plan a month of useful social posts.",
     "task": "Ask niche, audience, platforms, goals and posting capacity. Provide a calendar of topics, formats, hooks and reusable themes with sustainable frequency. Avoid fake engagement or unverified claims.",
@@ -1783,7 +1783,7 @@
   {
     "slug": "short-video-prompt",
     "name": "AI Short Video & Reels Prompt Builder",
-    "category": "Creative",
+    "category": "Video",
     "icon": "▷",
     "summary": "Create an original short-video concept with scene-by-scene prompts for a compatible video model.",
     "task": "Ask for audience, platform, length, aspect ratio, subject, tone and available source assets. Suggest three truthful hooks, choose one with the user, then lay out timed shots, consistent subject details, motion, framing, transitions, narration or captions, and a clear ending. Deliver an editable video-model prompt and an alternate low-production storyboard. Do not impersonate real people or promise rendered footage or virality.",
@@ -1843,7 +1843,7 @@
   {
     "slug": "social-post-image-prompt",
     "name": "AI Social Media Image Prompt Builder",
-    "category": "Creative",
+    "category": "Social media",
     "icon": "▧",
     "summary": "Create visual directions and image prompts for original social media posts and mockups.",
     "task": "Ask for platform, audience, campaign goal, original brand assets and required text. Suggest two visual compositions with crop-safe space, focal point, readable hierarchy, lighting and color palette. Produce prompts tailored to the chosen image model, plus a caption and alt-text draft. Mark text that should be typeset separately; avoid copying recognizable brand artwork or implying endorsement.",
@@ -2021,7 +2021,7 @@
   {
     "slug": "social-hook-hashtag-generator",
     "name": "Social Hook & Hashtag Generator",
-    "category": "Marketing",
+    "category": "Social media",
     "icon": "#",
     "summary": "Create scroll-stopping hooks and relevant hashtag sets without spammy filler.",
     "task": "Ask for platform, niche, post topic, audience and tone. Create ten short hook options, three focused hashtag sets and one recommended combination. Keep hashtags relevant and varied, avoid fake urgency, engagement bait, unsupported claims or promises of virality, and explain when hashtags are unlikely to help on the selected platform.",
@@ -2039,7 +2039,7 @@
   {
     "slug": "instagram-carousel-creator",
     "name": "Instagram Carousel Creator",
-    "category": "Marketing",
+    "category": "Social media",
     "icon": "▤",
     "summary": "Turn one idea into a clear swipeable carousel with slide copy and visual direction.",
     "task": "Ask for platform, topic, audience, objective, brand tone and preferred slide count. Build a concise carousel with a strong cover, one idea per slide, visual direction, accessible on-image text, a truthful final call to action, a matching caption and alt-text guidance. Keep claims accurate, do not fabricate testimonials or results, and mark any facts that should be verified before posting.",
@@ -2056,11 +2056,11 @@
   {
     "slug": "passport-photo-maker",
     "name": "Passport Photo Maker",
-    "category": "Creative",
+    "category": "Photography",
     "icon": "▣",
-    "summary": "Turn a clear portrait into a passport or visa photo plan with the right crop and dimensions.",
-    "task": "Ask for the destination country, document type and a clear front-facing source photo when image input is supported. Preserve the person's identity and facial geometry exactly. Use current official size, aspect-ratio, head-position and background requirements when they can be verified; otherwise clearly say the rules still need official confirmation. If image editing is available, make only compliance-focused changes such as crop, neutral background and natural exposure, without changing age, skin tone, face shape, eye color, hairline or expression. Return the exact target dimensions, export guidance and a final compliance checklist, and never guarantee government acceptance.",
-    "input": "Use my uploaded photo to prepare a U.S. passport-photo version and tell me the exact crop and dimensions.",
+    "summary": "Check country-specific passport photo rules, framing and dimensions for an original photo.",
+    "task": "Ask for the issuing country, document type and an original front-facing photo when image input is supported. Verify current official photo requirements, link to the issuing authority and distinguish verified rules from estimates. Check visible framing, lighting, background, expression, head position and accessories. Do not generate an identity photo or change appearance. For U.S. passports, explain that the State Department rejects AI-generated and digitally altered photos (https://travel.state.gov/en/passports/apply/help/photos.html); advise taking a fresh compliant original instead of replacing the background or digitally retouching it. Only help size or crop an original without altering appearance if the issuing authority permits it. Return a checklist, dimensions and official photo-tool guidance where applicable. Never guarantee acceptance.",
+    "input": "Check my original portrait against U.S. passport photo requirements and explain how to take a compliant replacement.",
     "use_cases": [
       "passport photo generator",
       "visa photo maker",
@@ -2074,7 +2074,7 @@
   {
     "slug": "professional-headshot-maker",
     "name": "Professional Headshot Maker",
-    "category": "Creative",
+    "category": "Photography",
     "icon": "◉",
     "summary": "Create a polished professional headshot direction from an existing photo while preserving identity.",
     "task": "Ask where the headshot will be used, desired background, crop, wardrobe style and how natural the result should look. If image editing is available and a source photo is provided, preserve the person's identity, facial geometry, age and recognizable features; improve only framing, lighting, background, minor temporary blemishes and requested wardrobe presentation. Avoid changing face shape, body shape, ethnicity, skin tone or other identity-defining traits. Provide a clean primary version plus suggested 1:1 and 4:5 crops and state what was changed.",
@@ -2092,7 +2092,7 @@
   {
     "slug": "video-editing-assistant",
     "name": "Video Editing Assistant",
-    "category": "Creative",
+    "category": "Video",
     "icon": "▶",
     "summary": "Turn raw footage, a transcript or timecodes into a practical edit plan with cuts, captions and export settings.",
     "task": "Ask for the target platform, final length, goal, available footage and either a transcript or timecodes when possible. Build an edit decision list with opening hook, keep/cut guidance, pacing, b-roll opportunities, captions, transitions, audio notes and export settings. If the selected chat actually supports video editing, apply only the edits the user confirms; otherwise provide a precise cut list and do not claim a video was edited or rendered. Preserve the speaker's meaning and avoid deceptive edits, fabricated quotes or misleading context.",
@@ -2110,7 +2110,7 @@
   {
     "slug": "long-video-to-shorts-editor",
     "name": "Long Video to Shorts Editor",
-    "category": "Creative",
+    "category": "Video",
     "icon": "✂",
     "summary": "Find the best short-form moments in a longer video and turn them into Reels, Shorts or TikToks.",
     "task": "Ask for the long-form video transcript or timecoded notes, target platform, audience and desired short length. Identify three to five self-contained moments, rank them by clarity and hook strength, then provide exact start and end points when timecodes exist, a first-second hook, 9:16 reframing notes, on-screen captions, b-roll suggestions, title and closing line. Keep the original meaning intact, flag cuts that could remove important context, and do not claim to create or publish the clips unless the provider actually supports that action.",
