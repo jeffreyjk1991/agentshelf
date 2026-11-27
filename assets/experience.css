@@ -49,20 +49,16 @@
 .collection-description{font-size:14px;line-height:1.55;color:#52675c;max-width:440px;margin:0}
 .collection-icon{width:22px;height:22px;flex:0 0 auto;display:block}
 /* Compact, readable examples: a single light card, one row of steps, and a result. */
-.collection-flow{margin:0;min-width:0;width:100%;max-width:440px;justify-self:end;box-sizing:border-box;overflow:hidden;border:1px solid #c8dbce;border-radius:12px;padding:7px 9px;line-height:1.25;color:#20392e;background:#edf5eb}
-.flow-top{display:flex;align-items:center;justify-content:space-between;gap:5px;line-height:1.2;font-size:10px;letter-spacing:.06em;color:#456456;font-weight:700}
-.flow-title{white-space:nowrap}
-.flow-meta{display:flex;gap:6px;align-items:center;font-size:11px;letter-spacing:0;font-weight:450;color:#52675c}
-.flow-meta>span{white-space:nowrap}
-.flow-top i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#167051;margin-right:4px}
-.flow-replay{display:inline-flex;align-items:center;gap:3px;border:0;border-radius:6px;padding:3px 5px;min-height:30px;background:transparent;color:#146a48;font-size:11px;font-weight:650;line-height:1.3;white-space:nowrap;cursor:pointer}
+.collection-flow{margin:0;min-width:0;width:100%;max-width:380px;justify-self:end;box-sizing:border-box;overflow:hidden;border:1px solid #c8dbce;border-radius:10px;padding:6px 8px;line-height:1.25;color:#20392e;background:#edf5eb}
+.flow-top{display:flex;align-items:center;justify-content:space-between;gap:4px;line-height:1.2;color:#456456}
+.flow-replay{display:inline-flex;align-items:center;gap:3px;border:0;border-radius:6px;padding:0;width:28px;height:28px;min-height:28px;flex:0 0 28px;justify-content:center;background:transparent;color:#146a48;font-size:11px;font-weight:650;line-height:1.3;white-space:nowrap;cursor:pointer}
 .flow-replay[hidden]{display:none}
 .flow-replay>span{font-size:16px;line-height:1}
 .flow-replay:hover{background:#d9eadc}
 .flow-replay:focus-visible{outline:2px solid #146a48;outline-offset:2px}
-.flow-input,.flow-output{max-width:100%;margin:1px 0 0;display:flex;align-items:center;gap:6px;border:0;border-radius:7px;background:transparent;padding:2px 2px;font-size:12px;line-height:1.25;text-align:left}
+.flow-input,.flow-output{min-width:0;max-width:100%;margin:0;display:flex;align-items:center;gap:5px;border:0;border-radius:6px;background:transparent;padding:0;font-size:12px;line-height:1.25;text-align:left}.flow-input{flex:1}
 .flow-input>span,.flow-output>span{min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 5px}
-.flow-input small,.flow-output small{font-size:10px;letter-spacing:0;line-height:1.3;color:#52675c;font-weight:600}
+.flow-input small,.flow-output small{font-size:11px;letter-spacing:0;line-height:1.3;color:#52675c;font-weight:600}
 .flow-input strong,.flow-output strong{font-size:12px;line-height:1.3;font-weight:700;overflow-wrap:anywhere}
 .flow-input .collection-icon,.flow-output .collection-icon{width:15px;height:15px;color:#146a48}
 .flow-track{height:2px;border-radius:2px;margin:2px 0 3px;background:#cfdfd2;overflow:hidden}
@@ -72,11 +68,10 @@
 .flow-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:6px;align-items:stretch}
 .flow-three .flow-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
 .flow-step{position:relative;display:flex;min-width:0;isolation:isolate}
-.flow-step:not(:last-child)::after{content:"›";position:absolute;right:-6px;top:15px;color:#658373;font-size:14px;line-height:1;z-index:2}
+.flow-step:not(:last-child)::after{content:"›";position:absolute;right:-6px;top:11px;color:#658373;font-size:14px;line-height:1;z-index:2}
 .flow-node{width:100%;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:3px 2px;border:1px solid transparent;border-radius:7px;background:#fffefa;color:#183e2b;min-height:0;text-align:center;box-sizing:border-box}
-.flow-node-top{display:flex;justify-content:center;align-items:center;gap:3px}
-.flow-node-top .collection-icon{width:15px;height:15px;color:inherit}
-.flow-step-number{display:grid;place-items:center;width:13px;height:13px;border-radius:50%;background:#e3eee3;font-size:9px;font-weight:750;flex:0 0 auto}
+.flow-node-top{width:100%;min-width:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2px}
+.flow-node-top .collection-icon{width:13px;height:13px;color:inherit}
 .flow-label{font-size:11px;font-weight:750;color:inherit;line-height:1.2;overflow-wrap:anywhere}
 .flow-example{font-size:11px;color:#52675c;line-height:1.2;overflow-wrap:anywhere}
 .is-playing .flow-node{animation:collection-stage .85s ease-in-out 1 both}
@@ -89,7 +84,7 @@
 @keyframes collection-sweep{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes collection-stage{0%,100%{background:#fffefa;border-color:transparent}48%{background:#c6e8d0;border-color:#7cb796}}
 @keyframes collection-result{0%,100%{background:#dceee0}55%{background:#b6dfc3}}
-@media(max-width:700px){.collection-flow{max-width:100%;justify-self:start}}
+@media(max-width:700px){.collection-flow{max-width:380px;justify-self:start}}
 @media(prefers-reduced-motion:reduce){.flow-replay{display:none}.flow-track>span,.flow-node,.flow-output{animation:none!important}}
 .collection-sectionhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:3px 0 12px}
 .collection-sectionhead h2{font-size:20px;line-height:1.2;letter-spacing:-.025em;margin:0}
