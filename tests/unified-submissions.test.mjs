@@ -43,7 +43,7 @@ test('one submission form with matching fields, no voting JS, redirects and true
  for(const key of ['name','creator','category','provider','description','source','consent'])assert.ok(form.includes('name="'+key+'"'));
  assert.ok(!main.includes('votes.mjs')&&!main.includes('voteRank'));
  assert.ok(!fs.existsSync('dist/assets/votes.mjs'));
- assert.equal((home.match(/class="agent-creator editorial-credit"/g)||[]).length,207);assert.ok(form.includes('<label>Username<input name="creator"'));assert.ok(form.includes('<option value="unsure">Not sure — choose for me</option>'));assert.ok(!form.includes('<label>Creator name'));assert.ok(home.includes('footer-more-links'));
+ assert.equal((home.match(/class="agent-creator editorial-credit"/g)||[]).length,213);assert.ok(form.includes('<label>Username<input name="creator"'));assert.ok(form.includes('<option value="unsure">Not sure — choose for me</option>'));assert.ok(!form.includes('<label>Creator name'));assert.ok(home.includes('footer-more-links'));
  assert.ok(!home.includes('href="/publish"')&&!form.includes('href="/publish"'));
  const config=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(config.redirects.some(x=>x.source==='/publish'&&x.destination==='/community'&&x.permanent));
 });
