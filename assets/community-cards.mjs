@@ -3,6 +3,7 @@ const hostSet=new Set(['chatgpt.com','claude.ai','gemini.google.com','github.com
 export const node=(tag,content,cls)=>{const e=document.createElement(tag);e.textContent=content;if(cls)e.className=cls;return e;};
 export function safeAgentLink(raw){try{const u=new URL(raw);return u.protocol==='https:'&&hostSet.has(u.hostname)&&!u.username&&!u.password&&!u.port&&!u.search&&!u.hash?u.href:null;}catch{return null;}}
 export function platformMark(provider){
+ if(provider==='any'){const group=node('span','','any-chat-mark');group.setAttribute('aria-label','Any supported AI chat');for(const key of Object.keys(CHATS))group.append(platformMark(key));return group;}
  if(!Object.hasOwn(CHATS,provider))return null;
  const c=CHATS[provider],img=document.createElement('img');img.className='compatibility-icon';img.dataset.chat=provider;img.src=c.logo;img.width=17;img.height=17;img.alt=c.name;img.title=c.name;return img;
 }

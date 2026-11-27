@@ -22,7 +22,7 @@ for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  assert.ok(home.includes('data-filter="'+a.category+'"'));assert.ok(html.includes('<h1>'));
  assert.ok(html.includes('<title>')&&html.includes('name="description"'));
  if(sitemap.includes('<loc>')){assert.ok(sitemap.includes(url+'</loc>'));assert.ok(html.includes('href="https://www.aibin.me'+url+'"')||process.env.SITE_URL);}
- const homeCard=[...home.matchAll(/<a class="agent mini-card[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)].find(m=>m[1]===url)?.[0];assert.ok(homeCard,'Home card missing');
+ const homeCard=[...home.matchAll(/<a class="agent mini-card[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)].find(m=>m[1]===url)?.[0];assert.ok(homeCard,'Home card missing');assert.ok(homeCard.includes('class="agent-creator">By AIBin</span>'));assert.ok(html.includes('class="agent-creator detail-creator">By AIBin</p>'));
  if(route==='live-agents'){
   assert.ok(homeCard.includes('class="live-indicator"'));assert.ok(!homeCard.includes('class="compatibility-icon"'));
   const req=requestFor(normalizeRun({slug:a.slug,input:a.example}));assert.equal(new URL(req.url).protocol,'https:');

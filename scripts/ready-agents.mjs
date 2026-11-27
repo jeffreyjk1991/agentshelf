@@ -37,5 +37,5 @@ export function writeReadyDownloads({out,assistants,automations,everyday,base}){
  if(new Set(entries.map(x=>x.slug)).size!==entries.length)throw Error('Duplicate ready agent download');
  fs.mkdirSync(out+'/downloads',{recursive:true});
  for(const a of entries)fs.writeFileSync(out+agentFile(a.slug),a.prompt+'\n','utf8');
- fs.writeFileSync(out+'/ready-agents.json',JSON.stringify({name:'AIBin ready-to-use agents',count:entries.length,format:'UTF-8 text instructions for manual use in a compatible AI chat; not installed software',agents:entries.map(({prompt,...a})=>({...a,download:base+agentFile(a.slug),url:base+a.page}))},null,2));
+ fs.writeFileSync(out+'/ready-agents.json',JSON.stringify({name:'AIBin ready-to-use agents',count:entries.length,format:'UTF-8 text instructions for manual use in a compatible AI chat; not installed software',agents:entries.map(({prompt,...a})=>({...a,creator:'AIBin',download:base+agentFile(a.slug),url:base+a.page}))},null,2));
 }

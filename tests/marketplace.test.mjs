@@ -1,16 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {normalizeVote,normalizeLink} from '../lib/marketplace.mjs';
+import {normalizeLink} from '../lib/marketplace.mjs';
 import {normalizeRun,requestFor,formatResult,executeLive,liveSlugs} from '../lib/live-engine.mjs';
 const read=p=>fs.readFileSync('dist/'+p,'utf8');
-test('vote values, UUID and link validation',()=>{
- const voter='12345678-1234-4234-8234-123456789abc';
- assert.equal(normalizeVote({slug:'live-topic-research',voter,value:-1}).value,-1);
- assert.equal(normalizeVote({slug:'live-topic-research',voter,value:0}).value,0);
- assert.throws(()=>normalizeVote({slug:'bad/slug',voter,value:1}));
- assert.throws(()=>normalizeVote({slug:'good',voter,value:2}));
- assert.throws(()=>normalizeVote({slug:'good',voter:'bad',value:1}));
+test('public link validation',()=>{
  const body={name:'Useful agent',creator:'Maker',description:'A public helpful reusable agent.',consent:true,url:'https://github.com/Maker/Project.git'};
  assert.equal(normalizeLink(body).url,'https://github.com/maker/project');
  assert.equal(normalizeLink({...body,url:'https://chatgpt.com/g/g-example-agent'}).platform,'ChatGPT');
@@ -37,7 +31,7 @@ test('201 helpers, live pages, submission, SEO and unchanged tagline',()=>{
  assert.equal(c.count,5);assert.equal((h.match(/ data-agent /g)||[]).length,201);
  assert.ok(h.includes('Show all 201 helpers'));assert.ok(!h.includes('id="market-sort"'));assert.equal((h.match(/class="live-indicator"/g)||[]).length,5);assert.ok(h.includes('/assets/marketplace.css'));assert.ok(h.includes('Put AI to work.'));
  for(const a of c.agents){const path='/live-agents/'+a.slug,html=read(path.slice(1)+'.html');assert.ok(h.includes('href="'+path+'"'));assert.ok(html.includes('id="live-form"'));assert.ok(html.includes('Example request'));assert.ok(html.includes('data-live-slug="'+a.slug+'"'));assert.ok(html.includes('WebApplication'));if(s.includes('<loc>'))assert.ok(s.includes(path+'</loc>'));assert.ok(read('llms.txt').includes(path));}
- assert.ok(read('community.html').includes('id="link-submit"'));assert.ok(read('community.html').includes('/assets/link-submissions.mjs'));assert.ok(read('llms.txt').includes('/live-agents.json'));assert.ok(fs.existsSync('dist/downloads/aibin-agent-runner.zip'));
+ assert.ok(read('community.html').includes('id="submit-agent"'));assert.ok(read('community.html').includes('/assets/submit-agent.mjs'));assert.ok(read('llms.txt').includes('/live-agents.json'));assert.ok(fs.existsSync('dist/downloads/aibin-agent-runner.zip'));
 });
 
-test('runner discovery and community ranking are linked',()=>{const home=read('index.html'),s=read('sitemap.xml');assert.ok(home.includes('data-filter="Community"'));assert.ok(read('live-agents.html').includes('href="/agent-runner"'));assert.ok(read('agent-runner.html').includes('aibin-agent-runner.zip'));if(s.includes('<loc>'))assert.ok(s.includes('/agent-runner</loc>'));assert.ok(read('assets/community-cards.mjs').includes('ugc nofollow'));assert.ok(read('assets/main.js').includes('fetchCommunityCards()'));assert.ok(read('llms.txt').includes('/agent-runner'));});
+test('runner discovery and community listings are linked',()=>{const home=read('index.html'),s=read('sitemap.xml');assert.ok(home.includes('data-filter="Community"'));assert.ok(read('live-agents.html').includes('href="/agent-runner"'));assert.ok(read('agent-runner.html').includes('aibin-agent-runner.zip'));if(s.includes('<loc>'))assert.ok(s.includes('/agent-runner</loc>'));assert.ok(read('assets/submit-agent.mjs').includes('ugc nofollow'));assert.ok(read('assets/main.js').includes('fetchCommunityCards()'));assert.ok(read('llms.txt').includes('/agent-runner'));});

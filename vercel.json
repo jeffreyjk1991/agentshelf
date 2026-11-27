@@ -30,5 +30,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/publish",
+      "destination": "/community",
+      "permanent": true
+    },
+    {
+      "source": "/submit-agent",
+      "destination": "/community",
+      "permanent": true
+    }
   ]
 }

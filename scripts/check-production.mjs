@@ -7,7 +7,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const request=(path,options={})=>fetch(base+path,{...options,headers:{'User-Agent':'AIBin authorized marketplace QA/1.0',...(options.headers||{})},signal:AbortSignal.timeout(15000),redirect:'error'});
 const fail=(type,slug,error)=>failures.push({type,slug,error:String(error).slice(0,240)});
 try{
- const r=await request('/');const html=await r.text();stats.compatibilityCards=(html.match(/class="compatibility-icon"/g)||[]).length;console.log('PUBLIC_COMPATIBILITY',JSON.stringify({cards:stats.compatibilityCards,expected:196}));if(stats.compatibilityCards!==196)fail('home','compatibility-icons','Expected 196 chat-compatible listings with one mark each');
+ const r=await request('/');const html=await r.text();stats.compatibilityCards=(html.match(/class="compatibility-icon"/g)||[]).length;const credits=(html.match(/class="agent-creator">By AIBin<\/span>/g)||[]).length;console.log('PUBLIC_CREATOR_CREDITS',credits);if(credits!==201)fail('home','creator-credits','Expected 201 built-in creator credits');console.log('PUBLIC_COMPATIBILITY',JSON.stringify({cards:stats.compatibilityCards,expected:196}));if(stats.compatibilityCards!==196)fail('home','compatibility-icons','Expected 196 chat-compatible listings with one mark each');
  console.log('PUBLIC_HOME',JSON.stringify({http:r.status,categoryOnly:html.includes('home-category-filters'),sortMenu:html.includes('id="market-sort"'),typeFilters:html.includes('data-filter="Use here"')||html.includes('data-filter="Get agent"'),liveIcons:(html.match(/class="live-indicator"/g)||[]).length,tagline:html.includes('Put AI to work.<br><span>For everyday life.</span>')}));
  if(!r.ok||!html.includes('home-category-filters')||html.includes('id="market-sort"')||html.includes('data-filter="Use here"')||html.includes('data-filter="Get agent"'))fail('home','homepage','Latest homepage markers missing');
 }catch(e){fail('home','homepage',e.message);}
@@ -42,9 +42,14 @@ async function worker(){
 }
 await Promise.all(Array.from({length:3},worker));
 try{
- const r=await request('/api/marketplace-votes'),j=await r.json();console.log('PUBLIC_VOTES',JSON.stringify({http:r.status,valid:Array.isArray(j.totals),diagnostic:typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?j.code:undefined}));
- if(!r.ok||!Array.isArray(j.totals))fail('votes','marketplace-votes','HTTP '+r.status+(typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?' '+j.code:''));
-}catch(e){fail('votes','marketplace-votes',e.message);}
+ const r=await request('/api/marketplace-votes');console.log('PUBLIC_VOTING_RETIRED',r.status);if(r.status!==410)fail('retired-api','marketplace-votes','HTTP '+r.status);
+ const form=await request('/community'),html=await form.text();
+ const fields=['name','creator','category','provider','description','source','consent'];
+ if(!form.ok||(html.match(/<form\b/g)||[]).length!==1||!fields.every(k=>html.includes('name="'+k+'"')))fail('submission-form','community','Unified form missing');
+ console.log('PUBLIC_SUBMISSION_FORM',JSON.stringify({http:form.status,forms:(html.match(/<form\b/g)||[]).length}));
+ const db=await request('/api/submissions'),j=await db.json();console.log('PUBLIC_SUBMISSION_DB',JSON.stringify({http:db.status,valid:Array.isArray(j.agents),diagnostic:typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?j.code:undefined}));
+ if(!db.ok||!Array.isArray(j.agents))fail('submission-db','submissions','HTTP '+db.status+(typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?' '+j.code:''));
+}catch(e){fail('submissions','community',e.message);}
 console.log('PRODUCTION_SUMMARY',JSON.stringify(stats));
 for(const failure of failures)console.log('PRODUCTION_FAILURE',JSON.stringify(failure));
 if(failures.length)process.exitCode=1;
