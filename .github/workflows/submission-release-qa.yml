@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'scripts/check-submission-release.mjs'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/submission-release-qa.yml'
   workflow_dispatch:
 permissions:
   contents: read
