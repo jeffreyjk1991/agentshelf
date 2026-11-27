@@ -56,6 +56,22 @@ try{
    await p.locator('#saved-list').getByRole('button',{name:'Remove',exact:true}).click();await visible(p,'#saved-empty');assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
+ await run('Guided customization stays collapsed and preserves manual text, downloads and privacy',async()=>{
+  const {c,p,errors}=await ctx();try{
+   await go(p,'/agents/social-caption-writer');const details=p.locator('.ready-edit'),prompt=p.locator('.ready-prompt'),use=p.locator('.ready-use');
+   assert.equal(await details.getAttribute('open'),null);const original=await prompt.inputValue(),originalHref=await use.getAttribute('href');
+   await details.locator('summary').click();await details.locator('[data-label="Platform"]').selectOption('Instagram');await details.locator('[data-label="Tone"]').selectOption('Friendly');await details.locator('.ready-references').fill('https://example.com/reference');
+   const edited=await prompt.inputValue();assert.ok(edited.startsWith(original));assert.match(edited,/Platform: Instagram/);assert.match(edited,/Tone: Friendly/);assert.match(edited,/https:\/\/example\.com\/reference/);assert.equal(await use.getAttribute('data-launch-mode'),'copy');assert.equal(new URL(await use.getAttribute('href')).search,'');
+   await prompt.fill('Manual introduction\n'+edited);await details.locator('[data-label="Tone"]').selectOption('Professional');assert.ok((await prompt.inputValue()).startsWith('Manual introduction\n'));assert.match(await prompt.inputValue(),/Tone: Professional/);
+   await details.locator('.ready-copy').click();await p.waitForFunction(()=>document.querySelector('.ready-status').textContent.includes('Copied.'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),await prompt.inputValue());
+   const waiting=p.waitForEvent('download');await p.locator('.ready-download').click();const d=await waiting;assert.equal(d.suggestedFilename(),'social-caption-writer-agent.txt');assert.equal(await fs.readFile(await d.path(),'utf8'),(await prompt.inputValue())+'\n');
+   await details.locator('.ready-save').click();assert.match(await p.locator('.ready-status').textContent(),/Saved/);
+   await details.locator('.ready-references').fill('javascript:alert(1)');await visible(p,'.customize-error');await use.click();assert.equal(new URL(p.url()).pathname,'/agents/social-caption-writer');
+   await details.locator('.ready-reset').click();assert.equal(await prompt.inputValue(),original);assert.equal(await details.locator('[data-label="Platform"]').inputValue(),'');assert.equal(await details.locator('.ready-references').inputValue(),'');assert.equal(await use.getAttribute('href'),originalHref);
+   await go(p,'/automations/flight-price-watcher');await p.locator('.ready-edit summary').click();await p.locator('[data-label="From and to (airports or cities)"]').fill('Detroit to Delhi');await p.locator('[data-label="Repeat"]').selectOption('Weekly');assert.match(await p.locator('.ready-prompt').inputValue(),/Repeat: Weekly/);assert.match(await p.locator('.ready-prompt').inputValue(),/Detroit to Delhi/);
+   await go(p,'/tools/product-finder');await p.locator('.ai-alternative > summary').click();await p.locator('.ready-edit > summary').click();await p.locator('.ready-variables [data-label="What are you shopping for?"]').fill('Coffee grinder');assert.match(await p.locator('.ready-prompt').inputValue(),/Coffee grinder/);assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
  await run('Recurring request and explicit one-time override',async()=>{
   const {c,p,errors}=await ctx();try{
    await go(p,'/');await create(p,'Check my flight prices every Tuesday');assert.ok((await p.locator('.vibe-mode').textContent()).includes('Weekly'));assert.match(await p.locator('.vibe-prompt').inputValue(),/only if this chat supports scheduling/);assert.match(await p.locator('.vibe-limits').textContent(),/Not active/);
@@ -93,4 +109,4 @@ try{
   }finally{community=[];await c.close();}
  });
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all six browser scenario groups; all APIs mocked, no production records written.');
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all seven browser scenario groups; all APIs mocked, no production records written.');
