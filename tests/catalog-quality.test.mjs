@@ -14,7 +14,7 @@ const groups=[['agents',json('catalog.json'),'Python starter'],['agents',json('p
 const home=read('dist/index.html'),sitemap=read('dist/sitemap.xml'),examples=json('everyday/examples.json');
 const all=groups.flatMap(([route,items,kind])=>items.map(a=>({route,kind,a})));
 test('complete catalog: each listing and each browser example occurs exactly once',()=>{
- assert.equal(all.length,207);assert.equal(new Set(all.map(x=>x.a.slug)).size,207);
+ assert.equal(all.length,213);assert.equal(new Set(all.map(x=>x.a.slug)).size,213);
  assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,21);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
 });
 for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
