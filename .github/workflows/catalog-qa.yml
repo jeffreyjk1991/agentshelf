@@ -1,0 +1,32 @@
+name: AIBin catalog QA
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_ENV: production
+      VERCEL: "1"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d28597364c9af683
+        with:
+          persist-credentials: false
+      - name: Runtime versions
+        run: node --version && python3 --version
+      - name: Build and run all existing tests
+        run: npm test
+      - name: Test every catalog entry
+        run: node --test tests/catalog-quality.test.mjs
+  public-data-providers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d28597364c9af683
+        with:
+          persist-credentials: false
+      - name: Test all five actual public data providers
+        run: node scripts/check-live-providers.mjs
