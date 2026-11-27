@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "buildCommand": "npm run build && node --test tests/minimal.test.mjs tests/prompt-agents.test.mjs tests/growth.test.mjs tests/task-guides.test.mjs tests/branding.test.mjs tests/competitor-demand.test.mjs tests/marketplace.test.mjs",
+  "buildCommand": "npm run build && node --test tests/minimal.test.mjs tests/prompt-agents.test.mjs tests/growth.test.mjs tests/task-guides.test.mjs tests/branding.test.mjs tests/competitor-demand.test.mjs tests/marketplace.test.mjs tests/ready-agents.test.mjs",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,

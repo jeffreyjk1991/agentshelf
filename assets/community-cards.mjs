@@ -11,7 +11,7 @@ export async function fetchCommunityCards(){
  const [links,prompts]=await Promise.all([read('/api/marketplace-links'),read('/api/community')]);
  const cards=[];
  for(const a of links){if(!/^\d+$/.test(String(a.id))||typeof a.name!=='string'||typeof a.description!=='string')continue;let u;try{u=new URL(a.url);if(u.protocol!=='https:'||!hostSet.has(u.hostname)||u.username||u.password||u.search||u.hash)continue;}catch{continue;}
- cards.push(card({slug:'link-'+a.id,name:a.name,description:a.description,href:u.href,label:'Community · '+String(a.platform),external:true}));}
- for(const a of prompts){if(!/^\d+$/.test(String(a.id))||typeof a.name!=='string'||typeof a.task!=='string')continue;cards.push(card({slug:'community-'+a.id,name:a.name,description:a.task.slice(0,160),href:'/community#agent-'+a.id,label:'Community · reusable instructions',external:false}));}
+ cards.push(card({slug:'link-'+a.id,name:a.name,description:a.description,href:u.href,label:'Get agent · '+String(a.platform),external:true}));}
+ for(const a of prompts){if(!/^\d+$/.test(String(a.id))||typeof a.name!=='string'||typeof a.task!=='string')continue;cards.push(card({slug:'community-'+a.id,name:a.name,description:a.task.slice(0,160),href:'/community#agent-'+a.id,label:'Get agent · Community',external:false}));}
  return cards;
 }
