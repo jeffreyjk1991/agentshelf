@@ -14,8 +14,8 @@ const groups=[['agents',json('catalog.json'),'Python starter'],['agents',json('p
 const home=read('dist/index.html'),sitemap=read('dist/sitemap.xml'),examples=json('everyday/examples.json');
 const all=groups.flatMap(([route,items,kind])=>items.map(a=>({route,kind,a})));
 test('complete catalog: each listing and each browser example occurs exactly once',()=>{
- assert.equal(all.length,201);assert.equal(new Set(all.map(x=>x.a.slug)).size,201);
- assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,18);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
+ assert.equal(all.length,210);assert.equal(new Set(all.map(x=>x.a.slug)).size,210);
+ assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,21);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
 });
 for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  const url='/'+route+'/'+a.slug,html=read('dist'+url+'.html');
@@ -43,4 +43,19 @@ for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
    for(const link of result.links||[]){assert.ok(link.label);assert.equal(new URL(link.url).protocol,'https:');}
   }
  }
+});
+
+test('media discovery and accurate capability descriptions',()=>{
+ for(const category of ['Social media','Photography','Video']){
+  const slug=category.toLowerCase().replaceAll(' ','-');
+  const html=read('dist/categories/'+slug+'.html');
+  assert.ok(home.includes('data-filter="'+category+'"'));
+  assert.ok(home.includes('href="/categories/'+slug+'"'));
+  if(sitemap.includes('<loc>'))assert.ok(sitemap.includes('/categories/'+slug+'</loc>'));
+  assert.ok(html.includes(category+' AI agents'));
+ }
+ const passport=read('dist/agents/passport-photo-generator.html');
+ assert.ok(passport.includes('US authorities reject AI-generated or altered passport photos'));
+ assert.ok(read('dist/downloads/passport-photo-generator-agent.txt').includes('Never generate a counterfeit identity document'));
+ assert.ok(read('dist/agents/video-editing-assistant.html').includes('Actual image or video creation requires a supported media tool'));
 });

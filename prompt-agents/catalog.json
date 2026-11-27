@@ -87,15 +87,19 @@
   },
   {
     "slug": "social-caption-writer",
-    "name": "Social Caption Writer",
-    "category": "Writing",
+    "name": "AI Social Media Caption Generator",
+    "category": "Social media",
     "icon": "✎",
-    "summary": "Make short captions for posts and photos.",
-    "task": "Ask for platform, content, tone and objective. Produce three concise captions, optional relevant hashtags and an accessible description if requested. Avoid misleading endorsements or unverified claims.",
+    "summary": "Write Instagram, Facebook, TikTok and LinkedIn captions from a photo or idea.",
+    "task": "Use the user's photo, video description or post idea; ask which platform only when necessary. Return three distinct captions (short, playful and polished), a relevant call to action when appropriate, and a few targeted hashtags. Tailor length, tone and accessibility to the platform. If an image is attached, use only visible details; do not invent locations, people or endorsements. Never post without an authorized tool and confirmation.",
     "input": "Write three captions for my weekend hiking photo.",
     "use_cases": [
       "ai caption generator",
-      "instagram captions"
+      "instagram caption generator",
+      "social media caption writer",
+      "facebook captions",
+      "photo captions",
+      "tiktok captions"
     ],
     "chat": "claude",
     "kind": "prompt",
@@ -1340,7 +1344,7 @@
   {
     "slug": "video-storyboard",
     "name": "Video Storyboard Planner",
-    "category": "Creative",
+    "category": "Video",
     "icon": "✦",
     "summary": "Plan a short video with shots and narration.",
     "task": "Ask topic, duration, audience, format and resources. Write a timed storyboard with shot descriptions, voiceover and editing notes. Do not claim to render a video or use unauthorized footage.",
@@ -1376,7 +1380,7 @@
   {
     "slug": "thumbnail-brief",
     "name": "Thumbnail Design Brief",
-    "category": "Creative",
+    "category": "Video",
     "icon": "✦",
     "summary": "Plan a readable thumbnail for a video or post.",
     "task": "Ask topic, intended audience, platform and assets. Suggest focal point, short text, contrast and composition; provide a prompt without misleading imagery or fake endorsements.",
@@ -1781,7 +1785,7 @@
   {
     "slug": "short-video-prompt",
     "name": "AI Short Video & Reels Prompt Builder",
-    "category": "Creative",
+    "category": "Video",
     "icon": "▷",
     "summary": "Create an original short-video concept with scene-by-scene prompts for a compatible video model.",
     "task": "Ask for audience, platform, length, aspect ratio, subject, tone and available source assets. Suggest three truthful hooks, choose one with the user, then lay out timed shots, consistent subject details, motion, framing, transitions, narration or captions, and a clear ending. Deliver an editable video-model prompt and an alternate low-production storyboard. Do not impersonate real people or promise rendered footage or virality.",
@@ -1841,7 +1845,7 @@
   {
     "slug": "social-post-image-prompt",
     "name": "AI Social Media Image Prompt Builder",
-    "category": "Creative",
+    "category": "Social media",
     "icon": "▧",
     "summary": "Create visual directions and image prompts for original social media posts and mockups.",
     "task": "Ask for platform, audience, campaign goal, original brand assets and required text. Suggest two visual compositions with crop-safe space, focal point, readable hierarchy, lighting and color palette. Produce prompts tailored to the chosen image model, plus a caption and alt-text draft. Mark text that should be typeset separately; avoid copying recognizable brand artwork or implying endorsement.",
@@ -2014,6 +2018,192 @@
     "kind": "prompt",
     "evidence": [
       "competitor-demand editorial task selection"
+    ]
+  },
+  {
+    "slug": "social-media-content-calendar",
+    "name": "AI Social Media Content Calendar",
+    "category": "Social media",
+    "icon": "▦",
+    "summary": "Plan a week or month of posts, captions and content ideas.",
+    "task": "Use the user's topic, business or interests, audience and preferred platforms. Default to a one-week calendar with a mix of educational, entertaining and promotional posts; give date, format, hook, caption, visual brief and call to action. Offer a 30-day expansion. Avoid fake testimonials, misleading claims and spam. Never claim content was posted or scheduled.",
+    "input": "Plan one week of Instagram posts for a small coffee shop.",
+    "use_cases": [
+      "social media content calendar",
+      "instagram content planner",
+      "30 day content plan",
+      "ai social media ideas"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "reels-hook-generator",
+    "name": "AI Reels & TikTok Hook Generator",
+    "category": "Social media",
+    "icon": "▷",
+    "summary": "Create attention-grabbing openings, short scripts and calls to action.",
+    "task": "Use the topic or supplied clip description and audience. Produce five truthful first-three-second hooks and two 15–30 second scripts with shot suggestions, on-screen text and natural calls to action. Adapt to Reels, TikTok or Shorts; avoid false urgency, unsupported claims and misleading clickbait. If video analysis is unavailable, ask for a transcript or scene description.",
+    "input": "Give me five hooks and a 20-second script for a travel reel about Bali.",
+    "use_cases": [
+      "instagram reels hook generator",
+      "tiktok hook generator",
+      "short video script",
+      "reels ideas"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "social-media-hashtag-generator",
+    "name": "AI Social Media Hashtag Generator",
+    "category": "Social media",
+    "icon": "#",
+    "summary": "Find relevant hashtag ideas organized by topic and audience.",
+    "task": "Use the user's topic, platform, geography if relevant and audience. Return a concise group of relevant niche and broader hashtag ideas by purpose, with an optional caption. Do not invent search volume, trending status or guaranteed reach; verify popularity with current reliable sources when available. Avoid spam and unrelated tags.",
+    "input": "Suggest relevant hashtags for a homemade matcha drink post.",
+    "use_cases": [
+      "instagram hashtag generator",
+      "ai hashtag generator",
+      "tiktok hashtags",
+      "social media tags"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "passport-photo-generator",
+    "name": "Passport Photo Maker & Compliance Checker",
+    "category": "Photography",
+    "icon": "▣",
+    "summary": "Check passport photo dimensions, framing and official country-specific rules.",
+    "task": "Ask which country's passport or visa is being applied for and whether the photo is for print or online upload. Use the issuing authority's current requirements, link to official sources, and separate verified facts from estimates. If the user supplies a photo, check visible framing, plain background, face position, expression, lighting and accessories; flag uncertain dimensions and request metadata if needed. For US passport photos, use https://travel.state.gov/en/passports/apply/help/photos.html and explain that AI-generated or digitally altered photos are not accepted; advise taking a new original photograph rather than replacing the background or changing the face. Only help crop or size an original without altering appearance when the issuing authority expressly permits it. Never generate a counterfeit identity document, change identity or guarantee government acceptance. Offer a sizing guide or official photo tool if permitted.",
+    "input": "Check my original photo for a US passport and explain how to take a compliant replacement if necessary.",
+    "use_cases": [
+      "passport photo generator",
+      "passport photo maker",
+      "passport photo checker",
+      "passport photo dimensions",
+      "visa photo requirements",
+      "2x2 passport photo"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "professional-headshot-generator",
+    "name": "AI Professional Headshot Generator",
+    "category": "Photography",
+    "icon": "◎",
+    "summary": "Turn a portrait into a realistic business or LinkedIn headshot in an image-capable chat.",
+    "task": "Invite the user to upload a photograph they have permission to edit and specify the professional context if needed. Preserve recognizable identity, facial features, natural skin tone, age and proportions. Choose natural lighting, clean neutral background, realistic attire and head-and-shoulders framing; avoid excessive retouching. If the chat has an image editing tool, use it to create the requested headshot and disclose it is edited. Otherwise provide a ready-to-copy prompt for an image-capable tool and photography guidance. Never claim to create a file unless a tool actually returns it. Not for passports or other official identity documents.",
+    "input": "Turn my selfie into a natural LinkedIn headshot with professional lighting.",
+    "use_cases": [
+      "ai professional headshot generator",
+      "linkedin headshot generator",
+      "business portrait",
+      "photo to headshot"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "photo-editing-assistant",
+    "name": "AI Photo Editing & Enhancement Assistant",
+    "category": "Photography",
+    "icon": "◈",
+    "summary": "Improve portraits, travel shots and everyday photos with natural-looking edits.",
+    "task": "Use an uploaded image and the requested look. Preserve the original scene and people's identity unless the user explicitly requests an appropriate change. Suggest or perform exposure, color, contrast, crop and distracting-background cleanup; use actual image editing when available. Keep edits reversible where possible; avoid inventing important scene details or changing faces, and label substantial AI manipulation. Without an image tool, provide an editing prompt and settings for a common photo editor. Do not apply AI changes to passport photos or evidence images.",
+    "input": "Make my travel photo brighter while preserving the people exactly.",
+    "use_cases": [
+      "ai photo editor",
+      "photo enhancement prompt",
+      "photo retouching",
+      "travel photo editing",
+      "background cleanup"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "video-editing-assistant",
+    "name": "AI Video Editing Assistant",
+    "category": "Video",
+    "icon": "▶",
+    "summary": "Turn footage or a transcript into an edit plan with cuts, pacing and captions.",
+    "task": "Ask for footage, a transcript or scene list and intended output, such as a 30-second vertical reel. If video processing or editing tools are available, analyze and edit the supplied footage, preserving the original and respecting rights; export only if a tool actually creates a file. Otherwise produce a practical editing timeline with source timestamps only when supplied or verifiable, cuts, transitions, text overlays, music mood, aspect ratio, audio levels and export settings for CapCut, Premiere, DaVinci Resolve or iMovie. Never invent observed timestamps or claim to render a video without a file. Avoid copyrighted music without permission.",
+    "input": "Help edit a 2-minute vacation video into a 30-second Instagram reel.",
+    "use_cases": [
+      "ai video editor",
+      "video editing assistant",
+      "capcut editing plan",
+      "edit video with ai",
+      "instagram reel editing"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "video-subtitle-generator",
+    "name": "AI Video Subtitle & Caption Generator",
+    "category": "Video",
+    "icon": "≡",
+    "summary": "Create readable subtitles from a transcript or supported audio/video upload.",
+    "task": "Use the supplied transcript and actual timestamps, or transcribe only if an audio/video transcription tool is available. Clean filler words only when requested, preserve meaning and speaker labels, split captions into readable chunks, and provide SRT or VTT when timing is available. If no audio access or timestamps, create caption text and explain how to align it; never fabricate timecodes. Offer accessibility notes and optional translation, marking uncertain words for review. Return a file only if a file tool actually produces it.",
+    "input": "Make readable subtitles from my transcript and timestamps.",
+    "use_cases": [
+      "ai subtitle generator",
+      "video caption generator",
+      "srt generator",
+      "automatic captions",
+      "video transcript"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
+    ]
+  },
+  {
+    "slug": "long-video-to-shorts",
+    "name": "AI Long Video to Shorts Repurposer",
+    "category": "Video",
+    "icon": "✂",
+    "summary": "Find short-clip ideas and turn long footage into Reels, TikToks or Shorts.",
+    "task": "Use a supplied video if analysis tools support it, or a transcript with timestamps. Find three to five self-contained highlights with honest hooks, suggested clip length, source start/end times only when available, reframing ideas, captions and titles. Preserve context, avoid misleading edits, and flag uncertain timecodes. If editing/export tools exist, make clips when requested and return actual outputs; otherwise provide a clipping list for a video editor.",
+    "input": "Turn this podcast transcript into five short clips with hooks and captions.",
+    "use_cases": [
+      "long video to shorts",
+      "podcast clip generator",
+      "ai video repurposing",
+      "youtube shorts ideas",
+      "reels clip planner"
+    ],
+    "chat": "gemini",
+    "kind": "prompt",
+    "evidence": [
+      "AIBin editorial task selection; user-requested capability"
     ]
   }
 ]

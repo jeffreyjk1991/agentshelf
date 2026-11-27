@@ -12,9 +12,9 @@ const res=()=>({headers:{},code:0,body:null,setHeader(k,v){this.headers[k]=v;},s
 const req=(body,method='POST')=>({method,headers:{origin:'https://www.aibin.me',host:'www.aibin.me','content-type':'application/json'},body});
 test('unified submission accepts instructions and public links; category and preferred chat match the catalog',()=>{
  const expected=[...new Set(['catalog.json','prompt-agents/catalog.json','automations/catalog.json','everyday/catalog.json','live-agents/catalog.json'].flatMap(p=>JSON.parse(fs.readFileSync(p,'utf8')).map(a=>a.category)))].sort();
- assert.deepEqual(categories.slice().sort(),expected);
+ assert.deepEqual(categories.slice().sort(),[...expected,'Other'].sort());
  assert.equal(normalizeAgentSubmission(valid).kind,'instructions');assert.equal(normalizeAgentSubmission({...valid,creator:'@example-maker'}).creator,'example-maker');for(const handle of Object.values(editorialProfiles))assert.throws(()=>normalizeUsername(handle));assert.throws(()=>normalizeUsername('aibin'));
- assert.equal(normalizeAgentSubmission(valid).instructions,valid.source);
+ assert.equal(normalizeAgentSubmission(valid).instructions,valid.source);const unsure=normalizeAgentSubmission({...valid,category:'Other',provider:'any'});assert.equal(unsure.category,'Other');assert.equal(unsure.provider,'any');for(const category of ['Social media','Photography','Video'])assert.equal(normalizeAgentSubmission({...valid,category}).category,category);
  const link=normalizeAgentSubmission({...valid,provider:'any',source:'https://chatgpt.com/g/g-example-agent'});
  assert.equal(link.provider,'chatgpt');assert.equal(link.kind,'link');assert.equal(link.platform,'ChatGPT');
  assert.equal(normalizeAgentSubmission({...valid,provider:'none',source:'https://github.com/Owner/Example.git'}).url,'https://github.com/owner/example');
@@ -43,7 +43,7 @@ test('one submission form with matching fields, no voting JS, redirects and true
  for(const key of ['name','creator','category','provider','description','source','consent'])assert.ok(form.includes('name="'+key+'"'));
  assert.ok(!main.includes('votes.mjs')&&!main.includes('voteRank'));
  assert.ok(!fs.existsSync('dist/assets/votes.mjs'));
- assert.equal((home.match(/class="agent-creator editorial-credit"/g)||[]).length,201);assert.ok(form.includes('<label>Username<input name="creator"'));assert.ok(!form.includes('<label>Creator name'));assert.ok(home.includes('footer-more-links'));
+ assert.equal((home.match(/class="agent-creator editorial-credit"/g)||[]).length,210);assert.ok(form.includes('<label>Username<input name="creator"'));assert.ok(!form.includes('<label>Creator name'));assert.ok(form.includes('<option value="Other" selected>Other / Not sure</option>'));assert.ok(form.includes('No preference / Not sure'));assert.ok(home.includes('footer-more-links'));
  assert.ok(!home.includes('href="/publish"')&&!form.includes('href="/publish"'));
  const config=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(config.redirects.some(x=>x.source==='/publish'&&x.destination==='/community'&&x.permanent));
 });
