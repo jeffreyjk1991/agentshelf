@@ -6,13 +6,14 @@ import path from 'node:path';
 import {createServer} from 'node:http';
 const root=path.resolve('dist');
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png','.svg':'image/svg+xml','.txt':'text/plain'};
-const events=[];
+const events=[],traffic=[];
 let community=[],catalogFailures=0;
 const server=createServer(async(req,res)=>{
  const url=new URL(req.url,'http://localhost');const name=url.pathname;
  if(name.startsWith('/api/')){
   res.setHeader('Content-Type','application/json');
   if(name==='/api/submissions'&&req.method==='GET'){res.end(JSON.stringify({agents:community}));return;}
+  if(name==='/api/traffic'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;traffic.push(JSON.parse(body));res.end('{}');return;}
   if(name==='/api/engagement'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;events.push(JSON.parse(body));res.end('{}');return;}
   res.statusCode=503;res.end('{}');return;
  }
@@ -31,6 +32,22 @@ async function visible(p,selector){await p.locator(selector).first().waitFor({st
 async function go(p,route){await p.goto(base+route);await p.waitForLoadState('domcontentloaded');}
 async function create(p,goal){await p.locator('#vibe-goal').fill(goal);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');}
 try{
+ await run('Anonymous traffic records each page, distinguishes first and returning visits, and honors opt-out',async()=>{
+  const {c,p,errors}=await ctx(390);try{
+   traffic.length=0;
+   async function visit(url){const recorded=p.waitForResponse(r=>r.url().endsWith('/api/traffic')&&r.request().method()==='POST');await go(p,url);await recorded;}
+   await visit('/?utm_source=chatgpt&private=discard#private');
+   assert.deepEqual(traffic.at(-1),{kind:'first_visit',path:'/',source:'chatgpt'});
+   await visit('/agent-teams');
+   assert.deepEqual(traffic.at(-1),{kind:'page_view',path:'/agent-teams',source:'direct_or_unknown'});
+   await p.evaluate(()=>localStorage.setItem('agentshelf:last-visit',String(Date.now()-31*60000)));
+   await visit('/tools');
+   assert.equal(traffic.at(-1).kind,'return_visit');assert.equal(traffic.at(-1).path,'/tools');
+   await visit('/privacy');await p.locator('#analytics-opt-out').check();
+   const before=traffic.length;await go(p,'/open-source');await p.waitForLoadState('networkidle');assert.equal(traffic.length,before);
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
  await run('Sage dash canvas is consistent across the site without affecting controls or print',async()=>{
   for(const w of [390,1280]){const {c,p,errors}=await ctx(w);try{
    for(const route of ['/','/open-source','/agent-teams','/agent-packs','/tools','/agents/social-caption-writer']){
