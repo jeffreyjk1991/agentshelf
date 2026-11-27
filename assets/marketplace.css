@@ -1,7 +1,10 @@
 
 /* AIBin: warm ivory, forest green, a touch of coral. */
 :root{color-scheme:light;--bg:#f5f3ec;--card:#fffefa;--ink:#182b25;--muted:#56645d;--border:#dce2d8;--accent:#126647;--soft:#e4f0e7;--radius:14px}
-html{background:var(--bg)}body{background:radial-gradient(ellipse at 50% 0%,#e7eee0 0%,#f5f3ec 49%);color:var(--ink)}
+html{background:var(--bg)}/* AIBin's warm canvas, with a quiet workflow-inspired grid of short sage dashes. */
+body{background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M10.5 12h3' fill='none' stroke='%236b8c79' stroke-opacity='.36' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E"),radial-gradient(ellipse at 50% 0%,#e7eee0 0%,#f5f3ec 49%);background-size:24px 24px,100% 100%;background-repeat:repeat,no-repeat;background-position:center top,center top;color:var(--ink)}
+@media(max-width:700px){body{background-size:22px 22px,100% 100%}}
+@media print{body{background-image:none;background-color:white}}
 .top{background:#faf9f2f5;border-color:var(--border)}.brandmark,.brand span:not(.brandmark){color:#146a48}.nav nav{color:#465b50;gap:20px}a:hover{color:#0c573a}.future-hero h1{color:#182b25}.future-hero h1 span{color:#167051}.hero-kicker{color:#456456}.hero-kicker .dot{background:#ed774c;box-shadow:none}
 .btn.primary,.filter.active{background:#176747;border-color:#176747;color:white!important}.btn.primary:hover{background:#104f36;border-color:#104f36;color:white!important}.btn.secondary{background:#fffefa;color:#183c2d;border-color:#cdd8cd}.btn.secondary:hover{border-color:#176747}
 .future-hero .searchbox{background:white;border-color:#b9ccba;box-shadow:0 12px 35px #143c2312}.searchbox input,.form label input:not([type=checkbox]),.form textarea,.form select,.assistant-prompt,.chat-select,#schedule-provider,pre{background:#fffefa;color:#182b25;border-color:#cdd8cd}.searchbox input{background:transparent;border:0}.searchbox input::placeholder,.form input::placeholder,.form textarea::placeholder{color:#748078}.searchbox>span{color:#176747}
