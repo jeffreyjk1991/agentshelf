@@ -10,7 +10,7 @@ test('eight competitor groups, forty mapped tasks and distinct original examples
  assert.equal(d.competitors.reduce((n,c)=>n+c.tasks.length,0),40);
  const all=[...new Set(d.competitors.flatMap(c=>c.tasks.map(t=>t.slug)))];
  assert.equal(all.length,28);
- assert.equal(prompts.count,124);
+ assert.equal(prompts.count,130);
  for(const c of d.competitors){assert.equal(c.tasks.length,5);for(const t of c.tasks){assert.ok(t.path.startsWith('/agents/'));const html=read(t.path.slice(1)+'.html');assert.ok(home.includes('href="'+t.path+'"'));assert.ok(hub.includes('href="'+t.path+'"'));assert.ok(html.includes('Example request'));assert.ok(html.includes('What you can expect'));assert.ok(html.includes('What to check'));assert.ok(html.includes('Download agent'));assert.ok(html.includes('href="/popular-ai-agents"'));assert.ok(d.details[t.slug].limit.length>30);if(site.includes('<loc>'))assert.ok(site.includes(t.path+'</loc>'));}}
  assert.ok(home.includes('href="/popular-ai-agents"'));
  assert.ok(read('llms.txt').includes('/popular-ai-agents'));
