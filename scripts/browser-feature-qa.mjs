@@ -85,6 +85,34 @@ try{
    await go(p,'/tools/product-finder');await p.locator('.ai-alternative > summary').click();await p.locator('.ready-edit > summary').click();await p.locator('.ready-variables [data-label="What are you shopping for?"]').fill('Coffee grinder');assert.match(await p.locator('.ready-prompt').inputValue(),/Coffee grinder/);assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
+ await run('Agents and Tools share the collection design; homepage mascot adds no layout height',async()=>{
+  for(const w of [320,360,390,768,1024,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/');await p.waitForSelector('#search-grid.library-ready');await p.emulateMedia({reducedMotion:'reduce'});
+   const bounds=await p.evaluate(()=>{
+    const robot=document.querySelector('.home-robot'),hero=document.querySelector('.future-hero'),heading=hero.querySelector('h1'),kicker=hero.querySelector('.hero-kicker'),builder=hero.querySelector('.vibe-form'),library=document.querySelector('#agents');
+    const r=robot.getBoundingClientRect(),h=hero.getBoundingClientRect();
+    const range=document.createRange();range.selectNodeContents(heading);
+    const texts=[...range.getClientRects()];for(const n of kicker.childNodes)if(n.nodeType===Node.TEXT_NODE&&n.textContent.trim()){range.selectNodeContents(n);texts.push(...range.getClientRects());}
+    const collision=texts.some(t=>r.left<t.right-1&&r.right>t.left+1&&r.top<t.bottom-1&&r.bottom>t.top+1);
+    const before=[h.height,heading.getBoundingClientRect().top,builder.getBoundingClientRect().top,library.getBoundingClientRect().top];
+    const contained=r.left>=h.left-1&&r.right<=h.right+1&&r.top>=h.top-1&&r.bottom<=h.bottom+1;
+    const motion=getComputedStyle(robot.querySelector('.home-robot-art')).animationName;
+    robot.hidden=true;
+    const after=[hero.getBoundingClientRect().height,heading.getBoundingClientRect().top,builder.getBoundingClientRect().top,library.getBoundingClientRect().top];
+    robot.hidden=false;return {collision,contained,before,after,motion};
+   });
+   assert.equal(bounds.collision,false,'Robot overlaps text at '+w);assert.equal(bounds.contained,true,'Robot clipped at '+w);assert.deepEqual(bounds.before,bounds.after,'Robot shifts original hero at '+w);assert.equal(bounds.motion,'none');assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   await p.emulateMedia({reducedMotion:'no-preference'});
+   for(const [url,total,query,match] of [['/open-source',142,'passport photo',/Passport Photo/i],['/tools',46,'unit price',/Unit Price/i]]){
+    await go(p,url);await p.waitForSelector('#search-grid.library-ready');await visible(p,'.collection-flow');assert.equal(await p.locator('.flow-node').count(),3);assert.equal(await p.locator('#search-grid > [data-agent]').count(),total);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Library overflow '+url+' at '+w);
+    assert.ok(await p.locator('.collection-flow,.mini-card:visible').evaluateAll(nodes=>nodes.every(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1;})));
+    await p.locator('#search').fill(query);assert.match(await p.locator('#search-grid > [data-agent]:visible').first().textContent(),match);
+    await p.locator('#search').fill('');await p.locator('#show-more').click();assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),total);
+    await p.emulateMedia({reducedMotion:'reduce'});assert.ok(await p.locator('.flow-node,.flow-output').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).animationName==='none')));await p.emulateMedia({reducedMotion:'no-preference'});
+   }
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Collection heroes, finite motion, responsive cards and prompt downloads',async()=>{
   for(const w of [320,390,768,1280]){const {c,p,errors}=await ctx(w);try{
    await go(p,'/agent-teams');await visible(p,'.collection-flow');assert.equal(await p.locator('.team-collection-card').count(),3);
@@ -151,4 +179,4 @@ try{
   }finally{community=[];await c.close();}
  });
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all ten browser scenario groups; all APIs mocked, no production records written.');
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all eleven browser scenario groups; all APIs mocked, no production records written.');

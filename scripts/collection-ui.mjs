@@ -27,3 +27,15 @@ export function workflowVisual({esc,kind='team',stages=kind==='team'?teamStages:
 export function collectionHero({esc,kicker,title,lead,description,kind,stages,input,output,detail=false}){
  return '<section class="'+(detail?'toolhead ':'')+'collection-hero"><div class="collection-copy"><div class="collection-kicker"><span class="collection-dot" aria-hidden="true"></span>'+esc(kicker)+'</div><h1>'+esc(title)+'</h1><p class="collection-lead">'+esc(lead)+'</p><p class="collection-description">'+esc(description)+'</p></div>'+workflowVisual({esc,kind,stages,input,output})+'</section>';
 }
+
+// Shared visual language for the two individual-helper libraries.
+export function agentLibraryHero(esc,count){
+ return collectionHero({esc,kicker:'READY-MADE AI ASSISTANTS',title:'Ready-made AI agents',lead:'Find the right assistant for your task.',description:count+' free assistants. Choose one, customize its instructions and use it in your AI chat.',kind:'agent',stages:[['research','Find'],['adjust','Customize'],['chat','Use']],input:'Your task',output:'Ready for your AI chat'});
+}
+export function toolLibraryHero(esc,tools,live){
+ return collectionHero({esc,kicker:'USE HERE · NO CODING',title:'AI tools & everyday helpers',lead:'Pick a tool. Get a useful result.',description:tools+' browser tools and '+live+' public-data workflows. Use them right here, without another AI chat.',kind:'tool',stages:[['research','Choose'],['adjust','Enter details'],['work','Run']],input:'Your question or task',output:'Result in your browser'});
+}
+// The robot echoes the AIBin mark without changing the real logo or the heading.
+export function homeRobot(){
+ return '<span class="home-robot" aria-hidden="true"><svg class="home-robot-art" viewBox="0 0 64 64" fill="none" focusable="false" xmlns="http://www.w3.org/2000/svg"><path class="robot-spark" d="M54 10v10m-5-5h10M9 47v8m-4-4h8" stroke="#ed774c" stroke-width="2" stroke-linecap="round"/><path d="M32 13v8M12 30v10m40-10v10" stroke="#146a48" stroke-width="3.5" stroke-linecap="round"/><circle cx="32" cy="10" r="3" fill="#ed774c"/><rect x="15" y="21" width="34" height="30" rx="10" fill="#e1eee5" stroke="#146a48" stroke-width="2"/><rect x="21" y="27" width="22" height="15" rx="6" fill="#146a48"/><g class="robot-eyes" fill="#d5fbe8"><circle cx="27" cy="34.5" r="2.5"/><circle cx="37" cy="34.5" r="2.5"/></g><path d="M28 46h8" stroke="#146a48" stroke-width="2.5" stroke-linecap="round"/></svg></span>';
+}
