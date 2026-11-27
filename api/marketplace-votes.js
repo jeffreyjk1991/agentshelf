@@ -1,11 +1,11 @@
-import {database,respond,validateRequest} from '../lib/api.mjs';
+import {database,respond,validateRequest,databaseErrorCode} from '../lib/api.mjs';
 import {normalizeVote,voterPattern,rate} from '../lib/marketplace.mjs';
 export default async function handler(req,res){
  if(req.method==='GET'){
   try{const sql=await database();const voter=typeof req.query?.voter==='string'&&voterPattern.test(req.query.voter)?req.query.voter:null;
   const totals=await sql`SELECT item_slug,score,upvotes,downvotes,recent FROM marketplace_vote_totals`;
   const mine=voter?await sql`SELECT item_slug,value FROM marketplace_votes WHERE voter_id=${voter}::uuid AND value<>0`:[];
-  res.setHeader('Cache-Control','no-store');return res.status(200).json({totals,mine});}catch{return respond(res,503,'Voting unavailable.');}
+  res.setHeader('Cache-Control','no-store');return res.status(200).json({totals,mine});}catch(e){const code=databaseErrorCode(e);console.warn('[marketplace-votes:read]',code);return respond(res,503,'Voting unavailable.',{code});}
  }
  const bad=validateRequest(req);if(bad)return respond(res,...bad);
  let v;try{v=normalizeVote(typeof req.body==='string'?JSON.parse(req.body):req.body);}catch(e){return respond(res,400,e.message);}
@@ -21,5 +21,5 @@ export default async function handler(req,res){
  if(!rows.length){const old=await sql`SELECT value FROM marketplace_votes WHERE item_slug=${v.slug} AND voter_id=${v.voter}::uuid`;if(!old.length||Number(old[0].value)!==v.value)return respond(res,404,'Unknown or unavailable listing.');}
  const totals=await sql`SELECT item_slug,score,upvotes,downvotes,recent FROM marketplace_vote_totals WHERE item_slug=${v.slug}`;
  return respond(res,200,'Vote saved.',{total:totals[0]||{item_slug:v.slug,score:0,upvotes:0,downvotes:0,recent:0},value:v.value});
- }catch{return respond(res,503,'Vote not saved. Try again later.');}
+ }catch(e){const code=databaseErrorCode(e);console.warn('[marketplace-votes:write]',code);return respond(res,503,'Vote not saved. Try again later.',{code});}
 }

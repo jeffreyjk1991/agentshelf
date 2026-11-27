@@ -42,8 +42,8 @@ async function worker(){
 }
 await Promise.all(Array.from({length:3},worker));
 try{
- const r=await request('/api/marketplace-votes'),j=await r.json();console.log('PUBLIC_VOTES',JSON.stringify({http:r.status,valid:Array.isArray(j.totals)}));
- if(!r.ok||!Array.isArray(j.totals))fail('votes','marketplace-votes','HTTP '+r.status);
+ const r=await request('/api/marketplace-votes'),j=await r.json();console.log('PUBLIC_VOTES',JSON.stringify({http:r.status,valid:Array.isArray(j.totals),diagnostic:typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?j.code:undefined}));
+ if(!r.ok||!Array.isArray(j.totals))fail('votes','marketplace-votes','HTTP '+r.status+(typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?' '+j.code:''));
 }catch(e){fail('votes','marketplace-votes',e.message);}
 console.log('PRODUCTION_SUMMARY',JSON.stringify(stats));
 for(const failure of failures)console.log('PRODUCTION_FAILURE',JSON.stringify(failure));
