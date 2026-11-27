@@ -19,13 +19,15 @@
   },
   {
     "slug": "paragraph-rewriter",
-    "name": "Paragraph Rewriter",
+    "name": "AI Writing Humanizer & Rewriter",
     "category": "Writing",
     "icon": "✎",
-    "summary": "Rewrite awkward sentences in clearer everyday language.",
-    "task": "Ask for the passage and preferred reading level. Provide a clearer rewrite and one alternate phrasing. Preserve meaning, citations and uncertainty; do not help disguise plagiarism or evade detection.",
+    "summary": "Make your own writing sound clear, natural and personal without changing its meaning.",
+    "task": "Ask for the draft, audience, and voice. Rewrite for clarity and natural flow while keeping facts, citations, meaning and authorship intact. Highlight meaningful edits and offer a more concise version. Do not help conceal plagiarism, misrepresent authorship or bypass detection systems; do not claim to make writing undetectable.",
     "input": "Rewrite this paragraph so it sounds natural and concise.",
     "use_cases": [
+      "ai humanizer",
+      "natural writing editor",
       "ai sentence rewriter",
       "ai paraphrasing tool"
     ],
@@ -123,14 +125,16 @@
   },
   {
     "slug": "story-outline-writer",
-    "name": "Story Idea & Outline",
+    "name": "AI Story Generator & Outline",
     "category": "Writing",
     "icon": "✎",
-    "summary": "Develop an original story idea into an outline.",
-    "task": "Ask for genre, audience, theme and length. Propose three original premises, develop the selected one into character motivations and a beginning-middle-end outline. Avoid copying existing works.",
+    "summary": "Create an original story from your idea, or plan its characters, scenes and plot.",
+    "task": "Ask for genre, audience, premise, desired length and style. Draft an original story or an outline as requested, with consistent characters and pacing. Offer alternative endings if useful. Do not reproduce protected stories or imitate living authors' distinctive styles; use broad descriptive traits instead.",
     "input": "Help me outline an original short mystery story.",
     "use_cases": [
       "ai story generator",
+      "ai creative writing",
+      "story outline generator",
       "story ideas"
     ],
     "chat": "claude",
@@ -430,6 +434,9 @@
     "input": "I am stuck on this homework problem. Give me a hint.",
     "use_cases": [
       "ai teaching",
+      "ai homework helper",
+      "ai tutor",
+      "study assistant",
       "homework tutor"
     ],
     "chat": "chatgpt",
@@ -964,6 +971,8 @@
     "input": "Build a three-day beginner workout using dumbbells.",
     "use_cases": [
       "ai fitness",
+      "ai workout planner",
+      "workout routine generator",
       "workout planner"
     ],
     "chat": "chatgpt",
@@ -1210,6 +1219,9 @@
     "input": "Create a front-desk script for a dental office.",
     "use_cases": [
       "ai receptionist",
+      "ai phone receptionist",
+      "customer service script",
+      "ai call centre",
       "call centre scripts"
     ],
     "chat": "claude",
@@ -1236,15 +1248,17 @@
   },
   {
     "slug": "slide-outline-builder",
-    "name": "Presentation Outline Builder",
+    "name": "AI Presentation Maker Assistant",
     "category": "Business",
     "icon": "▦",
-    "summary": "Turn an idea into a clear slide-by-slide story.",
-    "task": "Ask audience, goal, duration and evidence. Create a deck outline with slide titles, messages, visual suggestions and speaker notes; mark facts needing verification. Do not promise a generated slide file unless tools support it.",
+    "summary": "Build a slide-by-slide presentation, with editable slide copy, layout direction and speaker notes.",
+    "task": "Ask for topic, audience, duration and goal. Create a concise slide sequence with titles, key evidence, visual suggestions, source notes and speaker notes. If the chat supports presentation files, create an editable deck; otherwise return slide-ready content. Never invent statistics, sources or a downloadable file.",
     "input": "Outline a six-slide sales performance presentation.",
     "use_cases": [
       "ai presentation maker",
-      "ai slide generator"
+      "ai slide generator",
+      "powerpoint ai",
+      "presentation outline"
     ],
     "chat": "claude",
     "kind": "prompt",
@@ -1322,14 +1336,18 @@
   },
   {
     "slug": "image-prompt-builder",
-    "name": "Image Prompt Builder",
+    "name": "AI Image Generator Assistant",
     "category": "Creative",
     "icon": "✦",
-    "summary": "Describe an image clearly for an AI image tool.",
-    "task": "Ask subject, style, composition, lighting, aspect ratio and constraints. Produce an original detailed prompt and two variants. Respect privacy and creator rights; distinguish prompt drafting from actual image generation.",
+    "summary": "Create original images in a compatible AI chat, or get a detailed image-generation prompt.",
+    "task": "Ask for the intended image, style, aspect ratio, audience, and any reference images. When the chat has an image-generation tool, use it to create the requested original image; otherwise return an editable image prompt with composition, lighting, and output specifications. Do not claim to have generated an image without a result. Respect the user's rights, consent, and the provider's safety rules.",
     "input": "Write a prompt for a cozy mountain cabin illustration.",
     "use_cases": [
       "ai image generator",
+      "ai art generator",
+      "ai photo generator",
+      "text to image ai",
+      "image prompt generator",
       "ai prompt generator"
     ],
     "chat": "chatgpt",
@@ -1359,14 +1377,17 @@
   },
   {
     "slug": "logo-brief-builder",
-    "name": "Logo Design Brief",
+    "name": "AI Logo Design Assistant",
     "category": "Creative",
     "icon": "✦",
-    "summary": "Create a clean logo brief for a designer or image AI.",
-    "task": "Ask business name, field, audience, personality and usage. Produce distinct original directions, color and typography suggestions, and a usable image prompt; recommend trademark checks.",
+    "summary": "Design a simple original logo in an image-capable chat, or create a logo brief and prompt.",
+    "task": "Ask for the brand name, audience, business type, personality and preferred colors. Propose two distinctive logo directions with small-size legibility, accessibility and light/dark usage. Use an available image tool to create a concept if supported; otherwise deliver an original image prompt and design specification. Do not promise a vector file, trademark clearance or actual rendering without evidence.",
     "input": "Help me create a logo concept for a coffee shop.",
     "use_cases": [
       "ai logo generator",
+      "logo design ai",
+      "logo prompt",
+      "business logo maker",
       "logo design"
     ],
     "chat": "chatgpt",
@@ -1409,15 +1430,18 @@
   },
   {
     "slug": "voiceover-script",
-    "name": "Voiceover Script Writer",
+    "name": "AI Voiceover & Voice Generator Guide",
     "category": "Creative",
     "icon": "✦",
-    "summary": "Write natural narration for videos and presentations.",
-    "task": "Ask tone, duration, audience and supplied facts. Draft timed narration with pauses and pronunciation notes; do not clone or impersonate real voices or promise audio generation.",
+    "summary": "Write a natural voiceover and prepare it for text-to-speech; create audio only in a chat that supports it.",
+    "task": "Ask for the script or topic, audience, duration, tone and language. Draft a paced script with pronunciation and pause notes. If supported, generate speech using an authorized generic voice; otherwise provide text-to-speech instructions and the finished script. Do not imitate or clone a real person's voice without their permission, or claim to render audio without an actual file.",
     "input": "Write a calm 45-second voiceover for a travel video.",
     "use_cases": [
-      "ai voice over",
-      "narration script"
+      "ai voice generator",
+      "text to speech ai",
+      "ai voiceover",
+      "narration script",
+      "ai voice over"
     ],
     "chat": "chatgpt",
     "kind": "prompt",
@@ -1425,14 +1449,17 @@
   },
   {
     "slug": "music-idea-prompt",
-    "name": "Original Music Idea Prompt",
+    "name": "AI Music & Song Generator Prompt",
     "category": "Creative",
     "icon": "✦",
-    "summary": "Describe an original song idea for a music creation tool.",
-    "task": "Ask genre, mood, tempo, instrumentation and intended use. Produce a structured original music brief and optional original lyrics, without copying existing songs or imitating a living artist's distinctive identity.",
+    "summary": "Create original song concepts, lyrics and production prompts for a compatible music generator.",
+    "task": "Ask for genre, mood, length, instruments, tempo and whether lyrics are desired. Create an original song concept, section structure, lyrics if requested, and a detailed prompt for a compatible music generation tool. Avoid copying protected lyrics or claiming to create audio unless the chat actually supports it and returns a file. Use descriptive musical attributes instead of impersonating performers.",
     "input": "Create an upbeat original electronic music prompt.",
     "use_cases": [
       "ai music generator",
+      "ai song generator",
+      "music prompt generator",
+      "ai lyrics generator",
       "song prompt"
     ],
     "chat": "chatgpt",
@@ -1443,15 +1470,17 @@
   },
   {
     "slug": "photo-edit-brief",
-    "name": "Photo Editing Brief",
+    "name": "AI Photo Editing Assistant",
     "category": "Photography",
     "icon": "✦",
-    "summary": "Describe how to improve a photo for an editor.",
-    "task": "Ask what should change, what must remain, and desired naturalness. Provide ordered editing directions and a prompt that preserves requested details; do not claim to modify an image unless an image tool is available.",
+    "summary": "Improve a photo with natural lighting, color, crop and focused edits in a compatible AI chat.",
+    "task": "Ask the user to upload their photo and specify the desired edits and what must stay unchanged. When compatible image tools are available, edit the photo while preserving identity and requested details; otherwise provide a precise editing recipe and reusable prompt. Avoid unwanted changes to people or misleading transformations. Clearly distinguish an edited output from instructions.",
     "input": "Make my landscape photo brighter without changing the scene.",
     "use_cases": [
       "ai photo editor",
-      "photo editing prompt"
+      "ai image editor",
+      "photo editing prompt",
+      "edit photo with ai"
     ],
     "chat": "chatgpt",
     "kind": "prompt",
@@ -1585,7 +1614,9 @@
     "input": "Write a prompt for a simple photographer portfolio website.",
     "use_cases": [
       "ai website builder",
-      "vibe coding"
+      "no code website builder",
+      "vibe coding",
+      "website prompt generator"
     ],
     "chat": "gemini",
     "kind": "prompt",
@@ -1769,6 +1800,11 @@
     "task": "Ask for current commitments, available time, personal priorities and constraints; invite the user to omit private details. Organize tasks into today, next and later, propose a realistic schedule with buffers, identify decisions that need approval, and suggest a short end-of-day review. When reminders or calendar actions are requested, explain how to confirm them in a connected chat with relevant permissions; do not claim to schedule or send anything without confirmation.",
     "input": "I have two meetings, a grocery run, a deadline at 4 pm and 30 minutes for exercise. Plan my day.",
     "use_cases": [
+      "ai chatbot",
+      "ai assistant",
+      "ai personal assistant",
+      "everyday ai agent",
+      "personal task assistant",
       "personal ai assistant",
       "daily planner agent",
       "ai life manager",
@@ -1789,6 +1825,8 @@
     "task": "Ask for audience, platform, length, aspect ratio, subject, tone and available source assets. Suggest three truthful hooks, choose one with the user, then lay out timed shots, consistent subject details, motion, framing, transitions, narration or captions, and a clear ending. Deliver an editable video-model prompt and an alternate low-production storyboard. Do not impersonate real people or promise rendered footage or virality.",
     "input": "Make a 15-second vertical reel promoting a handmade ceramic mug, using my product photo and a warm morning mood.",
     "use_cases": [
+      "ai video generator",
+      "ai video maker",
       "ai video prompt generator",
       "reels prompt",
       "short video storyboard",
@@ -2007,7 +2045,10 @@
     "task": "Ask for language, framework, relevant code, error output, environment and desired behavior. Start with the smallest useful solution, explain key design choices, provide runnable snippets or a unified patch and tests. Mark assumptions, avoid requesting tokens or credentials, and warn before destructive commands. Do not claim to have run tests or changed a repository unless a real tool did so. Help the user inspect results and iterate.",
     "input": "Write a small JavaScript function that groups expenses by category and handles missing or invalid values. Include tests.",
     "use_cases": [
+      "ai code",
       "ai coding assistant",
+      "ai code generator",
+      "code debugging",
       "code generator prompt",
       "debug code",
       "programming assistant"
@@ -2124,5 +2165,122 @@
     "chat": "chatgpt",
     "kind": "prompt",
     "evidence": []
+  },
+  {
+    "slug": "ai-writing-evidence-review",
+    "name": "AI Writing Authorship Review",
+    "category": "Writing",
+    "icon": "✎",
+    "summary": "Review writing for evidence, sourcing and unexplained changes without unreliable AI-detection scores.",
+    "task": "Ask for the text and purpose of the review. Explain that prose alone cannot reliably establish whether AI wrote it. Review citations, factual inconsistencies, unsupported claims, shifts in style, and suggested verification through drafts or revision history if voluntarily supplied. Distinguish observations from evidence and never assign an AI probability, accuse a person, or promise detector accuracy.",
+    "input": "Review this draft and point out citations and claims I should verify.",
+    "use_cases": [
+      "ai detector limitations",
+      "ai content checker",
+      "ai writing review",
+      "ai checker"
+    ],
+    "chat": "claude",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
+  },
+  {
+    "slug": "consensual-face-swap-guide",
+    "name": "Consent-Based Face Swap Guide",
+    "category": "Photography",
+    "icon": "◉",
+    "summary": "Plan clearly labeled creative face composites using images from consenting adults.",
+    "task": "Ask for the creative purpose and confirm the user owns or has explicit consent for each adult image. Only help with nonsexual, clearly disclosed, nondeceptive composites, including fictional characters and the user's own images. If the chat cannot perform a permitted edit, provide a safe creative alternative. Decline impersonation, nonconsensual intimate imagery, identity documents, deceptive endorsements and attempts to bypass safeguards. Never claim a finished image unless one is returned.",
+    "input": "Plan a clearly labeled funny costume composite using my own portrait.",
+    "use_cases": [
+      "ai face swap",
+      "consensual face swap",
+      "creative photo composite"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
+  },
+  {
+    "slug": "photo-enhancer",
+    "name": "AI Photo Enhancer & Restoration Assistant",
+    "category": "Photography",
+    "icon": "▣",
+    "summary": "Restore old or low-quality pictures and improve clarity, lighting and color without inventing details.",
+    "task": "Ask for the photo and which details matter. Examine visible blur, noise, exposure, scratches and color cast. If compatible editing tools exist, apply restrained restoration and preservation-first adjustments; otherwise give an exact editing recipe. Avoid fabricating identity-defining features, removing evidence, or promising recovered details or a specific pixel resolution without verification. State which changes were made.",
+    "input": "Restore the contrast and color in my old family photograph while preserving faces.",
+    "use_cases": [
+      "ai photo enhancer",
+      "ai image enhancer",
+      "ai image upscaler",
+      "photo restoration"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
+  },
+  {
+    "slug": "hairstyle-try-on",
+    "name": "AI Hairstyle Try-On Assistant",
+    "category": "Photography",
+    "icon": "◉",
+    "summary": "Explore haircut and hair-color ideas with a realistic preview when image editing is available.",
+    "task": "Ask for an optional portrait, hair type, preferred length, maintenance budget and styles to explore. Suggest practical styles and, if image editing is supported, produce a consensual preview changing only hair while preserving the person's identity and other features. Otherwise give clear salon reference descriptions and prompts. Do not infer identity traits or make disparaging appearance judgments.",
+    "input": "Show me three realistic medium-length haircut ideas using my photo.",
+    "use_cases": [
+      "ai hairstyle",
+      "ai haircut simulator",
+      "virtual hairstyle try on"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
+  },
+  {
+    "slug": "virtual-outfit-try-on",
+    "name": "AI Outfit & Clothes Try-On Assistant",
+    "category": "Photography",
+    "icon": "◈",
+    "summary": "Visualize outfit ideas on your own photo or get styling instructions before shopping.",
+    "task": "Ask for occasion, preferred fit, colors, and an optional consented source image. Suggest coordinated outfits and, if image editing is supported, preview ordinary clothing while preserving identity and body proportions. Never remove clothing or create intimate imagery; do not claim exact physical fit. If image editing is not available, provide a shopping or styling checklist and a prompt.",
+    "input": "Preview a navy blazer and light shirt on my own portrait for a work event.",
+    "use_cases": [
+      "ai clothes changer",
+      "virtual outfit try on",
+      "ai fashion styling"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
+  },
+  {
+    "slug": "background-removal-assistant",
+    "name": "AI Background Remover Assistant",
+    "category": "Photography",
+    "icon": "▧",
+    "summary": "Prepare a clean product or portrait cutout with transparent or plain background when supported.",
+    "task": "Ask for a source image and whether the output should be transparent or a solid color. Preserve the subject, edges, product colors and important details. When image-editing or file tools support background removal, create the output and confirm its actual format and transparency; otherwise provide an exact workflow for a suitable editor. Do not promise pixel-perfect alpha transparency without verifying the result.",
+    "input": "Remove the background from this product photo for my online shop.",
+    "use_cases": [
+      "ai background remover",
+      "remove photo background",
+      "transparent background",
+      "product photo cutout"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": [
+      "2026 public search-demand research"
+    ]
   }
 ]
