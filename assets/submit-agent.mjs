@@ -7,7 +7,7 @@ function download(text,filename,type){const u=URL.createObjectURL(new Blob([text
 draft?.addEventListener('click',()=>download(JSON.stringify(values(),null,2)+'\n','aibin-agent-submission-draft.json','application/json'));
 form?.addEventListener('submit',async e=>{
  e.preventDefault();const button=form.querySelector('button[type=submit]');button.disabled=true;draft.hidden=true;status.textContent='Submitting…';
- try{const r=await fetch('/api/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values()),signal:AbortSignal.timeout(15000)});let data;try{data=await r.json();}catch{throw Error('Submission not saved. Please try again later.');}status.textContent=data.message||'Unable to submit.';if(r.ok){form.reset();}else if(r.status>=500){draft.hidden=false;}}
+ try{const r=await fetch('/api/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values()),signal:AbortSignal.timeout(15000)});let data;try{data=await r.json();}catch{throw Error('Submission not saved. Please try again later.');}const ref=typeof data.code==='string'&&/^DB_[A-Z_]{3,40}$/.test(data.code)?' (Reference: '+data.code+')':'';status.textContent=(data.message||'Unable to submit.')+(!r.ok?ref:'');if(r.ok){form.reset();}else if(r.status>=500){draft.hidden=false;}}
  catch{status.textContent='Submission not saved. You can save your draft or retry.';draft.hidden=false;}
  finally{button.disabled=false;}
 });
