@@ -72,3 +72,7 @@ Unchanged public templates use native, URL-encoded prompt links for ChatGPT and 
 
 ## Editorial collections and responsive footer
 Built-in listings retain AIBin as their actual creator in metadata and use 18 category-specific, explicitly labeled AIBin editorial handles in the UI. Handles are collection labels, not invented contributor identities. New submissions request a public username (the existing `creator` database column is retained), reserve official editorial handles, and continue to require review. Existing third-party contributors retain their supplied names. The footer More toggle and Show more catalog control share responsive alignment rules; browser QA covers 390px, 768px and 1280px widths.
+
+
+## Social, photography and video expansion
+Six additional ready-to-use prompt agents expand the catalog to 207 built-in listings and 202 chat-compatible instruction downloads. New coverage includes social hooks/hashtags, Instagram carousels, passport-photo preparation, professional headshots, video edit decision lists, and long-video-to-Shorts editing. Existing broad categories are reused so the home filters stay simple. The community submission form also accepts “Not sure — choose for me” as a moderation cue when a contributor does not know the best category; it does not create a new public marketplace category.
