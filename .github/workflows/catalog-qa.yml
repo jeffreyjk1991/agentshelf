@@ -30,3 +30,12 @@ jobs:
           persist-credentials: false
       - name: Test all five actual public data providers
         run: node scripts/check-live-providers.mjs
+  deployed-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Check production homepage, all listing URLs and five live agent APIs
+        run: node scripts/check-production.mjs
