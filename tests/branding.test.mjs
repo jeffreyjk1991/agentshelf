@@ -39,3 +39,13 @@ test('Google Search Console verification file is published unmodified at the sit
   assert.equal(original.toString('utf8'),'google-site-verification: google8d69054a5244e64f.html');
   assert.deepEqual(fs.readFileSync(path.join('dist',file)),original);
 });
+
+test('robot brand and search-demand collection are crawlable and consistent',()=>{
+ const icon=read('assets/icon.svg');assert.ok(icon.includes('<circle'));assert.ok(icon.includes('#146a48'));
+ assert.equal((home.match(/class="brandmark" src="\/assets\/icon.svg"/g)||[]).length,2);
+ const data=JSON.parse(read('top-ai-agents.json')),hub=read('top-ai-agents.html');
+ assert.equal(data.count,25);assert.equal(data.agents.length,25);assert.equal(new Set(data.agents.map(a=>a.slug)).size,25);
+ assert.ok(home.includes('href="/top-ai-agents"'));assert.ok(read('llms.txt').includes('/top-ai-agents'));
+ for(const a of data.agents){const html=read(a.path.slice(1)+'.html');assert.ok(hub.includes('href="'+a.path+'"'));assert.ok(html.includes(a.title+' | AIBin')||html.includes(a.title.replaceAll('&','&amp;')+' | AIBin'));assert.ok(html.includes('href="/top-ai-agents"'));assert.ok(fs.existsSync(path.join('dist','downloads',a.slug+'-agent.txt')));}
+ if(home.includes('content="index,follow"'))assert.ok(read('sitemap.xml').includes('/top-ai-agents</loc>'));
+});
