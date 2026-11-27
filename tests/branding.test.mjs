@@ -31,3 +31,10 @@ test('SEO canonicals, sitemap and robots agree; previews are not indexed',()=>{
     for(const url of urls){const u=new URL(url);assert.equal(u.origin,origin);const html=read(u.pathname==='/'?'index.html':u.pathname.slice(1)+'.html');assert.ok(html.includes('rel="canonical" href="'+url+'"'));assert.ok(html.includes('content="index,follow"'));assert.ok(html.includes('og:site_name" content="AIBin"'));}
   }else{assert.ok(robots.includes('Disallow: /'));assert.ok(!sitemap.includes('<loc>'));assert.ok(home.includes('content="noindex,follow"'));}
 });
+
+test('Google Search Console verification file is published unmodified at the site root',()=>{
+  const file='google8d69054a5244e64f.html';
+  const original=fs.readFileSync(path.join('verification',file));
+  assert.equal(original.toString('utf8'),'google-site-verification: google8d69054a5244e64f.html');
+  assert.deepEqual(fs.readFileSync(path.join('dist',file)),original);
+});

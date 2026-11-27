@@ -12,6 +12,9 @@ const research=JSON.parse(fs.readFileSync('prompt-agents/research.json','utf8'))
 const assistants=[...catalog,...promptAgents];
 const automations=JSON.parse(fs.readFileSync('automations/catalog.json','utf8'));
 const out='dist'; fs.mkdirSync(out,{recursive:true});
+// Google Search Console HTML ownership verification: preserve the provided filename and bytes.
+fs.copyFileSync('verification/google8d69054a5244e64f.html',path.join(out,'google8d69054a5244e64f.html'));
+
 // Keep the existing canonical until aibin.me is verified on the production project.
 // Set SITE_URL=https://aibin.me when the new domain is live.
 const rawSite=process.env.SITE_URL || (process.env.VERCEL_ENV==='production' ? 'https://agentshelf-zeta.vercel.app' : '');
