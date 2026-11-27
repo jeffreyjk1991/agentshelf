@@ -1,0 +1,17 @@
+name: AIBin public indexing diagnostic
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/check-search-indexing.mjs'
+permissions:
+  contents: read
+jobs:
+  public-indexing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - run: node scripts/check-search-indexing.mjs
