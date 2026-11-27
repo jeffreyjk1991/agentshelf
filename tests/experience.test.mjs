@@ -16,15 +16,15 @@ test('task-first builder creates tailored instructions locally with a supported 
  assert.equal(y.provider,'claude');assert.equal(y.frequency,'once');assert.ok(y.prompt.includes('Write a caption for my photo'));
  const z=buildVibeAgent({goal:'Plan a quantum spacecraft',frequency:'once',templates:[]});assert.equal(z.template,null);
  assert.throws(()=>buildVibeAgent({goal:'hi'}));assert.throws(()=>buildVibeAgent({goal:'Find a job',provider:'bad'}));
- assert.equal(recurringIntent('every month review bills'),'monthly');assert.equal(recurringIntent('weekly groceries'),'weekly');assert.equal(recurringIntent('write a caption'),'once');
+ assert.equal(recurringIntent('every month review bills'),'monthly');assert.equal(recurringIntent('weekly groceries'),'weekly');assert.equal(recurringIntent('write a caption'),'once');assert.equal(recurringIntent('check prices every Tuesday'),'weekly');assert.equal(recurringIntent('Check flight prices once, do not monitor'),'once');assert.match(buildVibeAgent({goal:'Check prices every day',frequency:'once',templates}).prompt,/Do not schedule it/);assert.equal(chooseTemplate('every morning',templates,'daily'),null);
  assert.equal(chooseTemplate('every morning',templates,'daily'),null);
  assert.equal(buildVibeAgent({goal:'Find jobs',frequency:'daily',provider:'claude',templates}).provider,'chatgpt');
 });
 test('homepage and builder expose the personalized flow without removing any catalog cards',()=>{
- for(const h of [home,builder])for(const marker of ['class="vibe-form"','name="goal"','name="frequency"','name="provider"','class="vibe-result" hidden','class="vibe-prompt assistant-prompt"','vibe-copy','vibe-save','vibe-download','/assets/experience.mjs'])assert.ok(h.includes(marker),marker);
+ for(const h of [home,builder])for(const marker of ['class="vibe-form" method="post"','name="goal"','name="frequency"','name="provider"','class="vibe-result" hidden','class="vibe-prompt assistant-prompt"','vibe-copy','vibe-save','vibe-download','/assets/experience.mjs'])assert.ok(h.includes(marker),marker);
  assert.equal((home.match(/ data-agent /g)||[]).length,213);
- for(const slug of ['flight-price-watcher','job-opening-scout','grocery-deal-scout','daily-news-brief','product-deal-watcher','bill-reminder'])assert.ok(home.includes('class="recurring-tile" href="/automations/'+slug+'"'));
- assert.ok(home.includes('AIBin does not run tasks in the background.'));
+ for(const slug of ['flight-price-watcher','job-opening-scout','grocery-deal-scout','daily-news-brief','product-deal-watcher','bill-reminder'])assert.ok(home.includes('href="/automations/'+slug+'"'));
+ assert.ok(home.includes('href="/automations"'));assert.ok(!home.includes('class="recurring-strip"'));assert.ok(!home.includes('class="intent-shortcuts"'));assert.ok(!home.includes('class="home-actions"'));assert.ok(home.includes('id="category-summary"'));assert.ok(home.includes('Your chosen AI chat runs the task.'));
 });
 test('build checks and original worked examples are visible with honest scope',()=>{
  const routes=['agents/professional-headshot-maker','agents/passport-photo-maker','agents/social-caption-writer','agents/video-editing-assistant','automations/flight-price-watcher','automations/job-opening-scout','agents/family-vacation-planner'];
@@ -54,5 +54,5 @@ test('SEO preserves canonicals and adds crawlable feature pages and social metad
  assert.ok(home.includes('content="summary_large_image"'));if(home.includes('content="index,follow"'))assert.ok(home.includes('property="og:image"'));
  assert.ok(builder.includes('"@type":"WebApplication"'));assert.ok(builder.includes('AIBin Vibe Agent Builder'));
  for(const name of ['experience-core.mjs','experience.mjs','offline.mjs','my-agents.mjs','submit-agent.mjs']){const p=spawnSync(process.execPath,['--check','dist/assets/'+name],{encoding:'utf8'});assert.equal(p.status,0,p.stderr);}
- assert.ok(read('assets/my-agents.mjs').includes("event(last?'return_visit':'first_visit',slug||'site')"));
+ assert.ok(read('assets/my-agents.mjs').includes("event(last?'return_visit':'first_visit',slug||'site')"));assert.ok(read('assets/experience.mjs').includes('if(request!==revision)return'));assert.ok(read('assets/experience.mjs').includes('catalogPromise=null'));assert.ok(read('assets/experience.mjs').includes('shareFile&&navigator.canShare'));
 });
