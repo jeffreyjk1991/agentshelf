@@ -36,7 +36,7 @@ if(shared){
 if(!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'&&localStorageSafe('agentshelf:analytics-off')!=='1'){
  const source=classifyReferral(location.search,document.referrer,location.origin);
  let kind='page_view';
- try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000){kind=last?'return_visit':'first_visit';event(kind,slug||'site',{source,landingKind:landingKind(path)});}localStorage.setItem('agentshelf:last-visit',String(now));}catch{}
+ try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000){kind=last?'return_visit':'first_visit';event(last?'return_visit':'first_visit',slug||'site',{source,landingKind:landingKind(path)});}localStorage.setItem('agentshelf:last-visit',String(now));}catch{}
  // Only the public canonical pathname is sent, never a query, hash, prompt or identifier.
  const publicPath=(path.replace(/\.html$/,'').replace(/^\/index$/,'/')||'/');
  fetch('/api/traffic',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind,path:publicPath,source}),keepalive:true}).catch(()=>{});
