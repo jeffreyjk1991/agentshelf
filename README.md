@@ -61,3 +61,5 @@ Vercel's build command invokes `npm run verify:deploy`; the full test suite incl
 
 ## Compatibility marks
 Every chat-compatible listing displays one small recommended AI chat logo, and its detail page shows compatible chat logos with accessible names. Generic ready-made instructions support ChatGPT, Claude and Gemini; scheduled templates support ChatGPT and Gemini where the account allows scheduling. Browser workflows that use public data directly keep their lightning mark; they do not claim a chat integration. Community-linked agents show their actual platform where known. The home categories and voting ranking remain unchanged.
+
+After linking the existing Neon database in Vercel, redeploy the production project so its serverless functions receive the integration environment variables. Verify `/api/marketplace-votes` returns HTTP 200 with a `totals` array before considering voting enabled; do not expose connection strings in logs or source control.
