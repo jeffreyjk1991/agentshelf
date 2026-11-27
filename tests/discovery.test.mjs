@@ -46,3 +46,12 @@ test('fixed AI referral categories, never arbitrary URL or personal inputs',()=>
 });
 
 test('IndexNow public ownership key exists only on the canonical production build',()=>{const key='ad27013b45c6445a9b43c9b3e2706ef1';if(indexed&&home.includes('rel="canonical" href="https://www.aibin.me/"'))assert.equal(read(key+'.txt').trim(),key);});
+
+test('marketplace search intent has useful distinct canonical destinations',()=>{
+ const guide=read('ai-marketplace-platforms.html');
+ for(const phrase of ['What is an AI marketplace?','Is there a free AI marketplace?','AWS Marketplace','Facebook Marketplace','Optum AI Marketplace','Hugging Face Hub','GPT Store','AgentMarket','No tool or marketplace can guarantee that income'])assert.ok(guide.includes(phrase),phrase);
+ for(const [file,phrase] of [['index.html','Free AI Agent Marketplace'],['agent-packs.html','Free AI Prompt Marketplace'],['creators.html','AI Creator Marketplace'],['developers.html','Open-Source AI Agent Marketplace']]){const html=read(file);assert.ok(html.includes(phrase),file);assert.ok(html.includes('href="/ai-marketplace-platforms"'),file);}
+ assert.ok(guide.includes('href="/make-agent"'));assert.ok(guide.includes('href="/community"'));assert.ok(read('llms.txt').includes('/ai-marketplace-platforms'));
+ if(indexed){assert.ok(map.includes('/ai-marketplace-platforms</loc>'));assert.ok(guide.includes('rel="canonical" href="https://www.aibin.me/ai-marketplace-platforms"'));}
+ const cfg=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(cfg.rewrites.some(r=>r.source==='/ai-marketplace-platforms'&&r.destination==='/ai-marketplace-platforms.html'));
+});
