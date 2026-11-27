@@ -1,3 +1,4 @@
+import {compatibilityIcons} from './compatibility.mjs';
 import fs from 'node:fs';
 import {makeAssistantPrompt} from '../assets/prompt-engine.mjs';
 import {CHATS,recommendedChat} from '../assets/chat-fit.mjs';
@@ -20,7 +21,7 @@ export function readyPanel({esc,name,slug,prompt,provider= recommendedChat(slug)
  if(!allowed.includes(provider))provider=allowed[0];
  const chat=CHATS[provider],setup=scheduled?SCHEDULERS[provider]:chat;
  const label=scheduled?'Scheduled agent instructions':'Ready-to-use agent instructions';
- const html='<section class="nocode-panel ready-panel" id="'+esc(id)+'" data-ready-agent data-slug="'+esc(slug)+'" data-name="'+esc(name)+'" data-scheduled="'+(scheduled?'true':'false')+'"><div class="ready-heading"><h2>Your agent is ready</h2><span class="ready-tag">Free</span></div>'
+ const html='<section class="nocode-panel ready-panel" id="'+esc(id)+'" data-ready-agent data-slug="'+esc(slug)+'" data-name="'+esc(name)+'" data-scheduled="'+(scheduled?'true':'false')+'"><div class="ready-heading"><h2>Your agent is ready</h2>'+compatibilityIcons({esc,slug,scheduled,preferred:provider})+'</div>'
  +'<p class="ready-description">'+esc(label)+'. No setup questions on AIBin.</p>'
  +'<div class="ready-actions"><a class="btn primary ready-use" href="'+esc(chat.url)+'"><img class="ready-logo" src="'+esc(chat.logo)+'" width="20" height="20" alt="">Use in '+esc(chat.name)+' ↗</a><a class="btn secondary ready-download" href="'+esc(agentFile(slug))+'" download>Download agent ↓</a></div>'
  +'<p class="ready-hint">Use copies the instructions and opens your AI chat. Paste to start.'+(scheduled?' Confirm the scheduled task in your chat.':'')+'</p>'

@@ -1,3 +1,5 @@
+import {compatibleChats} from '../scripts/compatibility.mjs';
+import {CHATS,recommendedChat} from '../assets/chat-fit.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -20,10 +22,13 @@ for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  assert.ok(home.includes('data-filter="'+a.category+'"'));assert.ok(html.includes('<h1>'));
  assert.ok(html.includes('<title>')&&html.includes('name="description"'));
  if(sitemap.includes('<loc>')){assert.ok(sitemap.includes(url+'</loc>'));assert.ok(html.includes('href="https://www.aibin.me'+url+'"')||process.env.SITE_URL);}
+ const homeCard=[...home.matchAll(/<a class="agent mini-card[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)].find(m=>m[1]===url)?.[0];assert.ok(homeCard,'Home card missing');
  if(route==='live-agents'){
+  assert.ok(homeCard.includes('class="live-indicator"'));assert.ok(!homeCard.includes('class="compatibility-icon"'));
   const req=requestFor(normalizeRun({slug:a.slug,input:a.example}));assert.equal(new URL(req.url).protocol,'https:');
   assert.ok(html.includes('id="live-form"'));assert.ok(html.includes('class="text-button live-example"'));
  }else{
+  const ids=compatibleChats(a.slug,route==='automations',route==='automations'?a.provider:recommendedChat(a.slug));assert.ok(homeCard.includes('class="compatibility-icon" data-chat="'+ids[0]+'"'));assert.ok(homeCard.includes('src="'+CHATS[ids[0]].logo+'"'));const detailGroup=html.match(/<span class="compatibility-icons"[^>]*>[\s\S]*?<\/span>/)?.[0];assert.ok(detailGroup);for(const id of ids){assert.ok(detailGroup.includes('data-chat="'+id+'"'));assert.ok(fs.existsSync('dist'+CHATS[id].logo));}assert.equal((detailGroup.match(/class="compatibility-icon"/g)||[]).length,ids.length);
   const file='/downloads/'+a.slug+'-agent.txt',expected=route==='automations'?readySchedulePrompt(a):makeAssistantPrompt(route==='tools'?toolGoal(a):a.task,'Simple and concise',a.name);
   assert.equal(read('dist'+file),expected+'\n');assert.ok(html.includes('href="'+file+'" download'));
   assert.ok(html.includes('class="btn primary ready-use"'));assert.ok(html.includes('Customize (optional)'));
