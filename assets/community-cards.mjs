@@ -13,7 +13,7 @@ export async function readCommunity(){
 }
 export async function fetchCommunityCards(){
  const agents=await readCommunity();return agents.map(a=>{
-  const card=node('a','','agent mini-card community-card');card.dataset.agent='';card.dataset.title=a.name;card.dataset.name=[a.name,a.description,a.category,a.creator].join(' ');card.dataset.category=a.category;card.dataset.mode='community';card.href='/community#agent-'+a.id;
+  const card=node('a','','agent mini-card community-card');card.dataset.agent='';card.dataset.slug='community-'+a.id;card.dataset.title=a.name;card.dataset.name=[a.name,a.description,a.category,a.creator].join(' ');card.dataset.category=a.category;card.dataset.mode='community';card.href='/community#agent-'+a.id;
   const icon=node('span','✳','agenticon');icon.setAttribute('aria-hidden','true');const copy=node('div','','mini-copy'),title=node('span',a.name,'agent-title'),mark=platformMark(a.provider);if(mark)title.append(mark);
   copy.append(title,node('span',a.description,'mini-description'),node('span','By '+a.creator,'agent-creator'));const arrow=node('span','›','chevron');arrow.setAttribute('aria-hidden','true');card.append(icon,copy,arrow);return card;
  });
