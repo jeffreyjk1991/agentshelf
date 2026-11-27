@@ -81,8 +81,7 @@
 .is-playing .flow-node{animation:collection-stage .85s ease-in-out 1 both}
 .is-playing .flow-step-1 .flow-node{animation-delay:.12s}.is-playing .flow-step-2 .flow-node{animation-delay:1.02s}.is-playing .flow-step-3 .flow-node{animation-delay:1.92s}.is-playing .flow-step-4 .flow-node{animation-delay:2.82s}
 .flow-output{margin-top:10px;background:#dff3e4;border-color:#c8ead4;color:#163f2d}
-.flow-output small{color:#456456}
-.flow-output .collection-icon{color:#146a48}
+.flow-output small,.flow-output .collection-icon{color:inherit}
 .is-playing .flow-output{animation:collection-result .55s ease-out 3.65s 1 both}
 .flow-three.is-playing .flow-output{animation-delay:2.75s}
 .demo-tool .flow-output strong{font-size:20px;letter-spacing:-.035em}
@@ -197,16 +196,24 @@
 /* The larger mascot lives in the headline's existing first-line whitespace.
    It is absolutely positioned and does not create an extra hero row. */
 .home-headline{position:relative;--robot-size:clamp(72px,10vw,108px)}
-.home-headline .hero-kicker{padding-right:var(--robot-size)}
-.future-hero .home-headline h1{text-indent:calc(-1 * var(--robot-size));}
-.home-robot{position:absolute;right:0;top:0;width:var(--robot-size);height:auto;aspect-ratio:1;pointer-events:none;display:block}
+.home-headline .hero-kicker{padding-right:calc(var(--robot-size) + 8px)}
+/* Reserve an actual right-side column for the first headline line. The second
+   line uses the full original width, below the mascot. No new vertical row. */
+.future-hero .home-headline h1{padding-right:calc(var(--robot-size) + 8px);text-indent:0}
+.future-hero .home-headline h1 br{display:none}
+.future-hero .home-headline h1>span{display:block;width:calc(100% + var(--robot-size) + 8px);text-align:center}
+.home-robot{position:absolute;right:0;top:0;width:var(--robot-size);height:auto;aspect-ratio:1;pointer-events:none;display:block;overflow:hidden}
 .home-robot-art{display:block;width:100%;height:100%;overflow:hidden;animation:home-robot-greet 2.15s ease-in-out 2}
 .home-robot .robot-body{transform-box:fill-box;transform-origin:center;animation:home-robot-bob 2.15s ease-in-out 2}
 .home-robot .robot-wave{transform-origin:73px 65px;animation:home-robot-wave 1.2s ease-in-out .2s 3}
 .home-robot .robot-eyes{transform-box:fill-box;transform-origin:center;animation:home-robot-blink .5s ease-in-out 1.35s 1}
 .home-robot .robot-spark{transform-box:fill-box;transform-origin:center;animation:home-robot-spark 1.45s ease-in-out .1s 2}
 .home-robot .robot-orbit{animation:home-robot-orbit 2.1s ease-in-out 2}
-@media(max-width:700px){.home-headline{--robot-size:clamp(60px,17.5vw,76px)}}
+@media(max-width:700px){
+ .home-headline{--robot-size:clamp(60px,16vw,76px)}
+ .future-hero .home-headline h1::first-line{font-size:clamp(33px,9.2vw,51px)}
+}
+@media(max-width:360px){.home-headline .hero-kicker{letter-spacing:.08em;gap:5px;white-space:nowrap}}
 @keyframes home-robot-greet{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-5deg)}70%{transform:rotate(3deg)}}
 @keyframes home-robot-bob{0%,100%{transform:translateY(0)}45%{transform:translateY(-5px)}}
 @keyframes home-robot-wave{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-28deg)}70%{transform:rotate(12deg)}}

@@ -97,7 +97,7 @@ if(creatorRoot){
 export {shareCard};
 
 
-// Illustrations are intentionally static without JS; replay restarts only local CSS motion.
+// CSS illustrates the workflow independently of JS; replay restarts only local CSS motion.
 for(const flow of document.querySelectorAll('.collection-flow')){
  const replay=flow.querySelector('.flow-replay');if(!replay)continue;
  replay.hidden=false;

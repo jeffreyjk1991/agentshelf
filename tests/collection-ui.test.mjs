@@ -18,7 +18,7 @@ test('home robot is decorative and stays within the original hero; library actio
  assert.equal((home.match(/class="home-robot"/g)||[]).length,1);
  assert.match(home,/<div class="home-headline"><div class="hero-kicker">[\s\S]*?<\/h1><span class="home-robot" aria-hidden="true">[\s\S]*?<\/svg><\/span><\/div>/);
  assert.match(css,/\.home-robot\{position:absolute;/);
- assert.ok(css.includes('pointer-events:none'));assert.ok(css.includes('animation:home-robot-greet 2.15s ease-in-out 2'));assert.ok(css.includes('animation:home-robot-wave 1.2s ease-in-out .2s 3'));
+ assert.ok(css.includes('pointer-events:none'));assert.ok(css.includes('animation:home-robot-greet 2.15s ease-in-out 2'));assert.ok(css.includes('padding-right:calc(var(--robot-size) + 8px);text-indent:0'));assert.ok(css.includes('h1>span{display:block;width:calc(100% + var(--robot-size) + 8px)'));assert.ok(css.includes('animation:home-robot-wave 1.2s ease-in-out .2s 3'));
  assert.ok(!css.match(/animation:home-robot-[^;]*infinite/));
  assert.equal((agents.match(/ data-agent /g)||[]).length,142);assert.equal((tools.match(/ data-agent /g)||[]).length,46);
  assert.ok(agents.includes('class="agent-section-links"'));assert.ok(agents.includes('aria-label="Search AI assistants"'));assert.ok(tools.includes('aria-label="Search online tools"'));
