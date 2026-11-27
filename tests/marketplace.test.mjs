@@ -26,10 +26,10 @@ test('bounded source requests and response parsing (mocked providers)',async()=>
  assert.equal(formatResult(liveSlugs[1],{items:[{full_name:'x/y',html_url:'https://evil.example/x/y'}]}).rows.length,0);
  assert.equal(formatResult(liveSlugs[2],{hits:[{title:'Story',objectID:'12',points:9,created_at:'2026-11-25'}]}).rows[0].url,'https://news.ycombinator.com/item?id=12');
 });
-test('201 helpers, live pages, submission, SEO and unchanged tagline',()=>{
+test('210 helpers, live pages, submission, SEO and unchanged tagline',()=>{
  const h=read('index.html'),s=read('sitemap.xml'),c=JSON.parse(read('live-agents.json'));
- assert.equal(c.count,5);assert.equal((h.match(/ data-agent /g)||[]).length,201);
- assert.ok(h.includes('Show all 201 helpers'));assert.ok(!h.includes('id="market-sort"'));assert.equal((h.match(/class="live-indicator"/g)||[]).length,5);assert.ok(h.includes('/assets/marketplace.css'));assert.ok(h.includes('Put AI to work.'));
+ assert.equal(c.count,5);assert.equal((h.match(/ data-agent /g)||[]).length,210);
+ assert.ok(h.includes('Show all 210 helpers'));assert.ok(!h.includes('id="market-sort"'));assert.equal((h.match(/class="live-indicator"/g)||[]).length,5);assert.ok(h.includes('/assets/marketplace.css'));assert.ok(h.includes('Put AI to work.'));
  for(const a of c.agents){const path='/live-agents/'+a.slug,html=read(path.slice(1)+'.html');assert.ok(h.includes('href="'+path+'"'));assert.ok(html.includes('id="live-form"'));assert.ok(html.includes('Example request'));assert.ok(html.includes('data-live-slug="'+a.slug+'"'));assert.ok(html.includes('WebApplication'));if(s.includes('<loc>'))assert.ok(s.includes(path+'</loc>'));assert.ok(read('llms.txt').includes(path));}
  assert.ok(read('community.html').includes('id="submit-agent"'));assert.ok(read('community.html').includes('/assets/submit-agent.mjs'));assert.ok(read('llms.txt').includes('/live-agents.json'));assert.ok(fs.existsSync('dist/downloads/aibin-agent-runner.zip'));
 });

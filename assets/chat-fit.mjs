@@ -34,6 +34,16 @@ export const CHATS={
   }
 };
 const choices={
+  "social-media-content-calendar": "claude",
+  "reels-hook-generator": "chatgpt",
+  "social-media-hashtag-generator": "gemini",
+  "passport-photo-generator": "chatgpt",
+  "professional-headshot-generator": "chatgpt",
+  "photo-editing-assistant": "chatgpt",
+  "video-editing-assistant": "gemini",
+  "video-subtitle-generator": "chatgpt",
+  "long-video-to-shorts": "gemini",
+
   "seo-article-writer": "claude",
   "seo-faq-builder": "claude",
   "seo-content-gap": "gemini",

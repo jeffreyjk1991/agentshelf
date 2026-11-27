@@ -5,8 +5,8 @@ import {makeAssistantPrompt} from '../assets/prompt-engine.mjs';
 import {readySchedulePrompt,toolGoal} from '../scripts/ready-agents.mjs';
 const read=p=>fs.readFileSync('dist/'+p,'utf8');
 const catalog=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-test('all 196 ready instruction downloads exist, exactly match defaults, and require no customization',()=>{
- const index=JSON.parse(read('ready-agents.json'));assert.equal(index.count,196);
+test('all 205 ready instruction downloads exist, exactly match defaults, and require no customization',()=>{
+ const index=JSON.parse(read('ready-agents.json'));assert.equal(index.count,205);
  const assistants=[...catalog('catalog.json'),...catalog('prompt-agents/catalog.json')];
  const automations=catalog('automations/catalog.json'),tools=catalog('everyday/catalog.json');
  for(const [items,prefix,prompt] of [[assistants,'agents',a=>makeAssistantPrompt(a.task,'Simple and concise',a.name)],[automations,'automations',readySchedulePrompt],[tools,'tools',a=>makeAssistantPrompt(toolGoal(a),'Simple and concise',a.name)]]){
@@ -14,5 +14,5 @@ test('all 196 ready instruction downloads exist, exactly match defaults, and req
  }
 });
 test('home uses task categories only and preserves SEO and the tagline',()=>{
- const h=read('index.html');assert.ok(!h.includes('data-filter="Use here"'));assert.ok(!h.includes('data-filter="Get agent"'));assert.ok(!h.includes('data-filter="Live agents"'));assert.ok(!h.includes('id="market-sort"'));for(const category of ['All','Travel','Research','Coding','Community'])assert.ok(h.includes('data-filter="'+category+'"'));assert.ok(h.includes('Put AI to work.<br><span>For everyday life.</span>'));assert.equal((h.match(/ data-agent /g)||[]).length,201);assert.ok(read('llms.txt').includes('/ready-agents.json'));assert.ok(read('google8d69054a5244e64f.html').includes('google-site-verification:'));
+ const h=read('index.html');assert.ok(!h.includes('data-filter="Use here"'));assert.ok(!h.includes('data-filter="Get agent"'));assert.ok(!h.includes('data-filter="Live agents"'));assert.ok(!h.includes('id="market-sort"'));for(const category of ['All','Travel','Research','Coding','Community'])assert.ok(h.includes('data-filter="'+category+'"'));assert.ok(h.includes('Put AI to work.<br><span>For everyday life.</span>'));assert.equal((h.match(/ data-agent /g)||[]).length,210);assert.ok(read('llms.txt').includes('/ready-agents.json'));assert.ok(read('google8d69054a5244e64f.html').includes('google-site-verification:'));
 });

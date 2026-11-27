@@ -68,7 +68,7 @@ try{
   });
   assert.ok(aligned.center<2,JSON.stringify(aligned));assert.ok(Math.abs(aligned.summaryHeight-aligned.linkHeight)<2,JSON.stringify(aligned));assert.equal(aligned.overflow,false);
   await summary.click();await page.locator('.footer-more-links a').first().waitFor({state:'visible'});assert.equal(await page.locator('.footer-details').getAttribute('open'),'');
-  await summary.click();await more.click();assert.equal(await more.isVisible(),false);assert.ok(await page.locator('#search-grid [data-agent]:not([hidden])').count()>=201);
+  await summary.click();await more.click();assert.equal(await more.isVisible(),false);assert.ok(await page.locator('#search-grid [data-agent]:not([hidden])').count()>=210);
   await page.goto(base+'/community');assert.equal(await page.getByLabel('Username',{exact:true}).count(),1);
   console.log('BROWSER_LAYOUT PASS '+width+'px: centered expansion, footer More alignment, Username field');
   await ctx.close();

@@ -1,0 +1,18 @@
+name: Verify AIBin production submission
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/check-submission-release.mjs'
+permissions:
+  contents: read
+jobs:
+  production-submission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Verify new production form, database read and actual pending submission
+        run: node scripts/check-submission-release.mjs
