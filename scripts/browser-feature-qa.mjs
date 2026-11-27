@@ -1,0 +1,96 @@
+// Browser tests run against a locally built site with mocked APIs. They never write to production or call external AI services.
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createServer} from 'node:http';
+const root=path.resolve('dist');
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png','.svg':'image/svg+xml','.txt':'text/plain'};
+const events=[];
+let community=[],catalogFailures=0;
+const server=createServer(async(req,res)=>{
+ const url=new URL(req.url,'http://localhost');const name=url.pathname;
+ if(name.startsWith('/api/')){
+  res.setHeader('Content-Type','application/json');
+  if(name==='/api/submissions'&&req.method==='GET'){res.end(JSON.stringify({agents:community}));return;}
+  if(name==='/api/engagement'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;events.push(JSON.parse(body));res.end('{}');return;}
+  res.statusCode=503;res.end('{}');return;
+ }
+ if(name==='/agent-experience.json'&&catalogFailures>0){catalogFailures--;res.statusCode=503;res.end('Unavailable');return;}
+ try{let file=path.resolve(root,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(root+path.sep))throw Error('Invalid path');if(!path.extname(file))file+='.html';
+ const b=await fs.readFile(file);res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'");res.end(b);
+ }catch{res.statusCode=404;res.end('Not found');}
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const base='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch({headless:true});
+const failures=[];
+async function run(name,fn){try{await fn();console.log('PASS',name);}catch(error){failures.push(name);console.error('FAIL',name,error.stack);}}
+async function ctx(width=390){const c=await browser.newContext({viewport:{width,height:844},acceptDownloads:true,permissions:['clipboard-read','clipboard-write'],serviceWorkers:'block'});const p=await c.newPage();p.setDefaultTimeout(8000);const errors=[];p.on('pageerror',e=>errors.push(e.message));return {c,p,errors};}
+async function visible(p,selector){await p.locator(selector).first().waitFor({state:'visible'});}
+async function go(p,route){await p.goto(base+route);await p.waitForLoadState('domcontentloaded');}
+async function create(p,goal){await p.locator('#vibe-goal').fill(goal);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');}
+try{
+ await run('Homepage responsive, compact and fully navigable',async()=>{
+  for(const w of [360,390,768,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/');await p.waitForSelector('#search-grid.library-ready');assert.equal(await p.locator('.vibe-form').count(),1);assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),6);
+   assert.equal(await p.locator('#search-grid > [data-agent]').count(),213);assert.equal(await p.locator('.recurring-strip,.intent-shortcuts,.home-actions').count(),0);
+   assert.equal(await p.locator('#category-summary').textContent(),'All categories');assert.equal(await p.locator('.home-category-picker').getAttribute('open'),null);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow at '+w);
+   await p.locator('#category-summary').click();await p.locator('[data-filter="Photography"]').click();assert.equal(await p.locator('#category-summary').textContent(),'Photography');
+   assert.ok((await p.locator('#search-grid > [data-agent]:visible').count())>0);
+   assert.ok(await p.locator('#search-grid > [data-agent]:visible').evaluateAll(nodes=>nodes.every(n=>n.dataset.category==='Photography')));
+   await p.locator('#category-summary').click();await p.locator('[data-filter="All"]').click();await p.locator('#search').fill('passport photo');assert.ok((await p.locator('#search-grid > [data-agent]:visible').first().textContent()).includes('Passport Photo'));
+   await p.locator('#search').fill('zzzzzznotanagent');await visible(p,'#empty');await p.locator('#search').fill('');await p.locator('#show-more').click();assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),213);
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
+ await run('Personalized builder, retry, invalidation, clipboard, download and save',async()=>{
+  const {c,p,errors}=await ctx();try{
+   catalogFailures=1;await go(p,'/');await create(p,'Find job openings for a data analyst every morning');assert.ok((await p.locator('.vibe-prompt').inputValue()).includes('Find job openings for a data analyst'));
+   await p.locator('#vibe-goal').fill('Find job openings for a business analyst every morning');assert.equal(await p.locator('.vibe-result').isVisible(),false);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');assert.equal(await p.locator('.vibe-match').getAttribute('href'),'/automations/job-opening-scout');
+   await p.locator('.vibe-copy').click();await p.waitForFunction(()=>document.querySelector('.vibe-result-status').textContent.includes('copied'));const copied=await p.evaluate(()=>navigator.clipboard.readText());assert.ok(copied.includes('business analyst'));
+   const download=p.waitForEvent('download');await p.locator('.vibe-download').click();assert.equal((await download).suggestedFilename(),'aibin-custom-agent.txt');
+   await p.locator('.vibe-save').click();assert.ok(await p.locator('.vibe-save').isDisabled());
+   await go(p,'/my-agents');await visible(p,'#saved-list .saved-card');assert.equal(await p.locator('#saved-list .saved-card').count(),1);assert.ok((await p.locator('#saved-list .saved-card').first().textContent()).includes('Job Opening Scout'));
+   await p.locator('#saved-list').getByRole('button',{name:'Remove',exact:true}).click();await visible(p,'#saved-empty');assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
+ await run('Recurring request and explicit one-time override',async()=>{
+  const {c,p,errors}=await ctx();try{
+   await go(p,'/');await create(p,'Check my flight prices every Tuesday');assert.ok((await p.locator('.vibe-mode').textContent()).includes('Weekly'));assert.match(await p.locator('.vibe-prompt').inputValue(),/only if this chat supports scheduling/);assert.match(await p.locator('.vibe-limits').textContent(),/Not active/);
+   await p.locator('.vibe-options summary').click();await p.locator('.vibe-form select[name=frequency]').selectOption('once');await p.locator('.vibe-form select[name=provider]').selectOption('claude');await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');assert.match(await p.locator('.vibe-mode').textContent(),/One-time assistant.*Claude/);assert.match(await p.locator('.vibe-prompt').inputValue(),/Do not schedule it/);
+   await go(p,'/automations/flight-price-watcher');await visible(p,'.ready-use');assert.match(await p.locator('.ready-hint').textContent(),/Confirm the scheduled task/);assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
+ await run('Worked examples, capability disclosure and one share action',async()=>{
+  const {c,p,errors}=await ctx();try{
+   await go(p,'/agents/professional-headshot-maker');await visible(p,'.worked-example');assert.match(await p.locator('.worked-example').textContent(),/Editorial sample, not a live response/);
+   await visible(p,'.qa-line summary');await p.locator('.qa-line summary').click();assert.match(await p.locator('.qa-line').textContent(),/not independently certified/);
+   assert.equal(await p.getByRole('button',{name:'Share ↗',exact:true}).count(),1);await p.getByRole('button',{name:'Share ↗',exact:true}).click();await visible(p,'.share-dialog');const dimensions=await p.locator('.share-dialog img').evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));assert.deepEqual(dimensions,{w:1080,h:1080});
+   await p.getByRole('button',{name:'Copy link',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.share-dialog [role=status]').textContent.includes('copied'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),'https://www.aibin.me/agents/professional-headshot-maker');
+   const download=p.waitForEvent('download');await p.getByRole('button',{name:'Download PNG'}).click();const d=await download;assert.equal(d.suggestedFilename(),'aibin-agent-card.png');const b=await fs.readFile(await d.path());assert.equal(b.readUInt32BE(16),1080);assert.equal(b.readUInt32BE(20),1080);
+   await p.getByRole('button',{name:'Close ×'}).click();assert.equal(await p.locator('.share-dialog').count(),0);
+   await go(p,'/my-agents');await visible(p,'#recent-list .starter-row');assert.match(await p.locator('#recent-list').textContent(),/Professional Headshot/);await p.locator('#clear-recent').click();assert.equal(await p.locator('#recent-panel').isVisible(),false);assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
+ await run('Mobile install guidance and public-only offline cache',async()=>{
+  const c=await browser.newContext({viewport:{width:390,height:844}});const p=await c.newPage();p.setDefaultTimeout(10000);try{
+   await go(p,'/');await p.evaluate(()=>navigator.serviceWorker.ready);await p.waitForFunction(()=>!!navigator.serviceWorker.controller);
+   await go(p,'/my-agents');await p.locator('#install-aibin').click();await visible(p,'#install-help');
+   await c.setOffline(true);await p.goto(base+'/make-agent');await create(p,'Help me write a one-time thank-you message');assert.match(await p.locator('.vibe-prompt').inputValue(),/thank-you message/);
+   const paths=await p.evaluate(async()=>{const names=await caches.keys();const keys=await (await caches.open(names.find(x=>x.startsWith('aibin-public-')))).keys();return keys.map(x=>new URL(x.url).pathname);});
+   assert.ok(paths.includes('/make-agent'));assert.ok(!paths.some(x=>x.startsWith('/api/')||x==='/community'||x==='/shared-agent'));await c.setOffline(false);
+  }finally{await c.close();}
+ });
+ await run('Real creator empty state and approved fixture collection, count and share',async()=>{
+  const {c,p,errors}=await ctx();try{
+   await go(p,'/creators');await p.waitForFunction(()=>document.querySelector('#creator-status').textContent.includes('No approved community creators'));
+   community=[{id:'91',creator:'sample-maker',name:'Sample workflow',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Write an itinerary using public sources.',provider:'chatgpt',usage_count:3},{id:'92',creator:'SAMPLE-MAKER',name:'Second fixture',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Check route options.',provider:'chatgpt',usage_count:2}];
+   await go(p,'/creators#sample-maker');await visible(p,'.creator-card');assert.equal(await p.locator('.creator-card').count(),1);assert.match(await p.locator('.creator-card').textContent(),/5 recorded chat\/agent opens/);
+   await p.getByRole('button',{name:'Share collection ↗',exact:true}).click();await visible(p,'.share-dialog');assert.match(await p.locator('.share-direct-link').textContent(),/creators#sample-maker/);await p.getByRole('button',{name:'Close ×'}).click();
+   await go(p,'/community#agent-91');await visible(p,'#agent-91');assert.match(await p.locator('#agent-91').textContent(),/3 recorded opens/);assert.equal(await p.locator('#agent-91 .agent-creator a').getAttribute('href'),'/creators#sample-maker');assert.deepEqual(errors,[]);
+  }finally{community=[];await c.close();}
+ });
+}finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
+if(failures.length){console.error('Failed browser scenarios:',failures.join(', '));process.exitCode=1;}else console.log('PASS all six browser scenario groups; all APIs mocked, no production records written.');
