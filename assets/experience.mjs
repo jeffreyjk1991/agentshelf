@@ -15,12 +15,13 @@ function templates(){return catalogPromise||(catalogPromise=fetch('/agent-experi
 for(const form of document.querySelectorAll('.vibe-form')){
  const parent=form.closest('.vibe-builder'),result=$('.vibe-result',parent),status=$('.vibe-form-status',parent),prompt=$('.vibe-prompt',parent),message=$('.vibe-result-status',parent),open=$('.vibe-open',parent),fallback=$('.vibe-fallback',parent);
  let item=null;
+ const idea=new URLSearchParams(location.search).get('idea');if(location.pathname==='/make-agent'&&idea&&idea.length<=1400)form.elements.goal.value=idea;
  for(const b of parent.querySelectorAll('[data-vibe-goal]'))b.addEventListener('click',()=>{form.elements.goal.value=b.dataset.vibeGoal;form.elements.goal.focus();});
  form.addEventListener('submit',async e=>{
   e.preventDefault();const submit=form.querySelector('button[type=submit]');submit.disabled=true;status.textContent='Preparing your instructions…';
   try{
    const v=Object.fromEntries(new FormData(form));item=buildVibeAgent({...v,templates:await templates()});
-   prompt.value=item.prompt;$('.vibe-name',parent).textContent=item.name;$('.vibe-mode',parent).textContent=(item.frequency==='once'?'One-time assistant':frequencies[item.frequency]+' task request')+' · '+CHATS[item.provider].name;
+   prompt.value=item.prompt;$('.vibe-name',parent).textContent=item.name;$('.vibe-mode',parent).textContent=(item.frequency==='once'?'One-time assistant':frequencies[item.frequency]+' task request')+' · '+CHATS[item.provider].name+(item.frequency!=='once'&&v.provider==='claude'?' (scheduling requires a supported chat)':'');
    $('.vibe-limits',parent).textContent=item.frequency==='once'?'Runs in your chosen AI chat. Your task stays on this device until you copy it.':'Confirm the schedule and notifications in your AI chat. Not active until that provider confirms it.';
    const match=$('.vibe-match',parent);match.hidden=!item.template;if(item.template){match.href=item.template.path;match.textContent='Related template: '+item.template.name+' →';}
    open.textContent='Copy & open '+CHATS[item.provider].name+' ↗';fallback.href=CHATS[item.provider].url;fallback.textContent='Open '+CHATS[item.provider].name+' ↗';fallback.hidden=true;
@@ -51,9 +52,9 @@ let shareDialog;
 function shareCard(title,description,path){
  if(!publicAgentPath(path))return;
  const url='https://www.aibin.me'+path;let canvas;try{canvas=renderShareCard(title,description,path);}catch{if(navigator.share)navigator.share({title,text:'Explore on AIBin',url}).catch(()=>{});else copyAgentText(url);return;}
- if(shareDialog)shareDialog.remove();const d=el('dialog',undefined,'share-dialog');shareDialog=d;
+ if(shareDialog){shareDialog.close?.();shareDialog.remove();}const d=el('dialog',undefined,'share-dialog');shareDialog=d;
  const close=button('Close ×',()=>d.close());const h=el('h2','Share this agent'),image=el('img');image.src=canvas.toDataURL('image/png');image.alt='AIBin share card for '+title;
- const actions=el('div',undefined,'share-buttons'),status=el('p','','vibe-status'),direct=link(url,url);direct.className='vibe-status';direct.style.overflowWrap='anywhere';status.setAttribute('role','status');
+ const actions=el('div',undefined,'share-buttons'),status=el('p','','vibe-status'),direct=link(url,url);direct.className='vibe-status';direct.classList.add('share-direct-link');status.setAttribute('role','status');
  const blob=()=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('No image')),'image/png'));
  const slug=path.match(/\/(?:agents|tools|automations|live-agents)\/([a-z0-9-]+)$/)?.[1]||path.match(/#agent-(\d+)$/)?.[1]&&'community-'+path.match(/#agent-(\d+)$/)[1]||'custom';
  actions.append(button('Download PNG',async()=>{try{download(await blob(),'aibin-agent-card.png');event('share',slug);status.textContent='Card downloaded. Share it together with the direct link.';}catch{status.textContent='Could not create image.';}},'btn secondary'),button('Copy link',async()=>{status.textContent=await copyAgentText(url)?'Direct link copied.':'Select the link below to copy.';event('share',slug);},'btn secondary'),button('Share',async()=>{if(!navigator.share){status.textContent=await copyAgentText(url)?'Link copied. Download the PNG to attach it.':'Download the PNG and copy the link.';return;}try{const file=new File([await blob()],'aibin-agent-card.png',{type:'image/png'});const payload={title,text:'Explore this AI helper on AIBin',url};if(navigator.canShare?.({files:[file]}))payload.files=[file];await navigator.share(payload);event('share',slug);}catch(e){if(e.name!=='AbortError')status.textContent='Use Download PNG and Copy link instead.';}},'btn primary'));
@@ -62,7 +63,7 @@ function shareCard(title,description,path){
 const current=location.pathname.replace(/\/$/,'')||'/';
 const listing=/^\/(?:agents|tools|automations|live-agents)\/([a-z0-9-]+)$/.exec(current);
 if(listing){
- const header=$('.toolhead'),name=$('h1')?.textContent||'AI helper',desc=$('.toolhead .lead')?.textContent||'Explore this free AI helper.';
+ const header=$('.toolhead')||$('h1')?.parentElement,name=$('h1')?.textContent||'AI helper',desc=$('.toolhead .lead')?.textContent||'Explore this free AI helper.';
  if(header){const area=el('div',undefined,'experience-actions');area.append(button('Share card ↗',()=>shareCard(name,desc,current)));header.after(area);}
  const recent=safeRead('aibin:recent');const list=Array.isArray(recent)?recent:[];safeWrite('aibin:recent',[{name,path:current},...list.filter(x=>x?.path!==current&&publicAgentPath(x?.path))].slice(0,12));
 }
@@ -72,7 +73,7 @@ const install=$('#install-aibin');let installEvent=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;if(install)install.hidden=false;});
 window.addEventListener('appinstalled',()=>{if(install)install.hidden=true;installEvent=null;});
 if(install){install.addEventListener('click',async()=>{if(installEvent){await installEvent.prompt();await installEvent.userChoice;installEvent=null;install.hidden=true;}else{const help=$('#install-help');if(help)help.hidden=false;}});}
-if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('/sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.origin==='https://www.aibin.me')navigator.serviceWorker.register('/sw.js').catch(()=>{});
 const creatorRoot=$('#creator-directory');
 if(creatorRoot){
  const status=$('#creator-status'),filter=$('#creator-filter'),title=$('#creator-title');
