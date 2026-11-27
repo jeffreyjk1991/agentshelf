@@ -87,15 +87,17 @@
   },
   {
     "slug": "social-caption-writer",
-    "name": "Social Caption Writer",
+    "name": "Social Media Caption Generator",
     "category": "Writing",
     "icon": "✎",
-    "summary": "Make short captions for posts and photos.",
+    "summary": "Generate ready-to-post captions for Instagram, TikTok, LinkedIn and other social posts.",
     "task": "Ask for platform, content, tone and objective. Produce three concise captions, optional relevant hashtags and an accessible description if requested. Avoid misleading endorsements or unverified claims.",
     "input": "Write three captions for my weekend hiking photo.",
     "use_cases": [
-      "ai caption generator",
-      "instagram captions"
+      "social media caption generator",
+      "instagram caption generator",
+      "tiktok captions",
+      "linkedin post captions"
     ],
     "chat": "claude",
     "kind": "prompt",
@@ -2015,5 +2017,112 @@
     "evidence": [
       "competitor-demand editorial task selection"
     ]
+  },
+  {
+    "slug": "social-hook-hashtag-generator",
+    "name": "Social Hook & Hashtag Generator",
+    "category": "Marketing",
+    "icon": "#",
+    "summary": "Create scroll-stopping hooks and relevant hashtag sets without spammy filler.",
+    "task": "Ask for platform, niche, post topic, audience and tone. Create ten short hook options, three focused hashtag sets and one recommended combination. Keep hashtags relevant and varied, avoid fake urgency, engagement bait, unsupported claims or promises of virality, and explain when hashtags are unlikely to help on the selected platform.",
+    "input": "Create hooks and hashtags for an Instagram post about a new neighborhood coffee pop-up.",
+    "use_cases": [
+      "social media hooks",
+      "hashtag generator",
+      "instagram hashtags",
+      "tiktok hooks"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "instagram-carousel-creator",
+    "name": "Instagram Carousel Creator",
+    "category": "Marketing",
+    "icon": "▤",
+    "summary": "Turn one idea into a clear swipeable carousel with slide copy and visual direction.",
+    "task": "Ask for platform, topic, audience, objective, brand tone and preferred slide count. Build a concise carousel with a strong cover, one idea per slide, visual direction, accessible on-image text, a truthful final call to action, a matching caption and alt-text guidance. Keep claims accurate, do not fabricate testimonials or results, and mark any facts that should be verified before posting.",
+    "input": "Create a 7-slide Instagram carousel explaining five simple ways to improve a home office.",
+    "use_cases": [
+      "instagram carousel generator",
+      "social media carousel",
+      "carousel post creator"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "passport-photo-maker",
+    "name": "Passport Photo Maker",
+    "category": "Creative",
+    "icon": "▣",
+    "summary": "Turn a clear portrait into a passport or visa photo plan with the right crop and dimensions.",
+    "task": "Ask for the destination country, document type and a clear front-facing source photo when image input is supported. Preserve the person's identity and facial geometry exactly. Use current official size, aspect-ratio, head-position and background requirements when they can be verified; otherwise clearly say the rules still need official confirmation. If image editing is available, make only compliance-focused changes such as crop, neutral background and natural exposure, without changing age, skin tone, face shape, eye color, hairline or expression. Return the exact target dimensions, export guidance and a final compliance checklist, and never guarantee government acceptance.",
+    "input": "Use my uploaded photo to prepare a U.S. passport-photo version and tell me the exact crop and dimensions.",
+    "use_cases": [
+      "passport photo generator",
+      "visa photo maker",
+      "id photo crop",
+      "passport size photo"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "professional-headshot-maker",
+    "name": "Professional Headshot Maker",
+    "category": "Creative",
+    "icon": "◉",
+    "summary": "Create a polished professional headshot direction from an existing photo while preserving identity.",
+    "task": "Ask where the headshot will be used, desired background, crop, wardrobe style and how natural the result should look. If image editing is available and a source photo is provided, preserve the person's identity, facial geometry, age and recognizable features; improve only framing, lighting, background, minor temporary blemishes and requested wardrobe presentation. Avoid changing face shape, body shape, ethnicity, skin tone or other identity-defining traits. Provide a clean primary version plus suggested 1:1 and 4:5 crops and state what was changed.",
+    "input": "Turn my uploaded photo into a natural LinkedIn headshot with a simple office-style background.",
+    "use_cases": [
+      "professional headshot generator",
+      "linkedin headshot",
+      "business portrait",
+      "ai headshot"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "video-editing-assistant",
+    "name": "Video Editing Assistant",
+    "category": "Creative",
+    "icon": "▶",
+    "summary": "Turn raw footage, a transcript or timecodes into a practical edit plan with cuts, captions and export settings.",
+    "task": "Ask for the target platform, final length, goal, available footage and either a transcript or timecodes when possible. Build an edit decision list with opening hook, keep/cut guidance, pacing, b-roll opportunities, captions, transitions, audio notes and export settings. If the selected chat actually supports video editing, apply only the edits the user confirms; otherwise provide a precise cut list and do not claim a video was edited or rendered. Preserve the speaker's meaning and avoid deceptive edits, fabricated quotes or misleading context.",
+    "input": "Use this 4-minute talking-head transcript to make a tight 45-second vertical edit for Instagram Reels.",
+    "use_cases": [
+      "ai video editor",
+      "video editing assistant",
+      "edit decision list",
+      "video cut plan"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
+  },
+  {
+    "slug": "long-video-to-shorts-editor",
+    "name": "Long Video to Shorts Editor",
+    "category": "Creative",
+    "icon": "✂",
+    "summary": "Find the best short-form moments in a longer video and turn them into Reels, Shorts or TikToks.",
+    "task": "Ask for the long-form video transcript or timecoded notes, target platform, audience and desired short length. Identify three to five self-contained moments, rank them by clarity and hook strength, then provide exact start and end points when timecodes exist, a first-second hook, 9:16 reframing notes, on-screen captions, b-roll suggestions, title and closing line. Keep the original meaning intact, flag cuts that could remove important context, and do not claim to create or publish the clips unless the provider actually supports that action.",
+    "input": "Pick the best three 30-second Shorts from this podcast transcript and give me the exact cuts and captions.",
+    "use_cases": [
+      "long video to shorts",
+      "reels editor",
+      "youtube shorts editor",
+      "tiktok clip maker"
+    ],
+    "chat": "chatgpt",
+    "kind": "prompt",
+    "evidence": []
   }
 ]
