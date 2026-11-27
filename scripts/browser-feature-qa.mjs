@@ -86,26 +86,30 @@ try{
   }finally{await c.close();}
  });
  await run('Agents and Tools share the collection design; homepage mascot adds no layout height',async()=>{
-  for(const w of [320,360,390,768,1024,1280]){const {c,p,errors}=await ctx(w);try{
+  for(const w of [320,360,390,430,540,700,701,768,1024,1280]){const {c,p,errors}=await ctx(w);try{
    await go(p,'/');await p.waitForSelector('#search-grid.library-ready');await p.emulateMedia({reducedMotion:'reduce'});
    const bounds=await p.evaluate(()=>{
     const robot=document.querySelector('.home-robot'),hero=document.querySelector('.future-hero'),heading=hero.querySelector('h1'),kicker=hero.querySelector('.hero-kicker'),builder=hero.querySelector('.vibe-form'),library=document.querySelector('#agents');
     const r=robot.getBoundingClientRect(),h=hero.getBoundingClientRect();
-    const range=document.createRange();range.selectNodeContents(heading);
-    const texts=[...range.getClientRects()];for(const n of kicker.childNodes)if(n.nodeType===Node.TEXT_NODE&&n.textContent.trim()){range.selectNodeContents(n);texts.push(...range.getClientRects());}
+    const range=document.createRange(),texts=[];
+    for(const el of [heading,kicker]){const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);for(let n=walker.nextNode();n;n=walker.nextNode())if(n.textContent.trim()){range.selectNodeContents(n);texts.push(...range.getClientRects());}}
     const collision=texts.some(t=>r.left<t.right-1&&r.right>t.left+1&&r.top<t.bottom-1&&r.bottom>t.top+1);
+    const textClipped=texts.some(t=>t.left<h.left-1||t.right>h.right+1);
+    const geometry={robot:[r.left,r.top,r.right,r.bottom],text:texts.map(t=>[t.left,t.top,t.right,t.bottom])};
     const before=[h.height,heading.getBoundingClientRect().top,builder.getBoundingClientRect().top,library.getBoundingClientRect().top];
     const contained=r.left>=h.left-1&&r.right<=h.right+1&&r.top>=h.top-1&&r.bottom<=h.bottom+1;
     const motion=getComputedStyle(robot.querySelector('.home-robot-art')).animationName;
-    robot.hidden=true;
+    const size=r.width,wrapper=robot.parentElement;robot.hidden=true;wrapper.classList.remove('home-headline');
     const after=[hero.getBoundingClientRect().height,heading.getBoundingClientRect().top,builder.getBoundingClientRect().top,library.getBoundingClientRect().top];
-    robot.hidden=false;return {collision,contained,before,after,motion};
+    wrapper.classList.add('home-headline');robot.hidden=false;return {collision,textClipped,contained,before,after,motion,size,geometry};
    });
-   assert.equal(bounds.collision,false,'Robot overlaps text at '+w);assert.equal(bounds.contained,true,'Robot clipped at '+w);assert.deepEqual(bounds.before,bounds.after,'Robot shifts original hero at '+w);assert.equal(bounds.motion,'none');assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   assert.equal(bounds.collision,false,'Robot overlaps text at '+w+': '+JSON.stringify(bounds.geometry));assert.equal(bounds.textClipped,false,'Headline clipped at '+w+': '+JSON.stringify(bounds.geometry));assert.equal(bounds.contained,true,'Robot clipped at '+w);assert.ok(bounds.before.every((v,i)=>v<=bounds.after[i]+1),'Robot adds hero space at '+w+': '+JSON.stringify(bounds));assert.equal(bounds.motion,'none');assert.ok(bounds.size>=(w>=1024?100:60),'Robot too small at '+w);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    await p.emulateMedia({reducedMotion:'no-preference'});
+   assert.ok(await p.locator('.robot-wave').evaluate(node=>{const a=node.getAnimations()[0];if(!a)return false;a.pause();a.currentTime=200;const x=getComputedStyle(node).transform;a.currentTime=650;const y=getComputedStyle(node).transform;a.play();return x!==y;}),'Robot wave is not visibly moving');
    for(const [url,total,query,match] of [['/open-source',142,'passport photo',/Passport Photo/i],['/tools',46,'unit price',/Unit Price/i]]){
-    await go(p,url);await p.waitForSelector('#search-grid.library-ready');await visible(p,'.collection-flow');assert.equal(await p.locator('.flow-node').count(),3);assert.equal(await p.locator('#search-grid > [data-agent]').count(),total);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Library overflow '+url+' at '+w);
+    await go(p,url);await p.waitForSelector('#search-grid.library-ready');await visible(p,'.collection-flow');assert.equal(await p.locator('.flow-node').count(),3);await visible(p,'.flow-example');await visible(p,'.flow-output strong');await visible(p,'.flow-replay');assert.equal(await p.locator('#search-grid > [data-agent]').count(),total);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Library overflow '+url+' at '+w);
     assert.ok(await p.locator('.collection-flow,.mini-card:visible').evaluateAll(nodes=>nodes.every(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1;})));
+    if(w===390){const motion=await p.locator('.flow-track>span').evaluate(node=>{const a=node.getAnimations()[0];if(!a)return false;a.pause();a.currentTime=100;const x=getComputedStyle(node).transform;a.currentTime=2400;const y=getComputedStyle(node).transform;a.finish();return x!==y;});assert.ok(motion,'Progress bar must visibly advance');await p.locator('.flow-replay').click();assert.ok(await p.locator('.flow-track>span').evaluate(node=>node.getAnimations().some(a=>a.playState==='running'&&a.currentTime<1000)),'Replay failed');}
     await p.locator('#search').fill(query);assert.match(await p.locator('#search-grid > [data-agent]:visible').first().textContent(),match);
     await p.locator('#search').fill('');await p.locator('#show-more').click();assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),total);
     await p.emulateMedia({reducedMotion:'reduce'});assert.ok(await p.locator('.flow-node,.flow-output').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).animationName==='none')));await p.emulateMedia({reducedMotion:'no-preference'});
