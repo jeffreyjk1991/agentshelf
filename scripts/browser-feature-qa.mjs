@@ -35,12 +35,12 @@ try{
   for(const w of [360,390,768,1280]){const {c,p,errors}=await ctx(w);try{
    await go(p,'/');await p.waitForSelector('#search-grid.library-ready');assert.equal(await p.locator('.vibe-form').count(),1);assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),6);
    assert.equal(await p.locator('#search-grid > [data-agent]').count(),213);assert.equal(await p.locator('.recurring-strip,.intent-shortcuts,.home-actions').count(),0);
-   assert.equal(await p.locator('#category-summary').textContent(),'All categories');assert.equal(await p.locator('.home-category-picker').getAttribute('open'),null);
+   assert.equal(await p.locator('.home-category-filters [data-filter="All"]').getAttribute('aria-pressed'),'true');
    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow at '+w);
-   await p.locator('#category-summary').click();await p.locator('[data-filter="Photography"]').click();assert.equal(await p.locator('#category-summary').textContent(),'Photography');
+   await p.locator('[data-filter="Photography"]').click();assert.equal(await p.locator('[data-filter="Photography"]').getAttribute('aria-pressed'),'true');
    assert.ok((await p.locator('#search-grid > [data-agent]:visible').count())>0);
    assert.ok(await p.locator('#search-grid > [data-agent]:visible').evaluateAll(nodes=>nodes.every(n=>n.dataset.category==='Photography')));
-   await p.locator('#category-summary').click();await p.locator('[data-filter="All"]').click();await p.locator('#search').fill('passport photo');assert.ok((await p.locator('#search-grid > [data-agent]:visible').first().textContent()).includes('Passport Photo'));
+   await p.locator('[data-filter="All"]').click();await p.locator('#search').fill('passport photo');assert.ok((await p.locator('#search-grid > [data-agent]:visible').first().textContent()).includes('Passport Photo'));
    await p.locator('#search').fill('zzzzzznotanagent');await visible(p,'#empty');await p.locator('#search').fill('');await p.locator('#show-more').click();assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),213);
    assert.deepEqual(errors,[]);
   }finally{await c.close();}}
@@ -70,7 +70,7 @@ try{
    assert.equal(await p.getByRole('button',{name:'Share ↗',exact:true}).count(),1);await p.getByRole('button',{name:'Share ↗',exact:true}).click();await visible(p,'.share-dialog');const dimensions=await p.locator('.share-dialog img').evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));assert.deepEqual(dimensions,{w:1080,h:1080});
    await p.getByRole('button',{name:'Copy link',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.share-dialog [role=status]').textContent.includes('copied'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),'https://www.aibin.me/agents/professional-headshot-maker');
    const download=p.waitForEvent('download');await p.getByRole('button',{name:'Download PNG'}).click();const d=await download;assert.equal(d.suggestedFilename(),'aibin-agent-card.png');const b=await fs.readFile(await d.path());assert.equal(b.readUInt32BE(16),1080);assert.equal(b.readUInt32BE(20),1080);
-   await p.getByRole('button',{name:'Close ×'}).click();assert.equal(await p.locator('.share-dialog').count(),0);
+   await p.getByRole('button',{name:'Close ×'}).click();await p.locator('.share-dialog').waitFor({state:'detached'});
    await go(p,'/my-agents');await visible(p,'#recent-list .starter-row');assert.match(await p.locator('#recent-list').textContent(),/Professional Headshot/);await p.locator('#clear-recent').click();assert.equal(await p.locator('#recent-panel').isVisible(),false);assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
@@ -87,7 +87,7 @@ try{
   const {c,p,errors}=await ctx();try{
    await go(p,'/creators');await p.waitForFunction(()=>document.querySelector('#creator-status').textContent.includes('No approved community creators'));
    community=[{id:'91',creator:'sample-maker',name:'Sample workflow',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Write an itinerary using public sources.',provider:'chatgpt',usage_count:3},{id:'92',creator:'SAMPLE-MAKER',name:'Second fixture',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Check route options.',provider:'chatgpt',usage_count:2}];
-   await go(p,'/creators#sample-maker');await visible(p,'.creator-card');assert.equal(await p.locator('.creator-card').count(),1);assert.match(await p.locator('.creator-card').textContent(),/5 recorded chat\/agent opens/);
+   await go(p,'/creators#sample-maker');await p.reload();await visible(p,'.creator-card');assert.equal(await p.locator('.creator-card').count(),1);assert.match(await p.locator('.creator-card').textContent(),/5 recorded chat\/agent opens/);
    await p.getByRole('button',{name:'Share collection ↗',exact:true}).click();await visible(p,'.share-dialog');assert.match(await p.locator('.share-direct-link').textContent(),/creators#sample-maker/);await p.getByRole('button',{name:'Close ×'}).click();
    await go(p,'/community#agent-91');await visible(p,'#agent-91');assert.match(await p.locator('#agent-91').textContent(),/3 recorded opens/);assert.equal(await p.locator('#agent-91 .agent-creator a').getAttribute('href'),'/creators#sample-maker');assert.deepEqual(errors,[]);
   }finally{community=[];await c.close();}
