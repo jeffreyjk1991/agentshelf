@@ -1,6 +1,16 @@
-# AIBin Marketplace (aibin.me)
+# AIBin — free AI agents for everyday life
 
-A standalone MVP of an open-source AI agent marketplace. Public brand: AIBin (aibin.me). The GitHub repository and existing local-storage keys retain their original identifiers. Includes a responsive static marketplace, 12 original MIT-licensed downloadable Python agent workflows, search/category filters, detail pages, illustrative demos, deployment guidance, community submissions, a JSON catalog, and Neon-backed event recording. No user accounts, live public model demos, automated community execution, automated security scanning, one-click hosting, reviews or MCP server yet.
+[**Open AIBin.me**](https://www.aibin.me/) — find ready-to-use AI instructions or create your own without coding. AIBin is independent of ChatGPT, Claude and Gemini. Copy instructions into the chat you already use, customize them in your browser, or use a deterministic browser helper on AIBin.
+
+## Free AI agent templates and practical examples
+
+- [AI agent directory](https://www.aibin.me/ai-agent-directory): 213 helpers (208 instruction downloads; five public-data workflows).
+- [Create your own AI agent](https://www.aibin.me/make-agent): free, local instruction builder.
+- [Free agent packs](https://www.aibin.me/agent-packs): 24 original instructions for everyday life, careers, media and work. [Everyday](https://www.aibin.me/downloads/aibin-everyday-agent-pack.md) · [Career](https://www.aibin.me/downloads/aibin-career-agent-pack.md) · [Creator](https://www.aibin.me/downloads/aibin-creator-agent-pack.md) · [Work](https://www.aibin.me/downloads/aibin-work-agent-pack.md).
+- [AI agents for ChatGPT](https://www.aibin.me/ai-agents-for-chatgpt), [Claude](https://www.aibin.me/ai-agents-for-claude) and [Gemini](https://www.aibin.me/ai-agents-for-gemini).
+- [Reproducible browser-tool examples](https://www.aibin.me/agent-checks): 41 synthetic fixtures executed by the actual browser-tool engine; inspect [the inputs and outputs](https://www.aibin.me/browser-tool-evidence.json), [source](assets/tool-engine.mjs) and [fixtures](everyday/examples.json). This is not a comparison of external model performance.
+
+AIBin provides 12 original MIT-licensed downloadable Python workflows, reusable chat instructions, scheduled-task templates, browser tools, public-data lookups and moderated community submissions. AI instructions are free to use, but account capabilities and costs vary. AIBin does not host general-purpose LLM execution or automatically activate scheduled tasks. See each listing for limits and setup.
 
 ## Local preview and tests
 

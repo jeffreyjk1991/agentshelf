@@ -201,6 +201,11 @@
       "source": "/live-agents/:slug([a-z0-9-]+).html",
       "destination": "/live-agents/:slug",
       "permanent": true
+    },
+    {
+      "source": "/agent-packs.html",
+      "destination": "/agent-packs",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -331,6 +336,10 @@
     {
       "source": "/google8d69054a5244e64f",
       "destination": "/google8d69054a5244e64f.html"
+    },
+    {
+      "source": "/agent-packs",
+      "destination": "/agent-packs.html"
     }
   ]
 }
