@@ -1,3 +1,21 @@
-import {database,normalizeSubmission,respond,validateRequest} from '../lib/api.mjs';
-export default async function handler(req,res){const bad=validateRequest(req);if(bad)return respond(res,...bad);let item;try{item=normalizeSubmission(typeof req.body==='string'?JSON.parse(req.body):req.body);}catch(e){return respond(res,400,e.message);}
-  try{const sql=await database();const result=await sql`INSERT INTO submissions (name,repository_url,category,description,license) SELECT ${item.name},${item.repository_url},${item.category},${item.description},${item.license} WHERE (SELECT count(*) FROM submissions WHERE created_at>now()-interval '10 minutes') < 50 ON CONFLICT(repository_url) DO NOTHING RETURNING id`;if(!result.length)return respond(res,409,'This repository may already be submitted, or submissions are temporarily limited.');return respond(res,201,'Submitted for manual review. Your repository is not publicly listed yet.');}catch{return respond(res,503,'Submissions are temporarily unavailable.');}}
+import {database,respond,validateRequest,databaseErrorCode} from '../lib/api.mjs';
+import {normalizeAgentSubmission} from '../lib/agent-submission.mjs';
+import {rate} from '../lib/marketplace.mjs';
+export function createSubmissionHandler({getDatabase=database,limit=rate,report=code=>console.warn('[agent-submissions]',code)}={}){
+ return async function handler(req,res){
+  if(req.method==='GET'){
+   try{const sql=await getDatabase();const agents=await sql`SELECT id,name,creator,category,description,provider,kind,instructions,url,platform FROM marketplace_agent_submissions WHERE status='approved' ORDER BY created_at DESC LIMIT 100`;res.setHeader('Cache-Control','no-store');return res.status(200).json({agents});}
+   catch(e){const code=databaseErrorCode(e);report(code);return respond(res,503,'Community listings are temporarily unavailable.',{code});}
+  }
+  const bad=validateRequest(req);if(bad)return respond(res,...bad);
+  let a;try{a=normalizeAgentSubmission(typeof req.body==='string'?JSON.parse(req.body):req.body);}catch(e){return respond(res,400,e.message);}
+  try{
+   const sql=await getDatabase();
+   if(!await limit(sql,'agent-submit',8))return respond(res,429,'Please try again in a minute.');
+   const rows=await sql`INSERT INTO marketplace_agent_submissions(name,creator,category,description,provider,kind,instructions,url,platform)
+    VALUES(${a.name},${a.creator},${a.category},${a.description},${a.provider},${a.kind},${a.instructions},${a.url},${a.platform}) ON CONFLICT DO NOTHING RETURNING id`;
+   return respond(res,rows.length?201:409,rows.length?'Submitted for review. Your agent will be listed after approval.':'This agent link has already been submitted.');
+  }catch(e){const code=databaseErrorCode(e);report(code);return respond(res,503,'Submission not saved. Please keep your draft and try again later.',{code});}
+ };
+}
+export default createSubmissionHandler();
