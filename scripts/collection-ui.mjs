@@ -19,13 +19,13 @@ export function collectionIcon(key){
  return '<svg class="collection-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+glyphs[key]+'</svg>';
 }
 export const teamStages=[['plan','Plan'],['work','Compare'],['review','Check'],['output','Report']];
-export const promptStages=[['prompts','Pick'],['adjust','Add details'],['chat','Paste']];
+export const promptStages=[['prompts','Pick'],['adjust','Edit'],['chat','Paste']];
 // Concrete examples of the products' real workflows. These illustrations
 // never run an AI model or claim a task has actually completed.
 export const workflowExamples={
  agent:{task:'Plan a weekend trip',steps:['Trip planner','Dates & budget','Open AI chat'],result:'Trip planning prompt'},
  prompt:{task:'Practice for an interview',steps:['Job pack','Your job role','Paste in chat'],result:'Interview practice prompt'},
- tool:{task:'Split a dinner bill',steps:['Bill splitter','$80 + $5 tax + 20% tip','Divide by 4'],result:'$25.25 per person'},
+ tool:{task:'Split a dinner bill',steps:['Bill split','$80 + $5 tax','20% tip ÷ 4'],result:'$25.25 per person'},
  team:{task:'Compare two apps',steps:['Set goals','Compare apps','Check facts','Write report'],result:'A comparison report'},
  'research-team':{task:'Compare two apps',steps:['Make a plan','Compare apps','Check facts','Write report'],result:'A research summary'},
  'software-team':{task:'Build a budget app',steps:['Plan app','Build','Test','Final check'],result:'A reviewed app plan'},
@@ -35,7 +35,7 @@ export function workflowVisual({esc,kind='team',stages=kind==='team'?teamStages:
  const example=workflowExamples[exampleKey];if(!example||example.steps.length!==stages.length)throw Error('Unknown illustration '+exampleKey);
  const count=stages.length===4?'four':'three';
  const summary=input+': '+example.task+' → '+stages.map((s,i)=>s[1]+': '+example.steps[i]).join(' → ')+' → '+output+': '+example.result;
- return '<figure class="collection-flow flow-'+count+' demo-'+esc(kind)+' is-playing" aria-label="'+esc(summary)+'"><div class="flow-top"><div class="flow-input"><span><small>Example only:</small><strong>'+esc(example.task)+'</strong></span></div><button type="button" class="flow-replay" aria-label="Replay workflow illustration" title="Replay example" hidden><span aria-hidden="true">↻</span></button></div><div class="flow-track" aria-hidden="true"><span></span></div><ol class="flow-steps">'+stages.map(([icon,label],i)=>'<li class="flow-step flow-step-'+(i+1)+'"><div class="flow-node"><div class="flow-node-top">'+collectionIcon(icon)+'<strong class="flow-label">'+esc(label)+'</strong></div><span class="flow-example">'+esc(example.steps[i])+'</span></div></li>').join('')+'</ol><figcaption class="flow-output">'+collectionIcon('output')+'<span><small>'+esc(output)+'</small><strong>'+esc(example.result)+'</strong></span></figcaption></figure>';
+ return '<figure class="collection-flow flow-'+count+' demo-'+esc(kind)+' is-playing" aria-label="'+esc(summary)+'"><div class="flow-top"><div class="flow-input"><span><small>Example only:</small><strong>'+esc(example.task)+'</strong></span></div><button type="button" class="flow-replay" aria-label="Replay workflow illustration" title="Replay example" hidden><span aria-hidden="true">↻</span></button></div><div class="flow-track" aria-hidden="true"><span></span></div><ol class="flow-steps">'+stages.map(([icon,label],i)=>'<li class="flow-step flow-step-'+(i+1)+'"><div class="flow-node"><div class="flow-node-top">'+collectionIcon(icon)+'<strong class="flow-label">'+esc(label)+'</strong></div><span class="flow-example">'+esc(example.steps[i])+'</span></div></li>').join('')+'</ol><figcaption class="flow-output">'+collectionIcon('output')+'<span><small>Result:</small><strong>'+esc(example.result)+'</strong></span></figcaption></figure>';
 }
 export function collectionHero({esc,kicker,title,lead,description,kind,stages,input,output,exampleKey,detail=false}){
  return '<section class="'+(detail?'toolhead ':'')+'collection-hero"><div class="collection-copy"><div class="collection-kicker"><span class="collection-dot" aria-hidden="true"></span>'+esc(kicker)+'</div><h1>'+esc(title)+'</h1><p class="collection-lead">'+esc(lead)+'</p><p class="collection-description">'+esc(description)+'</p></div>'+workflowVisual({esc,kind,stages,input,output,exampleKey})+'</section>';
@@ -43,10 +43,10 @@ export function collectionHero({esc,kicker,title,lead,description,kind,stages,in
 
 // Shared visual language for the two individual-helper libraries.
 export function agentLibraryHero(esc,count){
- return collectionHero({esc,kicker:'READY-MADE AI ASSISTANTS',title:'Ready-made AI agents',lead:'Find the right assistant for your task.',description:count+' free assistants. Pick one, add your details, and open it in your AI chat.',kind:'agent',stages:[['research','Pick'],['adjust','Add details'],['chat','Use']],input:'Your task',output:'Ready for your AI chat'});
+ return collectionHero({esc,kicker:'READY-MADE AI ASSISTANTS',title:'Ready-made AI agents',lead:'Find the right assistant for your task.',description:count+' free assistants. Pick one, add your details, and open it in your AI chat.',kind:'agent',stages:[['research','Pick'],['adjust','Edit'],['chat','Use']],input:'Your task',output:'Ready for your AI chat'});
 }
 export function toolLibraryHero(esc,tools,live){
- return collectionHero({esc,kicker:'USE HERE · NO CODING',title:'AI tools & everyday helpers',lead:'Pick a tool. Get a useful result.',description:tools+' tools and '+live+' live-data helpers. Get results right here, without opening another AI chat.',kind:'tool',stages:[['research','Pick'],['adjust','Add numbers'],['work','Calculate']],input:'Your question or task',output:'Result in your browser'});
+ return collectionHero({esc,kicker:'USE HERE · NO CODING',title:'AI tools & everyday helpers',lead:'Pick a tool. Get a useful result.',description:tools+' tools and '+live+' live-data helpers. Get results right here, without opening another AI chat.',kind:'tool',stages:[['research','Pick'],['adjust','Enter'],['work','Split']],input:'Your question or task',output:'Result in your browser'});
 }
 // The robot echoes the AIBin mark without changing the real logo or the heading.
 export function homeRobot(){
