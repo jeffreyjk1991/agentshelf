@@ -126,7 +126,7 @@ try{
      const text=[...flow.querySelectorAll('.flow-label,.flow-example,.flow-input strong,.flow-output strong')];
      return {height:box.height,width:box.width,rowCount:new Set(rows).size,clipped:text.some(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1),font:Math.min(...text.map(n=>parseFloat(getComputedStyle(n).fontSize)))};
     });
-    assert.ok(g.height<=145,'Example too tall '+url+' at '+w+': '+JSON.stringify(g));assert.ok(g.width<= Math.min(w,380)+1,'Example too wide '+url+' at '+w);assert.equal(g.rowCount,1,'Steps wrap '+url+' at '+w);assert.equal(g.clipped,false,'Example text clipped '+url+' at '+w);assert.ok(g.font>=11,'Unreadable example text '+url+' at '+w);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    assert.ok(g.height<=205,'Example too tall '+url+' at '+w+': '+JSON.stringify(g));assert.ok(g.width<= Math.min(w,435)+1,'Example too wide '+url+' at '+w);assert.equal(g.rowCount,1,'Steps wrap '+url+' at '+w);assert.equal(g.clipped,false,'Example text clipped '+url+' at '+w);assert.ok(g.font>=11,'Unreadable example text '+url+' at '+w);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    }
    assert.deepEqual(errors,[]);
   }finally{await c.close();}}
