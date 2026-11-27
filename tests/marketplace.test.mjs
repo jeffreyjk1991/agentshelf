@@ -35,7 +35,7 @@ test('bounded source requests and response parsing (mocked providers)',async()=>
 test('201 helpers, live pages, submission, SEO and unchanged tagline',()=>{
  const h=read('index.html'),s=read('sitemap.xml'),c=JSON.parse(read('live-agents.json'));
  assert.equal(c.count,5);assert.equal((h.match(/ data-agent /g)||[]).length,201);
- assert.ok(h.includes('Show all 201 helpers'));assert.ok(h.includes('id="market-sort"'));assert.ok(h.includes('/assets/marketplace.css'));assert.ok(h.includes('Put AI to work.'));
+ assert.ok(h.includes('Show all 201 helpers'));assert.ok(!h.includes('id="market-sort"'));assert.equal((h.match(/class="live-indicator"/g)||[]).length,5);assert.ok(h.includes('/assets/marketplace.css'));assert.ok(h.includes('Put AI to work.'));
  for(const a of c.agents){const path='/live-agents/'+a.slug,html=read(path.slice(1)+'.html');assert.ok(h.includes('href="'+path+'"'));assert.ok(html.includes('id="live-form"'));assert.ok(html.includes('Example request'));assert.ok(html.includes('data-live-slug="'+a.slug+'"'));assert.ok(html.includes('WebApplication'));if(s.includes('<loc>'))assert.ok(s.includes(path+'</loc>'));assert.ok(read('llms.txt').includes(path));}
  assert.ok(read('community.html').includes('id="link-submit"'));assert.ok(read('community.html').includes('/assets/link-submissions.mjs'));assert.ok(read('llms.txt').includes('/live-agents.json'));assert.ok(fs.existsSync('dist/downloads/aibin-agent-runner.zip'));
 });
