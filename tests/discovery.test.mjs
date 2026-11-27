@@ -44,3 +44,5 @@ test('fixed AI referral categories, never arbitrary URL or personal inputs',()=>
  assert.throws(()=>normalizeEngagement({...e,source:'private text'}));
  assert.deepEqual(normalizeEngagement({type:'copy',slug:'resume-builder',source:'chatgpt',landingKind:'listing'}),{type:'copy',slug:'resume-builder'});
 });
+
+test('IndexNow public ownership key exists only on the canonical production build',()=>{const key='ad27013b45c6445a9b43c9b3e2706ef1';if(indexed&&home.includes('rel="canonical" href="https://www.aibin.me/"'))assert.equal(read(key+'.txt').trim(),key);});
