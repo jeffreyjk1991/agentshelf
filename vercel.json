@@ -221,6 +221,11 @@
       "source": "/tools.html",
       "destination": "/tools",
       "permanent": true
+    },
+    {
+      "source": "/ai-marketplace-platforms.html",
+      "destination": "/ai-marketplace-platforms",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -367,6 +372,10 @@
     {
       "source": "/tools",
       "destination": "/tools.html"
+    },
+    {
+      "source": "/ai-marketplace-platforms",
+      "destination": "/ai-marketplace-platforms.html"
     }
   ]
 }
