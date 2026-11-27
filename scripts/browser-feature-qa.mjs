@@ -23,7 +23,7 @@ const server=createServer(async(req,res)=>{
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const base='http://127.0.0.1:'+server.address().port;
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,...(process.env.CHROME_BIN?{executablePath:process.env.CHROME_BIN}:{})});
 const failures=[];
 async function run(name,fn){try{await fn();console.log('PASS',name);}catch(error){failures.push(name);console.error('FAIL',name,error.stack);}}
 async function ctx(width=390){const c=await browser.newContext({viewport:{width,height:844},acceptDownloads:true,permissions:['clipboard-read','clipboard-write'],serviceWorkers:'block'});const p=await c.newPage();p.setDefaultTimeout(8000);const errors=[];p.on('pageerror',e=>errors.push(e.message));return {c,p,errors};}
