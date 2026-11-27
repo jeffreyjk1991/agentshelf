@@ -14,7 +14,7 @@ for(const panel of document.querySelectorAll('[data-assistant-panel]')){
  const slug=/^\/(?:agents|tools)\/([a-z0-9-]+)\/?$/.exec(location.pathname)?.[1]||'custom';flow.querySelector('.open-chat').addEventListener('click',()=>{if(prompt.value.trim())event('open_chat',slug);});
  select.addEventListener('change',()=>setChat(flow,select.value));
  button.addEventListener('click',async()=>{if(!prompt.value.trim())return;try{await navigator.clipboard.writeText(prompt.value);button.textContent='✓ Copied — step 1';event('copy',slug);status.textContent='Now open '+CHATS[select.value].name+' and paste.';}catch{const details=prompt.closest('details');if(details)details.open=true;prompt.focus();prompt.select();status.textContent='Select and copy the instructions manually, then open your chat.';}});
- panel.querySelector('.save-assistant')?.addEventListener('click',()=>{if(!prompt.value.trim())return;const url=URL.createObjectURL(new Blob([prompt.value],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='agentshelf-assistant.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Instructions saved.';});
+ panel.querySelector('.save-assistant')?.addEventListener('click',()=>{if(!prompt.value.trim())return;const url=URL.createObjectURL(new Blob([prompt.value],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='aibin-assistant.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Instructions saved.';});
 }
 const form=document.querySelector('#make-assistant');
 if(form){
