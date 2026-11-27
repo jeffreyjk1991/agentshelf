@@ -31,6 +31,18 @@ async function visible(p,selector){await p.locator(selector).first().waitFor({st
 async function go(p,route){await p.goto(base+route);await p.waitForLoadState('domcontentloaded');}
 async function create(p,goal){await p.locator('#vibe-goal').fill(goal);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');}
 try{
+ await run('Sage dash canvas is consistent across the site without affecting controls or print',async()=>{
+  for(const w of [390,1280]){const {c,p,errors}=await ctx(w);try{
+   for(const route of ['/','/open-source','/agent-teams','/agent-packs','/tools','/agents/social-caption-writer']){
+    await go(p,route);
+    const bg=await p.evaluate(()=>{const s=getComputedStyle(document.body);return {image:s.backgroundImage,size:s.backgroundSize,repeat:s.backgroundRepeat,color:s.backgroundColor,overflow:document.documentElement.scrollWidth>innerWidth+1};});
+    assert.ok(bg.image.includes('data:image/svg+xml')&&bg.image.includes('radial-gradient'),'Missing layered canvas '+route);
+    assert.equal(bg.size,(w<=700?'22px 22px':'24px 24px')+', 100% 100%');assert.equal(bg.repeat,'repeat, no-repeat');assert.equal(bg.overflow,false);
+    await p.emulateMedia({media:'print'});assert.equal(await p.evaluate(()=>getComputedStyle(document.body).backgroundImage),'none');await p.emulateMedia({media:'screen'});
+   }
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Homepage responsive, compact and fully navigable',async()=>{
   for(const w of [360,390,768,1280]){const {c,p,errors}=await ctx(w);try{
    await go(p,'/');await p.waitForSelector('#search-grid.library-ready');assert.equal(await p.locator('.vibe-form').count(),1);assert.equal(await p.locator('#search-grid > [data-agent]:visible').count(),6);
