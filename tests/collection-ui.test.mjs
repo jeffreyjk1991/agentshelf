@@ -4,7 +4,7 @@ const read=p=>fs.readFileSync('dist/'+p,'utf8');
 test('team and prompt pages share one accessible local workflow illustration and collection design',()=>{
  for(const [path,steps] of [['agent-teams.html',4],['agent-packs.html',3],['open-source.html',3],['tools.html',3],...teams.map(t=>['agent-teams/'+t.slug+'.html',4])]){
   const html=read(path);assert.ok(html.includes('collection-page'));assert.equal((html.match(/<figure class="collection-flow/g)||[]).length,1,path);assert.equal((html.match(/class="flow-step flow-step-/g)||[]).length,steps,path);
-  assert.ok(html.includes('HOW IT WORKS'));assert.ok(html.includes('Example only'));assert.ok(html.includes('aria-label="Replay workflow illustration"'));assert.ok(html.includes('EXAMPLE TASK'));assert.equal((html.match(/class="flow-example"/g)||[]).length,steps,path);assert.ok(html.includes('<figcaption class="flow-output">'));assert.ok(html.includes('aria-label="Your'));
+  assert.ok(html.includes('Example only:'));assert.ok(html.includes('aria-label="Replay workflow illustration"'));assert.ok(html.includes('class="flow-input"'));assert.equal((html.match(/class="flow-example"/g)||[]).length,steps,path);assert.ok(html.includes('<figcaption class="flow-output">'));assert.ok(html.includes('aria-label="Your'));
  }
  const hub=read('agent-teams.html'),packs=read('agent-packs.html');
  assert.equal((hub.match(/class="intent-row collection-card team-collection-card"/g)||[]).length,3);assert.equal((packs.match(/class="collection-card pack-collection-card"/g)||[]).length,4);assert.equal((packs.match(/<details class="quiet-details pack-contents">/g)||[]).length,4);
