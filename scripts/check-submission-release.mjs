@@ -4,18 +4,19 @@ let ready=false,last='deployment not ready';
 for(let i=0;i<24;i++){
  try{
   const form=await req('/community'),html=await form.text();
-  if(form.ok&&html.includes('No preference / Not sure')&&html.includes('Not sure — choose for me')&&html.includes('<option>Photography</option>')){
+  const hub=await req('/top-ai-agents'),hubHtml=await hub.text();
+  if(hub.ok&&hubHtml.includes('25 AI tasks people search for')&&form.ok&&html.includes('No preference / Not sure')&&html.includes('Not sure — choose for me')&&html.includes('<option>Photography</option>')){
    const db=await req('/api/submissions'),j=await db.json();
    last='HTTP '+db.status+' '+(typeof j.code==='string'&&/^DB_[A-Z_]+$/.test(j.code)?j.code:'');
    console.log('SUBMISSION_READ',last);
    if(db.ok&&Array.isArray(j.agents)){ready=true;break;}
-   if(db.status===503)break;
+   // A previous deployment may still be serving traffic; retry bounded read-only checks.
   }
  }catch(e){last=String(e.message).slice(0,100);}
  await new Promise(r=>setTimeout(r,5000));
 }
 if(!ready)throw Error('Production submission read failed: '+last);
-const marker='QA release probe '+(process.env.GITHUB_RUN_ID||'manual')+'-'+(process.env.GITHUB_RUN_ATTEMPT||'1');
+const marker='QA search release probe '+(process.env.GITHUB_RUN_ID||'manual')+'-'+(process.env.GITHUB_RUN_ATTEMPT||'1');
 const body={name:marker,creator:'qa-probe',category:'unsure',provider:'any',description:'Temporary unpublished AIBin release verification.',source:'Return a short planning checklist. This is an unpublished release test.',consent:true};
 const r=await req('/api/submissions',{method:'POST',headers:{'Content-Type':'application/json','Origin':base},body:JSON.stringify(body)});
 const j=await r.json();
