@@ -33,5 +33,12 @@ if(shared){
  const status=document.querySelector('#shared-status');
  try{if(location.hash.length>45000)throw Error('Share link is too long.');const item=JSON.parse(decodeURIComponent(location.hash.slice(1)));if(!validItem(item))throw Error('Invalid share link.');document.querySelector('#shared-name').textContent=item.name;document.querySelector('#shared-prompt').value=item.prompt;const a=document.querySelector('#shared-open');a.href=CHATS[item.provider].url;a.textContent='Open '+CHATS[item.provider].name+' ↗';shared.hidden=false;document.querySelector('#shared-copy').onclick=async()=>{status.textContent=await copy(item.prompt)?'Copied.':'Select and copy the instructions.';};document.querySelector('#shared-save').onclick=()=>{try{saveItem({...item,key:'custom:'+crypto.randomUUID()});status.textContent='Saved on this device.';}catch{status.textContent='Device storage unavailable.';}};}catch{status.textContent='This share link is missing or invalid.';}
 }
-if(!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'&&localStorageSafe('agentshelf:analytics-off')!=='1'){try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000){event(last?'return_visit':'first_visit',slug||'site',{source:classifyReferral(location.search,document.referrer,location.origin),landingKind:landingKind(path)});}localStorage.setItem('agentshelf:last-visit',String(now));}catch{}}
+if(!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'&&localStorageSafe('agentshelf:analytics-off')!=='1'){
+ const source=classifyReferral(location.search,document.referrer,location.origin);
+ let kind='page_view';
+ try{const now=Date.now(),last=Number(localStorage.getItem('agentshelf:last-visit')||0);if(!last||now-last>30*60*1000){kind=last?'return_visit':'first_visit';event(kind,slug||'site',{source,landingKind:landingKind(path)});}localStorage.setItem('agentshelf:last-visit',String(now));}catch{}
+ // Only the public canonical pathname is sent, never a query, hash, prompt or identifier.
+ const publicPath=(path.replace(/\.html$/,'').replace(/^\/index$/,'/')||'/');
+ fetch('/api/traffic',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind,path:publicPath,source}),keepalive:true}).catch(()=>{});
+}
 const optOut=document.querySelector('#analytics-opt-out');if(optOut){optOut.checked=localStorageSafe('agentshelf:analytics-off')==='1';optOut.addEventListener('change',()=>{try{localStorage.setItem('agentshelf:analytics-off',optOut.checked?'1':'0');}catch{}});}
