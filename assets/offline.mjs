@@ -6,10 +6,11 @@ self.addEventListener('fetch',e=>{
  const req=e.request,u=new URL(req.url);
  if(req.method!=='GET'||u.origin!==self.location.origin||u.search||u.pathname.startsWith('/api/')||u.pathname==='/shared-agent'||u.pathname==='/community'||u.pathname==='/creators')return;
  const navigation=req.mode==='navigate';
- if(!navigation&&!u.pathname.startsWith('/assets/')&&!['/agent-experience.json','/manifest.webmanifest'].includes(u.pathname))return;
+ if(navigation&&!(/^\/(?:agents|tools|automations|live-agents)\/[a-z0-9-]+\/?$/.test(u.pathname)||['/','/make-agent','/my-agents','/offline.html'].includes(u.pathname)))return;
+ if(!navigation&&!/^\/assets\/[a-zA-Z0-9_.-]+$/.test(u.pathname)&&!['/agent-experience.json','/manifest.webmanifest'].includes(u.pathname))return;
  e.respondWith((async()=>{
   const c=await caches.open(CACHE);
-  try{const r=await fetch(req);if(r.ok&&r.type==='basic'){
+  try{const r=await fetch(req);if(r.ok&&r.type==='basic'&&!r.redirected){
     if(navigation||u.pathname.startsWith('/assets/')||u.pathname==='/agent-experience.json'){
      await c.put(req,r.clone());
      const pages=(await c.keys()).filter(k=>!SHELL.includes(new URL(k.url).pathname)&&!new URL(k.url).pathname.startsWith('/assets/'));if(pages.length>60)await c.delete(pages[0]);
