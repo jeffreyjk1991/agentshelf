@@ -49,3 +49,21 @@ test('robot brand and search-demand collection are crawlable and consistent',()=
  for(const a of data.agents){const html=read(a.path.slice(1)+'.html');assert.ok(hub.includes('href="'+a.path+'"'));assert.ok(html.includes(a.title+' | AIBin')||html.includes(a.title.replaceAll('&','&amp;')+' | AIBin'));assert.ok(html.includes('href="/top-ai-agents"'));assert.ok(fs.existsSync(path.join('dist','downloads',a.slug+'-agent.txt')));}
  if(home.includes('content="index,follow"'))assert.ok(read('sitemap.xml').includes('/top-ai-agents</loc>'));
 });
+
+test('verification HTML uses its exact public filename; all existing clean URL routes remain explicit',()=>{
+ const config=JSON.parse(fs.readFileSync('vercel.json','utf8')),verify='/google8d69054a5244e64f.html';
+ assert.equal(config.cleanUrls,false);
+ const redirects=config.redirects,rewrites=config.rewrites;
+ assert.ok(!redirects.some(r=>r.source===verify||r.source.includes('(.*)')));
+ const routes=rewrites.map(r=>({...r,match:new RegExp('^'+r.source.replace(':slug([a-z0-9-]+)','([a-z0-9-]+)')+'$')}));
+ for(const file of fs.readdirSync('dist',{recursive:true}).filter(f=>f.endsWith('.html'))){
+  if(['index.html','offline.html',verify.slice(1)].includes(file))continue;
+  const url='/'+file.slice(0,-5),route=routes.find(r=>r.match.test(url));
+  assert.ok(route,'No clean-URL rewrite for '+url);
+  const match=url.match(route.match);
+  assert.equal(route.destination.replace(':slug',match[1]||''),'/'+file);
+  assert.ok(redirects.some(r=>r.source===route.source+'.html'&&r.destination===route.source.replace('([a-z0-9-]+)','')),'Missing canonical redirect for '+file);
+ }
+ assert.ok(!routes.some(r=>r.match.test('/api/submissions')||r.match.test('/robots.txt')||r.match.test('/sitemap.xml')||r.match.test(verify)));
+ assert.deepEqual(fs.readFileSync('dist'+verify),fs.readFileSync('verification'+verify));
+});

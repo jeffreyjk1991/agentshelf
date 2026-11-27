@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/check-search-indexing.mjs'
+      - 'vercel.json'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

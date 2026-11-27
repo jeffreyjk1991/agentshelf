@@ -2,7 +2,7 @@
   "framework": null,
   "buildCommand": "npm run verify:deploy",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
@@ -41,6 +41,296 @@
       "source": "/submit-agent",
       "destination": "/community",
       "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/open-source.html",
+      "destination": "/open-source",
+      "permanent": true
+    },
+    {
+      "source": "/developers.html",
+      "destination": "/developers",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/agent-research.html",
+      "destination": "/agent-research",
+      "permanent": true
+    },
+    {
+      "source": "/automations.html",
+      "destination": "/automations",
+      "permanent": true
+    },
+    {
+      "source": "/my-agents.html",
+      "destination": "/my-agents",
+      "permanent": true
+    },
+    {
+      "source": "/shared-agent.html",
+      "destination": "/shared-agent",
+      "permanent": true
+    },
+    {
+      "source": "/community.html",
+      "destination": "/community",
+      "permanent": true
+    },
+    {
+      "source": "/start.html",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/make-agent.html",
+      "destination": "/make-agent",
+      "permanent": true
+    },
+    {
+      "source": "/how-to.html",
+      "destination": "/how-to",
+      "permanent": true
+    },
+    {
+      "source": "/live-agents.html",
+      "destination": "/live-agents",
+      "permanent": true
+    },
+    {
+      "source": "/agent-runner.html",
+      "destination": "/agent-runner",
+      "permanent": true
+    },
+    {
+      "source": "/popular-ai-agents.html",
+      "destination": "/popular-ai-agents",
+      "permanent": true
+    },
+    {
+      "source": "/competitor-research.html",
+      "destination": "/competitor-research",
+      "permanent": true
+    },
+    {
+      "source": "/top-ai-agents.html",
+      "destination": "/top-ai-agents",
+      "permanent": true
+    },
+    {
+      "source": "/agent-checks.html",
+      "destination": "/agent-checks",
+      "permanent": true
+    },
+    {
+      "source": "/creators.html",
+      "destination": "/creators",
+      "permanent": true
+    },
+    {
+      "source": "/ai-agent-directory.html",
+      "destination": "/ai-agent-directory",
+      "permanent": true
+    },
+    {
+      "source": "/ai-agents-for-chatgpt.html",
+      "destination": "/ai-agents-for-chatgpt",
+      "permanent": true
+    },
+    {
+      "source": "/ai-agents-for-claude.html",
+      "destination": "/ai-agents-for-claude",
+      "permanent": true
+    },
+    {
+      "source": "/ai-agents-for-gemini.html",
+      "destination": "/ai-agents-for-gemini",
+      "permanent": true
+    },
+    {
+      "source": "/agents/:slug([a-z0-9-]+).html",
+      "destination": "/agents/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/categories/:slug([a-z0-9-]+).html",
+      "destination": "/categories/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/automations/:slug([a-z0-9-]+).html",
+      "destination": "/automations/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/tools/:slug([a-z0-9-]+).html",
+      "destination": "/tools/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/tools/category/:slug([a-z0-9-]+).html",
+      "destination": "/tools/category/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/how-to/:slug([a-z0-9-]+).html",
+      "destination": "/how-to/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/live-agents/:slug([a-z0-9-]+).html",
+      "destination": "/live-agents/:slug",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/open-source",
+      "destination": "/open-source.html"
+    },
+    {
+      "source": "/developers",
+      "destination": "/developers.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/agent-research",
+      "destination": "/agent-research.html"
+    },
+    {
+      "source": "/automations",
+      "destination": "/automations.html"
+    },
+    {
+      "source": "/my-agents",
+      "destination": "/my-agents.html"
+    },
+    {
+      "source": "/shared-agent",
+      "destination": "/shared-agent.html"
+    },
+    {
+      "source": "/community",
+      "destination": "/community.html"
+    },
+    {
+      "source": "/start",
+      "destination": "/start.html"
+    },
+    {
+      "source": "/make-agent",
+      "destination": "/make-agent.html"
+    },
+    {
+      "source": "/how-to",
+      "destination": "/how-to.html"
+    },
+    {
+      "source": "/live-agents",
+      "destination": "/live-agents.html"
+    },
+    {
+      "source": "/agent-runner",
+      "destination": "/agent-runner.html"
+    },
+    {
+      "source": "/popular-ai-agents",
+      "destination": "/popular-ai-agents.html"
+    },
+    {
+      "source": "/competitor-research",
+      "destination": "/competitor-research.html"
+    },
+    {
+      "source": "/top-ai-agents",
+      "destination": "/top-ai-agents.html"
+    },
+    {
+      "source": "/agent-checks",
+      "destination": "/agent-checks.html"
+    },
+    {
+      "source": "/creators",
+      "destination": "/creators.html"
+    },
+    {
+      "source": "/ai-agent-directory",
+      "destination": "/ai-agent-directory.html"
+    },
+    {
+      "source": "/ai-agents-for-chatgpt",
+      "destination": "/ai-agents-for-chatgpt.html"
+    },
+    {
+      "source": "/ai-agents-for-claude",
+      "destination": "/ai-agents-for-claude.html"
+    },
+    {
+      "source": "/ai-agents-for-gemini",
+      "destination": "/ai-agents-for-gemini.html"
+    },
+    {
+      "source": "/agents/:slug([a-z0-9-]+)",
+      "destination": "/agents/:slug.html"
+    },
+    {
+      "source": "/categories/:slug([a-z0-9-]+)",
+      "destination": "/categories/:slug.html"
+    },
+    {
+      "source": "/automations/:slug([a-z0-9-]+)",
+      "destination": "/automations/:slug.html"
+    },
+    {
+      "source": "/tools/:slug([a-z0-9-]+)",
+      "destination": "/tools/:slug.html"
+    },
+    {
+      "source": "/tools/category/:slug([a-z0-9-]+)",
+      "destination": "/tools/category/:slug.html"
+    },
+    {
+      "source": "/how-to/:slug([a-z0-9-]+)",
+      "destination": "/how-to/:slug.html"
+    },
+    {
+      "source": "/live-agents/:slug([a-z0-9-]+)",
+      "destination": "/live-agents/:slug.html"
+    },
+    {
+      "source": "/offline",
+      "destination": "/offline.html"
+    },
+    {
+      "source": "/google8d69054a5244e64f",
+      "destination": "/google8d69054a5244e64f.html"
     }
   ]
 }
