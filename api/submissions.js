@@ -4,7 +4,7 @@ import {rate} from '../lib/marketplace.mjs';
 export function createSubmissionHandler({getDatabase=database,limit=rate,report=code=>console.warn('[agent-submissions]',code)}={}){
  return async function handler(req,res){
   if(req.method==='GET'){
-   try{const sql=await getDatabase();const agents=await sql`SELECT id,name,creator,category,description,provider,kind,instructions,url,platform FROM marketplace_agent_submissions WHERE status='approved' ORDER BY created_at DESC LIMIT 100`;res.setHeader('Cache-Control','no-store');return res.status(200).json({agents});}
+   try{const sql=await getDatabase();const agents=await sql`SELECT s.id,s.name,s.creator,s.category,s.description,s.provider,s.kind,s.instructions,s.url,s.platform,(SELECT count(*)::integer FROM engagement_events e WHERE e.slug='community-'||s.id::text AND e.event_type='open_chat') AS usage_count FROM marketplace_agent_submissions s WHERE s.status='approved' ORDER BY s.created_at DESC LIMIT 100`;res.setHeader('Cache-Control','no-store');return res.status(200).json({agents});}
    catch(e){const code=databaseErrorCode(e);report(code);return respond(res,503,'Community listings are temporarily unavailable.',{code});}
   }
   const bad=validateRequest(req);if(bad)return respond(res,...bad);
