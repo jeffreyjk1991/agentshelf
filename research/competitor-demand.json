@@ -1,0 +1,423 @@
+{
+  "name": "AIBin competitor-informed task coverage",
+  "asOf": "2026-11-26",
+  "method": "Forty task selections (five per eight competitors), deduplicated by user intent. These are public popularity or featured/category signals, not a verified top-five traffic ranking. Ahrefs Site Explorer returned Insufficient plan. TAAFT's public ranking could not be accessed. No competitor prompts or paid content were copied; each new instruction and worked example is original. AIBin provides free reusable instructions for third-party chats, not hosted execution, account integrations or media generation.",
+  "sources": [
+    {
+      "url": "https://promptbase.com/help/getting-more-sales",
+      "note": "Explains that popularity combines sales, views, favorites, uses and reviews."
+    },
+    {
+      "url": "https://blog.character.ai/new-feature-announcement-character-group-chat/",
+      "note": "Documents book, adventure and language practice use cases."
+    },
+    {
+      "url": "https://aitoolpicked.com/en/",
+      "note": "Independent directory comparison, not traffic data for TAAFT tasks."
+    },
+    {
+      "url": "https://www.kiplinger.com/business/the-top-ai-apps-consumers-are-actually-using",
+      "note": "Broad consumer demand categories based on a16z rankings."
+    }
+  ],
+  "competitors": [
+    {
+      "name": "AIPRM",
+      "url": "https://www.aiprm.com/prompts/seo/",
+      "signal": "Public SEO listing; the five leading entries display usage counts, not visits.",
+      "tasks": [
+        {
+          "intent": "Search-focused long-form writing",
+          "slug": "seo-article-writer",
+          "path": "/agents/seo-article-writer"
+        },
+        {
+          "intent": "FAQ-focused article answers",
+          "slug": "seo-faq-builder",
+          "path": "/agents/seo-faq-builder"
+        },
+        {
+          "intent": "Competitor article analysis",
+          "slug": "seo-content-gap",
+          "path": "/agents/seo-content-gap"
+        },
+        {
+          "intent": "Keyword and content plan",
+          "slug": "keyword-strategy",
+          "path": "/agents/keyword-strategy"
+        },
+        {
+          "intent": "Refresh existing articles",
+          "slug": "seo-article-rewriter",
+          "path": "/agents/seo-article-rewriter"
+        }
+      ]
+    },
+    {
+      "name": "n8n",
+      "url": "https://n8n.io/workflows",
+      "signal": "Featured trending templates on the public workflow gallery. AIBin supplies chat instructions, not connected n8n executions.",
+      "tasks": [
+        {
+          "intent": "Personal assistant",
+          "slug": "personal-ai-assistant",
+          "path": "/agents/personal-ai-assistant"
+        },
+        {
+          "intent": "Short-form video production",
+          "slug": "short-video-prompt",
+          "path": "/agents/short-video-prompt"
+        },
+        {
+          "intent": "Database question answering",
+          "slug": "sql-query-assistant",
+          "path": "/agents/sql-query-assistant"
+        },
+        {
+          "intent": "Document question answering",
+          "slug": "pdf-question-helper",
+          "path": "/agents/pdf-question-helper"
+        },
+        {
+          "intent": "Inbox labeling and triage",
+          "slug": "email-organization",
+          "path": "/agents/email-organization"
+        }
+      ]
+    },
+    {
+      "name": "PromptBase",
+      "url": "https://promptbase.com/",
+      "signal": "Editorial adaptations of the first five items in the public trending list, generalized to reusable original creative tasks.",
+      "tasks": [
+        {
+          "intent": "Social image mockups",
+          "slug": "social-post-image-prompt",
+          "path": "/agents/social-post-image-prompt"
+        },
+        {
+          "intent": "Short video concepts",
+          "slug": "short-video-prompt",
+          "path": "/agents/short-video-prompt"
+        },
+        {
+          "intent": "Digital illustration",
+          "slug": "illustration-prompt",
+          "path": "/agents/illustration-prompt"
+        },
+        {
+          "intent": "Small browser games",
+          "slug": "browser-game-builder",
+          "path": "/agents/browser-game-builder"
+        },
+        {
+          "intent": "Printable clipart packs",
+          "slug": "printable-clipart-prompt",
+          "path": "/agents/printable-clipart-prompt"
+        }
+      ]
+    },
+    {
+      "name": "Character.AI",
+      "url": "https://blog.character.ai/introducing-character-calls/",
+      "signal": "Official product use cases plus public group-chat examples; no character-level visitor data.",
+      "tasks": [
+        {
+          "intent": "Language conversation practice",
+          "slug": "language-practice",
+          "path": "/agents/language-practice"
+        },
+        {
+          "intent": "Mock interviews",
+          "slug": "interview-practice",
+          "path": "/agents/interview-practice"
+        },
+        {
+          "intent": "Text adventures",
+          "slug": "text-adventure",
+          "path": "/agents/text-adventure"
+        },
+        {
+          "intent": "Story development",
+          "slug": "story-outline-writer",
+          "path": "/agents/story-outline-writer"
+        },
+        {
+          "intent": "Book recommendations",
+          "slug": "book-recommendation",
+          "path": "/agents/book-recommendation"
+        }
+      ]
+    },
+    {
+      "name": "Prompts.chat",
+      "url": "https://prompts.chat/",
+      "signal": "Public trending creative prompts and documented role-based library; editorial selection, not individual visit ranks.",
+      "tasks": [
+        {
+          "intent": "Image prompts",
+          "slug": "image-prompt-builder",
+          "path": "/agents/image-prompt-builder"
+        },
+        {
+          "intent": "Video prompts",
+          "slug": "short-video-prompt",
+          "path": "/agents/short-video-prompt"
+        },
+        {
+          "intent": "Photo styling",
+          "slug": "photo-edit-brief",
+          "path": "/agents/photo-edit-brief"
+        },
+        {
+          "intent": "Language practice",
+          "slug": "language-practice",
+          "path": "/agents/language-practice"
+        },
+        {
+          "intent": "Writing and rewriting",
+          "slug": "paragraph-rewriter",
+          "path": "/agents/paragraph-rewriter"
+        }
+      ]
+    },
+    {
+      "name": "FlowGPT",
+      "url": "https://flowgpt.com/",
+      "signal": "Public discovery shortcuts and categories; actual app-level ranking was not available.",
+      "tasks": [
+        {
+          "intent": "Image generation instructions",
+          "slug": "image-prompt-builder",
+          "path": "/agents/image-prompt-builder"
+        },
+        {
+          "intent": "Original fictional characters",
+          "slug": "fictional-character-builder",
+          "path": "/agents/fictional-character-builder"
+        },
+        {
+          "intent": "Prompt generation",
+          "slug": "prompt-generator",
+          "path": "/agents/prompt-generator"
+        },
+        {
+          "intent": "Coding help",
+          "slug": "coding-assistant",
+          "path": "/agents/coding-assistant"
+        },
+        {
+          "intent": "Interactive games",
+          "slug": "text-adventure",
+          "path": "/agents/text-adventure"
+        }
+      ]
+    },
+    {
+      "name": "Poe",
+      "url": "https://poe.com/explore",
+      "signal": "Public Explore categories and official assistant capabilities, not verified bot traffic rankings.",
+      "tasks": [
+        {
+          "intent": "General assistant",
+          "slug": "personal-ai-assistant",
+          "path": "/agents/personal-ai-assistant"
+        },
+        {
+          "intent": "Research with sources",
+          "slug": "research-brief-builder",
+          "path": "/agents/research-brief-builder"
+        },
+        {
+          "intent": "Programming help",
+          "slug": "coding-assistant",
+          "path": "/agents/coding-assistant"
+        },
+        {
+          "intent": "Image creation instructions",
+          "slug": "image-prompt-builder",
+          "path": "/agents/image-prompt-builder"
+        },
+        {
+          "intent": "Document analysis",
+          "slug": "pdf-question-helper",
+          "path": "/agents/pdf-question-helper"
+        }
+      ]
+    },
+    {
+      "name": "There's An AI For That",
+      "url": "https://theresanaiforthat.com/",
+      "signal": "Direct ranking was inaccessible. Editorial task-discovery candidates informed by the independent directory review and broad consumer demand research; not verified TAAFT top five.",
+      "tasks": [
+        {
+          "intent": "Resume building",
+          "slug": "resume-builder",
+          "path": "/agents/resume-builder"
+        },
+        {
+          "intent": "Ask questions about PDFs",
+          "slug": "pdf-question-helper",
+          "path": "/agents/pdf-question-helper"
+        },
+        {
+          "intent": "Image prompts",
+          "slug": "image-prompt-builder",
+          "path": "/agents/image-prompt-builder"
+        },
+        {
+          "intent": "Photo editing briefs",
+          "slug": "photo-edit-brief",
+          "path": "/agents/photo-edit-brief"
+        },
+        {
+          "intent": "Presentation outlines",
+          "slug": "slide-outline-builder",
+          "path": "/agents/slide-outline-builder"
+        }
+      ]
+    }
+  ],
+  "details": {
+    "seo-article-writer": {
+      "example": "Draft an article on how a renter can reduce their electricity bill. Target first-time renters; use the utility rate sheet I provide and add a checklist.",
+      "output": "An evidence-based outline, article draft, descriptive title and meta description, plus a fact-check checklist.",
+      "limit": "Review each claim against its source, add first-hand examples and publish only after editorial approval."
+    },
+    "seo-faq-builder": {
+      "example": "Create six answers for a small bakery's actual pickup, preorder, cancellation and allergy questions using its supplied policy.",
+      "output": "A deduplicated question-and-answer set, source references and a list of information gaps.",
+      "limit": "Verify policies with the business. FAQ markup does not guarantee a search enhancement."
+    },
+    "seo-content-gap": {
+      "example": "Compare my local bike-repair service page with three competitors; find useful questions they leave unanswered.",
+      "output": "A comparison matrix, unanswered questions and a prioritized plan for original content.",
+      "limit": "Competitor pages may change; validate real demand in Search Console or a keyword tool."
+    },
+    "keyword-strategy": {
+      "example": "Plan search content for a beginner-friendly houseplant care site using these 30 Search Console queries.",
+      "output": "Query intent clusters, page mappings, a priority order and a measurement plan.",
+      "limit": "A chat model does not have reliable live keyword volumes without a data source."
+    },
+    "seo-article-rewriter": {
+      "example": "Refresh my existing article about carry-on packing. Keep my personal packing tips and flag airline rules I need to recheck.",
+      "output": "An edited article, a change log and a verification checklist.",
+      "limit": "Check ownership and sources; avoid republishing another author's article without permission."
+    },
+    "personal-ai-assistant": {
+      "example": "I have two meetings, a grocery run, a deadline at 4 pm and 30 minutes for exercise. Plan my day.",
+      "output": "A time-blocked daily plan, priorities, errands and tasks that require your confirmation.",
+      "limit": "This is a reusable chat assistant, not a background calendar or email integration."
+    },
+    "short-video-prompt": {
+      "example": "Make a 15-second vertical reel promoting a handmade ceramic mug, using my product photo and a warm morning mood.",
+      "output": "A shot list, timed narration, continuity notes and an editable prompt for a video model.",
+      "limit": "Generate or edit footage in an appropriate video tool; review rights, captions and accuracy before posting."
+    },
+    "sql-query-assistant": {
+      "example": "Given orders(id, customer_id, created_at, total) and customers(id, region), calculate monthly revenue by region in PostgreSQL.",
+      "output": "A parameterized SELECT query, explanation and sample expected columns.",
+      "limit": "Run it in a read-only environment and inspect the query plan; no database connection is provided."
+    },
+    "email-organization": {
+      "example": "Here are eight anonymized email subjects and snippets. Sort them into urgent, reply this week, waiting and archive candidates.",
+      "output": "A prioritized inbox table, action items, suggested labels and optional draft replies.",
+      "limit": "No inbox access or automatic labeling is built in; verify senders and deadlines yourself."
+    },
+    "social-post-image-prompt": {
+      "example": "Create a square Instagram launch graphic for a neighborhood coffee pop-up with a simple mug illustration and room for a date.",
+      "output": "Two layout concepts, editable image prompts, crop and typography notes, and alt text.",
+      "limit": "The chat or image generator renders the asset separately; check trademarks and text legibility."
+    },
+    "illustration-prompt": {
+      "example": "Create a coordinated set of three geometric botanical illustrations in muted teal, cream and ochre for a reading nook.",
+      "output": "Three original creative directions, a detailed model prompt and a consistent variation recipe.",
+      "limit": "Images are created in an external compatible tool; check usage rights and print resolution."
+    },
+    "browser-game-builder": {
+      "example": "Design a simple 3D-style endless obstacle runner playable in a browser with keyboard and touch controls.",
+      "output": "A game specification, starter implementation plan, controls and playtest checklist.",
+      "limit": "A compatible coding chat or development environment is required to produce and run the game."
+    },
+    "printable-clipart-prompt": {
+      "example": "Make a six-item winter woodland clipart pack for personal gift tags, in warm watercolor tones, with no text.",
+      "output": "A pack specification, individual prompts, sizing and transparent-background export notes.",
+      "limit": "No downloadable art is generated here; confirm commercial rights and resolution in the image tool."
+    },
+    "text-adventure": {
+      "example": "Run a cozy mystery in a seaside town. I play a bookstore owner investigating a missing rare map, with three choices per turn.",
+      "output": "A playable opening scene, meaningful choices and an evolving game state.",
+      "limit": "Your external chat maintains the story; save a state summary if you want to resume later."
+    },
+    "book-recommendation": {
+      "example": "I liked The Martian and Project Hail Mary. Recommend five optimistic, science-focused novels, without spoilers.",
+      "output": "A tailored reading list with authors, reasons each title fits and spoiler-free notes.",
+      "limit": "Verify editions and availability in your local library or retailer."
+    },
+    "fictional-character-builder": {
+      "example": "Create a fictional space-station librarian who helps players solve gentle science mysteries, with a dry sense of humor.",
+      "output": "An original reusable character card, opening dialogue and behavior guidelines.",
+      "limit": "Use a compatible chat for interactive roleplay; this is not a hosted character or real person."
+    },
+    "prompt-generator": {
+      "example": "Help me write a reusable prompt to compare three apartments by commute, rent, utilities and pet rules.",
+      "output": "A short prompt, a detailed prompt and a validation checklist.",
+      "limit": "The prompt is free; results and supported tools depend on the selected AI service."
+    },
+    "coding-assistant": {
+      "example": "Write a small JavaScript function that groups expenses by category and handles missing or invalid values. Include tests.",
+      "output": "A focused implementation, test cases, assumptions and local run instructions.",
+      "limit": "Run tests locally, review dependencies and secrets, and don't deploy unreviewed generated code."
+    },
+    "pdf-question-helper": {
+      "example": "Upload a public appliance manual in a compatible chat and ask which maintenance intervals apply to your model. Request page numbers and distinguish direct quotations from explanation.",
+      "output": "Answers tied to supplied document passages, page references when available and a list of unanswered questions.",
+      "limit": "AIBin does not upload or read your PDF itself. Use a chat that supports files; redact confidential information and verify citations."
+    },
+    "language-practice": {
+      "example": "Practice ordering dinner in Spanish at A2 level. Roleplay a waiter, correct major mistakes after each reply, and give three phrases to review.",
+      "output": "A paced conversation, corrections with explanations and a short vocabulary recap.",
+      "limit": "Voice conversation depends on the external provider; check important translations with reliable sources."
+    },
+    "interview-practice": {
+      "example": "Simulate a 20-minute business analyst interview from a pasted job description; ask one question at a time and critique my own examples.",
+      "output": "Role-specific questions, follow-up probes and feedback on clarity, evidence and structure.",
+      "limit": "A practice simulation is not a hiring decision; never invent qualifications or share employer secrets."
+    },
+    "story-outline-writer": {
+      "example": "Outline a six-chapter cozy mystery set in an original island village, with a surprising but fair solution and distinct supporting characters.",
+      "output": "A premise, character motivations, turning points and chapter outline that the author can revise.",
+      "limit": "Use original characters and plots; review the draft for consistency and rights."
+    },
+    "image-prompt-builder": {
+      "example": "Design a prompt for a realistic overhead photo of an original ceramic plate with soft daylight, warm colors and a clean square crop.",
+      "output": "A descriptive image prompt, composition constraints and optional variations for a compatible image model.",
+      "limit": "This is a free prompt, not an image generator running on AIBin. Rendering depends on the external tool."
+    },
+    "photo-edit-brief": {
+      "example": "Describe edits to a landscape photo: recover highlight detail, brighten foreground shadows and keep colors natural without changing the people or location.",
+      "output": "An edit brief that distinguishes adjustments to exposure, color and crop from actual content changes.",
+      "limit": "No photo is edited here. Upload it only to a trusted compatible service and review the actual image."
+    },
+    "paragraph-rewriter": {
+      "example": "Rewrite a long customer update into a concise, friendly paragraph for a general audience while keeping the original dates and promises.",
+      "output": "A clear revised paragraph and a short explanation of material changes.",
+      "limit": "Verify that revised language preserves facts and commitments; don't use it to misrepresent authorship."
+    },
+    "research-brief-builder": {
+      "example": "Compare three public sources on home energy efficiency, identifying claims, publication dates and evidence quality before summarizing.",
+      "output": "A concise research brief with cited sources, agreement, uncertainties and follow-up questions.",
+      "limit": "Use a browsing-enabled chat for current sources; manually open citations and verify dates."
+    },
+    "resume-builder": {
+      "example": "Create a one-page resume for an entry-level data analyst from my real projects and work history; use the job description to select relevant evidence.",
+      "output": "An editable resume draft, skill-to-job mapping and a checklist of facts to confirm.",
+      "limit": "No employment outcomes are guaranteed. Never invent qualifications, metrics or credentials."
+    },
+    "slide-outline-builder": {
+      "example": "Outline a seven-slide presentation for a community garden proposal, including budget assumptions, benefits, timeline and a decision request.",
+      "output": "Slide titles, concise points, visual suggestions and optional speaker notes.",
+      "limit": "AIBin provides an outline, not a rendered PowerPoint; export through a compatible presentation tool."
+    }
+  }
+}

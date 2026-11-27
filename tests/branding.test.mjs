@@ -21,7 +21,8 @@ test('SEO canonicals, sitemap and robots agree; previews are not indexed',()=>{
   const crawlable=!!canonical&&process.env.VERCEL_ENV!=='preview';
   const sitemap=read('sitemap.xml');
   const robots=read('robots.txt');
-  if(process.env.SITE_URL)assert.equal(canonical,new URL('/',process.env.SITE_URL).href);
+  if(process.env.VERCEL_ENV==='production')assert.equal(canonical,'https://www.aibin.me/');
+  else if(process.env.SITE_URL)assert.equal(canonical,new URL('/',process.env.SITE_URL).href);
   if(crawlable){
     const origin=new URL(canonical).origin;
     assert.ok(robots.includes('Sitemap: '+origin+'/sitemap.xml'));
