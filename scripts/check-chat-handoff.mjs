@@ -54,6 +54,25 @@ async function popupLink(page,locator,expected,method='click'){
 }
 async function deny(ctx){await ctx.addInitScript(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('Denied for QA');}}});document.execCommand=()=>false;});}
 try{
+ // Responsive footer and catalog expansion alignment on real browser layouts.
+ for(const width of [390,768,1280]){
+  const ctx=await context({viewport:{width,height:844}});
+  const page=await ctx.newPage();await page.goto(base+'/');
+  const more=page.locator('#show-more'),summary=page.locator('.footer-details > summary');
+  await more.waitFor({state:'visible'});
+  const aligned=await page.evaluate(()=>{
+   const grid=document.querySelector('#search-grid').getBoundingClientRect(),b=document.querySelector('#show-more').getBoundingClientRect();
+   const summary=document.querySelector('.footer-details > summary'),link=document.querySelector('.footlinks > a');
+   const sr=summary.getBoundingClientRect(),lr=link.getBoundingClientRect();
+   return {center:Math.abs((grid.left+grid.right-b.left-b.right)/2),summaryHeight:sr.height,linkHeight:lr.height,overflow:document.documentElement.scrollWidth>window.innerWidth+1};
+  });
+  assert.ok(aligned.center<2,JSON.stringify(aligned));assert.ok(Math.abs(aligned.summaryHeight-aligned.linkHeight)<2,JSON.stringify(aligned));assert.equal(aligned.overflow,false);
+  await summary.click();await page.locator('.footer-more-links a').first().waitFor({state:'visible'});assert.equal(await page.locator('.footer-details').getAttribute('open'),'');
+  await summary.click();await more.click();assert.equal(await more.isVisible(),false);assert.ok(await page.locator('#search-grid [data-agent]:not([hidden])').count()>=201);
+  await page.goto(base+'/community');assert.equal(await page.getByLabel('Username',{exact:true}).count(),1);
+  console.log('BROWSER_LAYOUT PASS '+width+'px: centered expansion, footer More alignment, Username field');
+  await ctx.close();
+ }
  const desktop=await context();await deny(desktop);
  for(const provider of ['chatgpt','claude']){
   const p=await fresh(desktop,provider),a=p.locator('.ready-use'),url=await a.getAttribute('href');

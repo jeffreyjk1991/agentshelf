@@ -1,3 +1,4 @@
+import {editorialHandle} from '../lib/editorial-profiles.mjs';
 import {launchPlan} from '../assets/chat-launch.mjs';
 import {compatibilityIcons} from './compatibility.mjs';
 import fs from 'node:fs';
@@ -35,9 +36,9 @@ export function readyPanel({esc,name,slug,prompt,provider= recommendedChat(slug)
  return html;
 }
 export function writeReadyDownloads({out,assistants,automations,everyday,base}){
- const entries=[...assistants.map(a=>({slug:a.slug,name:a.name,kind:'assistant',provider:recommendedChat(a.slug),page:'/agents/'+a.slug,prompt:makeAssistantPrompt(a.task,'Simple and concise',a.name)})),...automations.map(a=>({slug:a.slug,name:a.name,kind:'scheduled',provider:a.provider,page:'/automations/'+a.slug,prompt:readySchedulePrompt(a)})),...everyday.map(a=>({slug:a.slug,name:a.name,kind:'optional-chat',provider:recommendedChat(a.slug),page:'/tools/'+a.slug,prompt:makeAssistantPrompt(toolGoal(a),'Simple and concise',a.name)}))];
+ const entries=[...assistants.map(a=>({slug:a.slug,name:a.name,category:a.category,kind:'assistant',provider:recommendedChat(a.slug),page:'/agents/'+a.slug,prompt:makeAssistantPrompt(a.task,'Simple and concise',a.name)})),...automations.map(a=>({slug:a.slug,name:a.name,category:a.category,kind:'scheduled',provider:a.provider,page:'/automations/'+a.slug,prompt:readySchedulePrompt(a)})),...everyday.map(a=>({slug:a.slug,name:a.name,category:a.category,kind:'optional-chat',provider:recommendedChat(a.slug),page:'/tools/'+a.slug,prompt:makeAssistantPrompt(toolGoal(a),'Simple and concise',a.name)}))];
  if(new Set(entries.map(x=>x.slug)).size!==entries.length)throw Error('Duplicate ready agent download');
  fs.mkdirSync(out+'/downloads',{recursive:true});
  for(const a of entries)fs.writeFileSync(out+agentFile(a.slug),a.prompt+'\n','utf8');
- fs.writeFileSync(out+'/ready-agents.json',JSON.stringify({name:'AIBin ready-to-use agents',count:entries.length,format:'UTF-8 text instructions for manual use in a compatible AI chat; not installed software',agents:entries.map(({prompt,...a})=>({...a,creator:'AIBin',download:base+agentFile(a.slug),url:base+a.page}))},null,2));
+ fs.writeFileSync(out+'/ready-agents.json',JSON.stringify({name:'AIBin ready-to-use agents',count:entries.length,format:'UTF-8 text instructions for manual use in a compatible AI chat; not installed software',agents:entries.map(({prompt,...a})=>({...a,creator:'AIBin',editorialProfile:editorialHandle(a.category),download:base+agentFile(a.slug),url:base+a.page}))},null,2));
 }

@@ -1,6 +1,6 @@
 import {CHATS} from './chat-fit.mjs';
 import {copy} from './my-agents.mjs';
-import {readCommunity,node,platformMark,safeAgentLink} from './community-cards.mjs';
+import {readCommunity,node,platformMark,safeAgentLink,usernameLabel} from './community-cards.mjs';
 const form=document.querySelector('#submit-agent'),status=document.querySelector('#submission-status'),draft=document.querySelector('#submission-draft'),list=document.querySelector('#community-list'),communityStatus=document.querySelector('#community-status');
 const values=()=>{const a=Object.fromEntries(new FormData(form));a.consent=a.consent==='on';return a;};
 function download(text,filename,type){const u=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=u;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
@@ -15,7 +15,7 @@ async function load(){
  try{const agents=await readCommunity();list.replaceChildren();communityStatus.textContent=agents.length?'Reviewed submissions':'Be the first to share an agent.';
  for(const a of agents){
   const card=node('article','','saved-card');card.id='agent-'+a.id;const heading=node('h3',a.name),mark=platformMark(a.provider);if(mark)heading.append(mark);
-  card.append(heading,node('p','By '+a.creator+' · '+a.category,'agent-creator'),node('p',a.description));
+  card.append(heading,node('p',usernameLabel(a.creator)+' · '+a.category,'agent-creator'),node('p',a.description));
   if(a.kind==='link'){const href=safeAgentLink(a.url);if(href){const link=node('a','Open agent ↗','btn primary');link.href=href;link.target='_blank';link.rel='ugc nofollow noopener noreferrer';card.append(link);}}
   else {
    const actions=node('div','','ready-actions'),provider=Object.hasOwn(CHATS,a.provider)?a.provider:'chatgpt',button=node('button','Use in '+CHATS[provider].name+' ↗','btn primary'),save=node('button','Download agent ↓','btn secondary'),message=node('p','','muted');

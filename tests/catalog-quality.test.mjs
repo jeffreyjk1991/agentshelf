@@ -1,3 +1,4 @@
+import {editorialCredit,editorialHandle} from '../lib/editorial-profiles.mjs';
 import {compatibleChats} from '../scripts/compatibility.mjs';
 import {CHATS,recommendedChat} from '../assets/chat-fit.mjs';
 import test from 'node:test';
@@ -14,7 +15,7 @@ const home=read('dist/index.html'),sitemap=read('dist/sitemap.xml'),examples=jso
 const all=groups.flatMap(([route,items,kind])=>items.map(a=>({route,kind,a})));
 test('complete catalog: each listing and each browser example occurs exactly once',()=>{
  assert.equal(all.length,201);assert.equal(new Set(all.map(x=>x.a.slug)).size,201);
- assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
+ assert.equal(new Set(all.map(x=>editorialHandle(x.a.category))).size,18);assert.equal(examples.length,41);assert.equal(new Set(examples.map(x=>x.slug)).size,41);
 });
 for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  const url='/'+route+'/'+a.slug,html=read('dist'+url+'.html');
@@ -22,7 +23,7 @@ for(const {route,kind,a} of all)test(kind+': '+a.slug,()=>{
  assert.ok(home.includes('data-filter="'+a.category+'"'));assert.ok(html.includes('<h1>'));
  assert.ok(html.includes('<title>')&&html.includes('name="description"'));
  if(sitemap.includes('<loc>')){assert.ok(sitemap.includes(url+'</loc>'));assert.ok(html.includes('href="https://www.aibin.me'+url+'"')||process.env.SITE_URL);}
- const homeCard=[...home.matchAll(/<a class="agent mini-card[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)].find(m=>m[1]===url)?.[0];assert.ok(homeCard,'Home card missing');assert.ok(homeCard.includes('class="agent-creator">By AIBin</span>'));assert.ok(html.includes('class="agent-creator detail-creator">By AIBin</p>'));
+ const homeCard=[...home.matchAll(/<a class="agent mini-card[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)].find(m=>m[1]===url)?.[0];assert.ok(homeCard,'Home card missing');assert.ok(homeCard.includes(editorialCredit(a.category,String)));assert.ok(html.includes(editorialCredit(a.category,String,true)));assert.ok(html.includes('"creator":{"@type":"Organization","name":"AIBin"'));
  if(route==='live-agents'){
   assert.ok(homeCard.includes('class="live-indicator"'));assert.ok(!homeCard.includes('class="compatibility-icon"'));
   const req=requestFor(normalizeRun({slug:a.slug,input:a.example}));assert.equal(new URL(req.url).protocol,'https:');
