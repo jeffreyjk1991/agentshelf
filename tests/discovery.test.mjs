@@ -46,3 +46,39 @@ test('fixed AI referral categories, never arbitrary URL or personal inputs',()=>
 });
 
 test('IndexNow public ownership key exists only on the canonical production build',()=>{const key='ad27013b45c6445a9b43c9b3e2706ef1';if(indexed&&home.includes('rel="canonical" href="https://www.aibin.me/"'))assert.equal(read(key+'.txt').trim(),key);});
+
+test('blog publishes fifty distinct referenced guides, linked resources and canonical article metadata',()=>{
+ const catalog=JSON.parse(read('blog.json'));const index=read('blog.html');const titles=new Set();
+ assert.equal(catalog.count,50);assert.equal(catalog.articles.length,50);
+ assert.equal(new Set(catalog.articles.map(a=>a.url)).size,50);
+ assert.equal(new Set(catalog.articles.map(a=>a.category)).size,5);
+ assert.ok(home.includes('href="/blog">Blog</a>'));
+ assert.equal((index.match(/data-blog-card href=/g)||[]).length,50);
+ assert.ok(read('llms.txt').includes('/blog.json'));
+ for(const a of catalog.articles){
+  const route=new URL(a.url,'https://www.aibin.me').pathname;
+  const html=read(route.slice(1)+'.html');
+  assert.ok(!titles.has(a.title));titles.add(a.title);
+  assert.ok(index.includes('href="'+route+'"'),route);
+  assert.ok(html.includes('class="blog-article-header"')&&html.includes('class="blog-example"'),route);
+  assert.ok(html.includes('References & further reading'),route);
+  assert.ok(a.sources.length>=2&&a.sources.every(s=>s.startsWith('https://')));
+  for(const source of a.sources)assert.ok(html.includes(source),route+' reference');
+  const resource=new URL(a.relatedResource,'https://www.aibin.me').pathname;
+  assert.ok(html.includes('href="'+resource+'"'),route+' resource');
+  const resourceFile=resource==='/'?'index.html':resource.slice(1)+'.html';
+  assert.ok(fs.existsSync('dist/'+resourceFile),route+' target exists: '+resource);
+  assert.ok(read(resourceFile).includes('href="/blog'),resource);
+  assert.ok(read('llms.txt').includes(route),route);
+  if(indexed){
+   assert.ok(html.includes('"@type":"BlogPosting"'),route);
+   assert.ok(html.includes('rel="canonical" href="https://www.aibin.me'+route+'"'),route);
+   assert.ok(html.includes('content="index,follow"'),route);
+   assert.ok(map.includes('https://www.aibin.me'+route+'</loc>'),route);
+  }
+ }
+ if(indexed)assert.ok(map.includes('/blog</loc>'));
+ const cfg=JSON.parse(fs.readFileSync('vercel.json','utf8'));
+ assert.ok(cfg.rewrites.some(r=>r.source==='/blog'&&r.destination==='/blog.html'));
+ assert.ok(cfg.rewrites.some(r=>r.source==='/blog/:slug([a-z0-9-]+)'&&r.destination==='/blog/:slug.html'));
+});
