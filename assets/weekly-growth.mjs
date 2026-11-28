@@ -2,8 +2,8 @@ const $=(s,r=document)=>r.querySelector(s);
 async function newsletter(body){const r=await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(12000)});const d=await r.json();if(!r.ok)throw Error(d.message||'Please try again later.');return d;}
 for(const form of document.querySelectorAll('.weekly-form')){
  const status=$('.weekly-status',form),withdraw=$('.weekly-withdraw',form),button=$('button',form);
- form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;button.disabled=true;status.textContent='Saving your request…';withdraw.hidden=true;withdraw.removeAttribute('href');
-  try{const d=await newsletter({action:'subscribe',email:form.elements.signupEmail.value,consent:form.elements.consent.checked});status.textContent=d.message;form.reset();if(/^[A-Za-z0-9_-]{43}$/.test(d.withdrawToken||'')){withdraw.href='/newsletter#withdraw='+d.withdrawToken;withdraw.hidden=false;}}catch(e){status.textContent=e.message||'Please try again.';}finally{button.disabled=false;}
+ form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;button.disabled=true;status.textContent='Subscribing…';withdraw.hidden=true;withdraw.removeAttribute('href');
+  try{const d=await newsletter({action:'subscribe',email:form.elements.signupEmail.value,consent:true});status.textContent=d.message;form.reset();if(/^[A-Za-z0-9_-]{43}$/.test(d.withdrawToken||'')){withdraw.href='/newsletter#withdraw='+d.withdrawToken;withdraw.hidden=false;}}catch(e){status.textContent=e.message||'Please try again.';}finally{button.disabled=false;}
  });
 }
 const manage=$('#weekly-manage');
