@@ -155,3 +155,5 @@ test('growth pages retain all catalog entries and record only known referral cha
  assert.ok(home.includes('id="daily-agent"')&&home.includes('class="weekly-form"')&&home.includes('href="/newsletter">Newsletter'));
  assert.ok(read('blog.html').includes('class="weekly-form"'));assert.ok(read('newsletter.html').includes('id="weekly-manage"'));assert.ok(read('privacy.html').includes('AIBin Weekly newsletter'));
 });
+
+test('newsletter is a single-step subscription with visible consent notice',()=>{for(const file of ['index.html','blog.html','newsletter.html']){const html=read(file);const form=html.match(/<form class="weekly-form"[\s\S]*?<\/form>/)?.[0];assert.ok(form,file);assert.ok(form.includes('By subscribing, you agree'));assert.ok(!form.includes('type="checkbox"'));assert.ok(!form.includes('Confirm by email'));}});
