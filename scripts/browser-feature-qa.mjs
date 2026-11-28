@@ -32,6 +32,24 @@ async function visible(p,selector){await p.locator(selector).first().waitFor({st
 async function go(p,route){await p.goto(base+route);await p.waitForLoadState('domcontentloaded');}
 async function create(p,goal){await p.locator('#vibe-goal').fill(goal);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');}
 try{
+ await run('Blog footer, responsive topic library, search, article references and agent links',async()=>{
+  for(const w of [320,390,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/');const footer=p.locator('.footlinks');assert.equal(await footer.locator(':scope > a[href="/blog"]').count(),1);
+   await footer.locator('a[href="/blog"]').click();await p.waitForURL('**/blog');await visible(p,'.blog-index');
+   assert.equal(await p.locator('[data-blog-card]').count(),50);assert.equal(await p.locator('[data-blog-group]').count(),5);
+   assert.equal(await p.locator('[data-blog-card]:visible').count(),50);
+   await visible(p,'#blog-search');await p.locator('#blog-search').fill('chatgpt vs claude');await p.waitForFunction(()=>document.querySelector('#blog-count').textContent.includes(' of 50 articles'));
+   assert.ok(await p.locator('[data-blog-card]:visible').count()>=1);assert.ok(await p.locator('[data-blog-card]:visible').count()<50);
+   await p.locator('#blog-search').fill('zzzzzznoarticle');await visible(p,'#blog-empty');assert.equal(await p.locator('[data-blog-card]:visible').count(),0);
+   await p.locator('#blog-search').fill('');assert.equal(await p.locator('[data-blog-card]:visible').count(),50);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   await p.locator('a[href="/blog/chatgpt-vs-claude-ai-agents"]').first().click();await p.waitForURL('**/blog/chatgpt-vs-claude-ai-agents');await visible(p,'.blog-article');
+   assert.ok((await p.locator('.blog-references a').count())>=2);assert.equal(await p.locator('.blog-cta a[href="/ai-agents-for-chatgpt"]').count(),1);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   await p.locator('.blog-cta a').click();await p.waitForURL('**/ai-agents-for-chatgpt');await visible(p,'.blog-related a[href="/blog/chatgpt-vs-claude-ai-agents"]');
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Anonymous traffic records each page, distinguishes first and returning visits, and honors opt-out',async()=>{
   const {c,p,errors}=await ctx(390);try{
    traffic.length=0;

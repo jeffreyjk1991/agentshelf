@@ -226,6 +226,16 @@
       "source": "/ai-marketplace-platforms.html",
       "destination": "/ai-marketplace-platforms",
       "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug([a-z0-9-]+).html",
+      "destination": "/blog/:slug",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -376,6 +386,14 @@
     {
       "source": "/ai-marketplace-platforms",
       "destination": "/ai-marketplace-platforms.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/:slug([a-z0-9-]+)",
+      "destination": "/blog/:slug.html"
     }
   ]
 }
