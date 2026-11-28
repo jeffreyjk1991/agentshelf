@@ -34,7 +34,7 @@ export function buildVibeAgent({goal,frequency='auto',provider='auto',templates=
  return {name,prompt,provider:chat,frequency:cadence,template:matched?{name:matched.name,path:matched.path}:null};
 }
 export function publicAgentPath(path){
- return /^\/(?:agents|tools|automations|live-agents)\/[a-z0-9-]{1,80}$/.test(path)||/^\/community#agent-\d+$/.test(path)||/^\/creators#[A-Za-z0-9_.-]{2,50}$/.test(path);
+ return /^\/(?:agents|tools|automations|live-agents|agent-teams)\/[a-z0-9-]{1,80}$/.test(path)||/^\/community#agent-\d+$/.test(path)||/^\/creators#[A-Za-z0-9_.-]{2,50}$/.test(path);
 }
 export function groupCreators(agents){
  const groups=new Map();
