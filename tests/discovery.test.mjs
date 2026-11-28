@@ -101,3 +101,20 @@ test('job search guide shows a dated employer-verified example, rejected listing
  assert.match(html,/employer’s current job board/);
  assert.equal((html.match(/class="btn primary" href="\/automations\/job-opening-scout"/g)||[]).length,1);
 });
+
+test('search intent guides add useful prompts and real tool links without duplicating routes',()=>{
+ const cases=[
+ ['ai-agent-for-job-search','How to use a free AI job search agent',['/agents/job-search-scout','/agents/job-application-tailor']],
+ ['ai-agent-for-flight-deals','Travel Tuesday AI flight finder checklist',['/tools/cheap-flight-finder','/tools/trip-budget']],
+ ['ai-agent-for-online-shopping','Cyber Monday AI deal checker and price comparison',['/automations/product-deal-watcher','/tools/discount-calculator','/tools/product-finder']]
+ ];
+ for(const [slug,heading,links] of cases){
+  const route='/blog/'+slug,html=read(route.slice(1)+'.html');
+  assert.ok(html.includes(heading),slug);
+  assert.ok(html.includes('Instructions to use in your AI chat'),slug);
+  assert.ok(html.includes('compatible AI chat or alert service'),slug);
+  for(const link of links){assert.ok(html.includes('href="'+link+'"'),link);assert.ok(fs.existsSync('dist'+link+'.html'),link);}
+  if(indexed){assert.ok(html.includes('"dateModified":"2026-11-28"'),slug);assert.ok(map.includes('https://www.aibin.me'+route+'</loc>'),slug);}
+  else assert.ok(html.includes('content="noindex,follow"'),slug);
+ }
+});
