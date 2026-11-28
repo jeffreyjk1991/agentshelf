@@ -7,7 +7,7 @@ CREATE INDEX IF NOT EXISTS community_status_time_idx ON community_agents(status,
 CREATE OR REPLACE VIEW engagement_daily AS SELECT created_at::date AS day,slug,event_type,count(*) AS events FROM engagement_events GROUP BY 1,2,3;
 CREATE OR REPLACE VIEW engagement_popular AS SELECT c.slug,c.name,c.category,count(e.id) FILTER(WHERE e.event_type='search_match') AS search_matches,count(e.id) FILTER(WHERE e.event_type='copy') AS copies,count(e.id) FILTER(WHERE e.event_type='open_chat') AS chat_opens,count(e.id) FILTER(WHERE e.event_type='create') AS requests_created,count(e.id) FILTER(WHERE e.event_type='save') AS saves FROM engagement_catalog c LEFT JOIN engagement_events e ON c.slug=e.slug GROUP BY c.slug,c.name,c.category;
 
-ALTER TABLE engagement_events ADD COLUMN IF NOT EXISTS source text CHECK(source IN ('chatgpt','perplexity','gemini','claude','copilot','google','bing','other_referral','direct_or_unknown'));
+ALTER TABLE engagement_events ADD COLUMN IF NOT EXISTS source text CHECK(source IN ('chatgpt','perplexity','gemini','claude','copilot','google','bing','other_referral','direct_or_unknown','instagram','tiktok','youtube','reddit','linkedin','facebook','whatsapp','x','producthunt','newsletter','agent_share'));
 ALTER TABLE engagement_events ADD COLUMN IF NOT EXISTS landing_kind text CHECK(landing_kind IN ('home','builder','listing','directory','guide','other'));
 CREATE OR REPLACE VIEW engagement_search_referrals AS SELECT created_at::date AS day,source,landing_kind,slug,count(*) AS visits FROM engagement_events WHERE event_type IN ('first_visit','return_visit') AND source IS NOT NULL GROUP BY 1,2,3,4;
 
