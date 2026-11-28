@@ -43,10 +43,16 @@ export function createNewsletterHandler({getDatabase=database,limit=rate,env=pro
    const withdraw=token(),confirm=token(),unsubscribe=token(),canSend=configured(env);
    const rows=await sql`INSERT INTO newsletter_subscribers(email,status,consent_at,withdraw_hash,confirm_hash,confirm_expires,unsubscribe_hash,last_email_attempt) VALUES (${data.email},'pending',now(),${hash(withdraw)},${canSend?hash(confirm):null},${canSend?new Date(Date.now()+48*3600000).toISOString():null},${hash(unsubscribe)},${canSend?new Date().toISOString():null})
     ON CONFLICT(email) DO UPDATE SET status='pending',consent_at=now(),confirmed_at=NULL,unsubscribed_at=NULL,withdraw_hash=EXCLUDED.withdraw_hash,confirm_hash=EXCLUDED.confirm_hash,confirm_expires=EXCLUDED.confirm_expires,unsubscribe_hash=EXCLUDED.unsubscribe_hash,last_email_attempt=EXCLUDED.last_email_attempt WHERE newsletter_subscribers.status='unsubscribed' RETURNING status`;
-   // Duplicate submissions never disclose whether the email is already on the list or issue new management tokens.
-   if(!rows.length)return respond(res,200,'Request received. Email confirmation is required before any weekly emails are sent.');
-   let sent=false;if(canSend)try{sent=await sendConfirmation(data.email,confirm,unsubscribe,env,fetcher);}catch{}
-   return respond(res,201,sent?'Check your inbox to confirm. You will not receive weekly emails until you confirm.':'Signup request saved. Email delivery is not yet available; no weekly emails will be sent until you confirm.',{withdrawToken:withdraw});
+   // For a previously pending request, retry only after a 24-hour cooldown.
+   // Never disclose whether the address is already registered or replace an existing withdrawal token.
+   let send=canSend&&rows.length>0;
+   if(canSend&&!rows.length){
+    const retry=await sql`UPDATE newsletter_subscribers SET confirm_hash=${hash(confirm)},confirm_expires=now()+interval '48 hours',unsubscribe_hash=${hash(unsubscribe)},last_email_attempt=now() WHERE email=${data.email} AND status='pending' AND (last_email_attempt IS NULL OR last_email_attempt<now()-interval '24 hours') RETURNING status`;
+    send=retry.length>0;
+   }
+   if(send)try{await sendConfirmation(data.email,confirm,unsubscribe,env,fetcher);}catch{}
+   // Uniform response shape, including an unguessable token for duplicate requests.
+   return respond(res,200,canSend?'Request received. If confirmation is available, check your inbox. You will not receive weekly emails until you confirm.':'Signup request received. Email delivery is not yet available; no weekly emails will be sent until you confirm.',{withdrawToken:withdraw});
   }catch{return respond(res,503,'Newsletter temporarily unavailable. Please try again later.');}
  };
 }
