@@ -65,7 +65,7 @@ try{
    assert.equal(await p.locator('.blog-cta a').count(),1);
    await p.locator('.blog-cta a').click();await p.waitForURL('**'+scout);
    assert.equal(hits().length,start);
-   await p.locator('.chat-select').selectOption('chatgpt');
+   await p.locator('.ready-use[data-launch-mode=prefill]').waitFor();
    const recorded=p.waitForResponse(r=>r.url().endsWith('/api/engagement')&&r.request().postDataJSON()?.slug===handoff);
    const popup=p.waitForEvent('popup');
    await p.locator('.ready-use').click();await recorded;await (await popup).close();
@@ -73,7 +73,7 @@ try{
    const repeat=p.waitForEvent('popup');await p.locator('.ready-use').click();await (await repeat).close();
    await go(p,'/privacy');await p.locator('#analytics-opt-out').check();
    await go(p,guide);await p.locator('.blog-cta a').click();await p.waitForURL('**'+scout);
-   await p.locator('.chat-select').selectOption('chatgpt');
+   await p.locator('.ready-use[data-launch-mode=prefill]').waitFor();
    const optedOut=p.waitForEvent('popup');await p.locator('.ready-use').click();await (await optedOut).close();
    await p.waitForLoadState('networkidle');assert.equal(hits().length,start+1);
    assert.deepEqual(errors,[]);
