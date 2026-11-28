@@ -1,0 +1,18 @@
+/* Growth features: low-friction footer surfaces, existing theme. */
+.weekly-signup{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:18px;background:#fffefa;border:1px solid var(--border);border-radius:14px;padding:18px;margin:28px auto 0;max-width:900px;box-sizing:border-box}
+.weekly-kicker{display:block;color:#176747;font-size:10px;font-weight:750;letter-spacing:.09em;line-height:1.5}
+.weekly-copy h2{font-size:19px;letter-spacing:-.025em;line-height:1.3;margin:5px 0 6px}
+.weekly-copy p,.daily-pick p{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.weekly-form{min-width:0;margin:0}.weekly-input-row{display:flex;align-items:stretch;gap:7px}
+.weekly-email-visible{font:inherit;font-size:14px;border:1px solid #c9dbcf;border-radius:9px;background:white;color:var(--ink);padding:10px;min-width:0;width:100%;box-sizing:border-box}
+.weekly-input-row .btn{font-size:13px;padding:9px 12px;white-space:nowrap;flex-shrink:0}
+.weekly-consent{display:flex;gap:5px;align-items:flex-start;flex-wrap:wrap;font-size:11px;color:var(--muted);margin:9px 0 4px}
+.weekly-consent input{accent-color:#176747;margin:2px 2px 0 0}
+.weekly-hint,.weekly-status,.weekly-withdraw{font-size:12px;line-height:1.5;color:var(--muted);margin:4px 0;overflow-wrap:anywhere}.weekly-status:empty{display:none}.weekly-status:not(:empty){color:var(--accent)}.weekly-withdraw{color:var(--accent)}.weekly-withdraw[hidden],.weekly-manage[hidden],.growth-trending[hidden]{display:none!important}
+.growth-discovery{margin:16px 0 10px;max-width:900px}.daily-pick{display:flex;gap:15px;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid var(--border);border-radius:11px;background:#fffefa}
+.daily-pick a{display:block;font-size:15px;line-height:1.4;color:var(--accent);font-weight:700;margin-top:3px}
+.daily-pick p{max-width:52%;text-align:right}.growth-trending{margin:9px 0;padding:10px 12px;border:1px solid var(--border);border-radius:11px;background:#fffefa}
+.growth-trending summary{font-size:13px;font-weight:650;cursor:pointer}.growth-trending summary span{font-size:11px;font-weight:400;color:var(--muted);margin-left:8px}
+.trending-row{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border);font-size:13px}.trending-row:first-child{margin-top:10px}.trending-row small{font-size:11px;color:var(--muted);white-space:nowrap}
+.weekly-manage{padding:15px;border:1px solid var(--border);border-radius:11px;background:var(--card);margin:16px 0}
+@media(max-width:650px){.weekly-signup{grid-template-columns:1fr;gap:12px;padding:14px;margin-top:22px}.weekly-copy h2{font-size:17px}.daily-pick{flex-direction:column;align-items:flex-start;gap:5px}.daily-pick p{max-width:none;text-align:left;font-size:12px}.weekly-email-visible{font-size:16px}.weekly-input-row .btn{padding:8px 10px}}
