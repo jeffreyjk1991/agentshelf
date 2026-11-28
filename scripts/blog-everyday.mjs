@@ -2,8 +2,8 @@ export default [
   [
     "ai-agent-for-job-search",
     "AI Agents for Job Search: Build a Verified Daily Shortlist",
-    "Set up a job-search helper that finds relevant openings and links to genuine employer listings.",
-    "A useful job-search agent should prioritize relevance and verification, not automatically apply everywhere. Give it your target role, location, experience, preferred employment type and deal-breakers. Have it collect official job pages, record when they were checked, identify missing salary details and explain why each opening fits. A recurring task needs a real scheduler and current web access. Keep application materials and final submissions under your control.",
+    "Create a free AI job search agent template to find relevant openings, verify employer links and build a daily shortlist without automatic applications.",
+    "A free AI job search agent template can help you find and evaluate openings without coding. AIBin provides free, reusable instructions; your chosen AI chat may have usage limits, paid web access or scheduling features. A useful job-search agent should prioritize relevance and verification, not automatically apply everywhere. Give it your target role, location, experience, preferred employment type and deal-breakers. Have it collect official job pages, record when they were checked, identify missing salary details and explain why each opening fits. A recurring task needs a real scheduler and current web access. Keep application materials and final submissions under your control.",
     [
       "Make a search profile with five target titles, a location or remote preference, and three required skills.",
       "Request five distinct openings with employer, title, posting date, official application link and fit explanation.",
@@ -23,15 +23,15 @@ export default [
   [
     "ai-agent-for-flight-deals",
     "AI Agents for Flight Deals: Alerts vs One-Time Fare Searches",
-    "Combine airfare alerts with AI comparison to understand total travel cost and fare restrictions.",
+    "Use an AI flight finder and fare alerts to compare total trip costs, including Travel Tuesday deals, baggage and fare restrictions.",
     "A flight alert service is often better than a general agent at continually tracking a particular route. Use an AI assistant to compare the options once alerts arrive, including baggage, connection time, arrival date and change rules. Google Flights offers route and date-based price tracking; an external AI task can request recurring checks only when supported. AIBin's flight tools help structure searches, but they do not guarantee current availability or continuous background monitoring.",
     [
       "Enter your departure and destination airports, number of travelers, flexible dates, cabin and luggage.",
-      "Set a fare alert in the booking or tracking service; record what price should trigger review.",
+      "Set a fare alert in the booking or tracking service; save a timestamped baseline for the same itinerary before Travel Tuesday (December 1 in 2026).",
       "Compare the total price for the same passengers and baggage, then verify the fare directly before booking."
     ],
     "Watch Detroit to Lisbon for two travelers in March. Alert when the total round-trip fare is below $1,500 including one checked bag each; include overnight stops and a booking link.",
-    "Prices can change during checkout. Verify baggage, airports, currency and ticket conditions. Never instruct an unattended agent to purchase automatically.",
+    "Prices can change during checkout. Verify baggage, airports, currency and ticket conditions. A sale badge is not evidence of savings. Never instruct an unattended agent to purchase automatically.",
     [
       "/automations/flight-price-watcher",
       "Customize a flight alert request"
@@ -45,15 +45,15 @@ export default [
   [
     "ai-agent-for-online-shopping",
     "AI Shopping Agent: How to Compare Prices Without Getting Misled",
-    "Use an AI shopping helper to compare exact products, delivered prices and seller terms.",
+    "Use AI shopping price comparison to check Cyber Monday deals, match exact products and compare delivered prices, warranties and seller terms.",
     "Shopping assistants work best when all offers describe the same item. A model name alone may hide differences in storage, color, condition, warranty and retailer. Build a comparison that includes shipping, taxes, coupons and return restrictions. Separate a product's specifications from seller claims; user reviews can be misleading. AIBin offers browser-based comparison tools and reusable instructions, not automated purchases.",
     [
       "Provide a model number, required condition, country and maximum delivered price.",
-      "Collect matching offers and show the full cost and seller return policy; mark missing fees.",
+      "Collect matching offers and show the full cost and seller return policy; mark missing fees. Save a comparable pre-sale price when available for Cyber Monday (November 30 in 2026).",
       "Check the best two offers on the actual retailer website before choosing."
     ],
     "Offer A: $80 plus $9 shipping. Offer B: $85 with free shipping. Before tax, B is $4 cheaper. If B charges a $10 return fee, include that downside rather than ranking only the sticker price.",
-    "Validate coupon eligibility and final checkout cost. The FTC recommends comparing total prices, seller reliability and refund terms.",
+    "Validate coupon eligibility and final checkout cost. The FTC recommends comparing total prices, seller reliability and refund terms. If no comparable historical price exists, mark advertised savings unverified rather than treating a crossed-out price as proof.",
     [
       "/tools/price-compare",
       "Compare two offers in the browser"
