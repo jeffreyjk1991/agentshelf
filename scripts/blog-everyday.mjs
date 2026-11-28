@@ -9,11 +9,11 @@ export default [
       "Request five distinct openings with employer, title, posting date, official application link and fit explanation.",
       "Check each employer's careers site, then tailor a truthful application. Enable a schedule only after a successful manual run."
     ],
-    "Every weekday at 9 AM, shortlist five remote analyst jobs matching SQL and reporting experience. Exclude recruiting-fee requests and duplicate jobs; send employer application URLs.",
+    "Every weekday at 9 AM, shortlist up to five U.S.-remote analyst jobs for someone with five years of experience using Salesforce and Power BI. Exclude recruiting-fee requests and duplicate jobs; send employer application URLs.",
     "The FTC warns about fake jobs and upfront payments. Never pay to secure an offer, and verify unfamiliar recruiters directly. This template does not submit applications.",
     [
       "/automations/job-opening-scout",
-      "Try the job-opening scout"
+      "Try Job Opening Scout"
     ],
     [
       "jobscams",
