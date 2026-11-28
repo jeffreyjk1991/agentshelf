@@ -91,3 +91,13 @@ test('marketplace search intent has useful distinct canonical destinations',()=>
  if(indexed){assert.ok(map.includes('/ai-marketplace-platforms</loc>'));assert.ok(guide.includes('rel="canonical" href="https://www.aibin.me/ai-marketplace-platforms"'));}
  const cfg=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(cfg.rewrites.some(r=>r.source==='/ai-marketplace-platforms'&&r.destination==='/ai-marketplace-platforms.html'));
 });
+
+test('job search guide shows a dated employer-verified example, rejected listing and one Scout CTA',()=>{
+ const html=read('blog/ai-agent-for-job-search.html');
+ assert.match(html,/Example: A verified daily shortlist/);
+ assert.match(html,/datetime="2026-11-28"/);
+ assert.match(html,/vialogic\/jobs\/5466980008/);
+ assert.match(html,/aspenviewtech\/jobs\/4422437009/);
+ assert.match(html,/employer’s current job board/);
+ assert.equal((html.match(/class="btn primary" href="\/automations\/job-opening-scout"/g)||[]).length,1);
+});

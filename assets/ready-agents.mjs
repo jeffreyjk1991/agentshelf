@@ -3,9 +3,12 @@ import {CHATS} from './chat-fit.mjs';
 import {SCHEDULERS} from './schedule-engine.mjs';
 import {saveItem,event} from './my-agents.mjs';
 import {launchPlan,copyAgentText} from './chat-launch.mjs';
+import {jobGuideHandoff,jobGuideHandoffSlug} from './job-guide-attribution.mjs';
 for(const panel of document.querySelectorAll('[data-ready-agent]')){
  const slug=panel.dataset.slug,name=panel.dataset.name,prompt=panel.querySelector('.ready-prompt'),original=prompt.value,select=panel.querySelector('.chat-select'),use=panel.querySelector('.ready-use'),download=panel.querySelector('.ready-download'),status=panel.querySelector('.ready-status'),edit=panel.querySelector('.ready-edit'),open=panel.querySelector('.ready-open'),logo=panel.querySelector('.ready-logo'),help=panel.querySelector('.setup-help'),backup=panel.querySelector('.ready-open-fallback'),hint=panel.querySelector('.ready-hint'),copyPrimary=panel.querySelector('.ready-copy-primary');
  const fields=[...panel.querySelectorAll('[data-custom-field]')],refs=panel.querySelector('.ready-references'),customError=panel.querySelector('.customize-error');
+ const attributeGuide=jobGuideHandoff({slug,referrer:document.referrer,origin:location.origin});
+ const recordHandoff=()=>{event('open_chat',slug);if(attributeGuide())event('open_chat',jobGuideHandoffSlug);};
  let busy=false,basePrompt=original,lastSuffix='',preferencesValid=true;
  const valid=()=>preferencesValid&&prompt.value.trim().length>0&&prompt.value.length<=12000;
  const plan=()=>launchPlan(select.value,prompt.value,preferencesValid&&prompt.value===original);
@@ -44,11 +47,12 @@ for(const panel of document.querySelectorAll('[data-ready-agent]')){
  use.addEventListener('click',async e=>{
   if(!valid()||busy){e.preventDefault();if(!busy)await copy();return;}
   const next=plan();
-  if(next.mode==='prefill'){event('open_chat',slug);return;} // Native trusted click; never gated on clipboard.
+  if(next.mode==='prefill'){recordHandoff();return;} // Native trusted click; never gated on clipboard.
   e.preventDefault();busy=true;use.setAttribute('aria-busy','true');
-  try{if(await copy()){event('open_chat',slug);location.assign(next.open);}}
+  try{if(await copy()){recordHandoff();location.assign(next.open);}}
   finally{busy=false;use.removeAttribute('aria-busy');}
  });
+ for(const a of [open,backup])a.addEventListener('click',()=>{if(valid()&&attributeGuide()){event('open_chat',slug);event('open_chat',jobGuideHandoffSlug);}});
  for(const b of [copyPrimary,panel.querySelector('.ready-copy')])b.addEventListener('click',async()=>{if(busy)return;busy=true;try{await copy();}finally{busy=false;}});
  for(const f of [...fields,...(refs?[refs]:[])]){f.addEventListener('input',syncPreferences);f.addEventListener('change',syncPreferences);}
  prompt.addEventListener('input',()=>{readManualEdit();backup.hidden=true;status.textContent='';update();});select.addEventListener('change',()=>{backup.hidden=true;status.textContent='';update();});

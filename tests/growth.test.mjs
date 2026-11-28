@@ -4,3 +4,18 @@ test('25 new unique templates and 208 helpers',()=>{assert.equal(a.length,25);as
 test('invalid schedules and personalized inputs',()=>{const v={frequency:'Weekly',window:'morning',weekday:'Monday',monthday:1,timezone:'UTC',q0:'A',q1:'B',q2:'C'};assert.throws(()=>scheduleRequest(a[0],{...v,timezone:'fake-zone'}));assert.throws(()=>scheduleRequest(a[0],{...v,q2:''}));assert.throws(()=>scheduleRequest(a[0],{...v,frequency:'Monthly',monthday:31}));assert.ok(personalPrompt('Find a gift','Under $40').includes('Under $40'));assert.throws(()=>personalPrompt('hi',''));});
 test('pages and discoverability',()=>{const h=fs.readFileSync('dist/index.html','utf8');assert.ok(h.includes('Put AI to work'));assert.ok(h.includes('Show all 213 helpers'));for(const x of a){assert.ok(h.includes('href="/automations/'+x.slug+'"'));const s=fs.readFileSync('dist/automations/'+x.slug+'.html','utf8');assert.ok(s.includes('Download agent'));assert.ok(s.includes('Confirm the scheduled task'));assert.ok(s.includes('Customize (optional)'));assert.ok(!s.includes('id="schedule-form"'));assert.ok(fs.existsSync('dist/downloads/'+x.slug+'-agent.txt'));}for(const slug of ['automations','my-agents','shared-agent','community'])assert.ok(fs.existsSync('dist/'+slug+'.html'));assert.equal(JSON.parse(fs.readFileSync('dist/automations.json','utf8')).count,25);assert.ok(fs.readFileSync('dist/my-agents.html','utf8').includes('noindex,follow'));assert.ok(fs.readFileSync('dist/llms.txt','utf8').includes('/automations.json'));assert.ok(Object.values(SCHEDULERS).every(x=>x.help.startsWith('https://')));});
 test('community and analytics validation',()=>{const b={name:'Travel helper',creator:'Weekend planner',task:'Help plan a simple trip with a budget.',provider:'chatgpt',consent:true};assert.equal(normalizeCommunity(b).name,b.name);assert.throws(()=>normalizeCommunity({...b,consent:false}));assert.throws(()=>normalizeCommunity({...b,task:'Please use my email me@example.com'}));assert.throws(()=>normalizeCommunity({...b,provider:'unknown'}));assert.deepEqual(normalizeEngagement({type:'copy',slug:'flight-price-watcher',prompt:'discarded'}),{type:'copy',slug:'flight-price-watcher'});assert.throws(()=>normalizeEngagement({type:'copy',slug:'some private text'}));});
+
+import {jobGuidePath,jobScoutSlug,jobGuideHandoffSlug,jobGuideHandoff} from '../assets/job-guide-attribution.mjs';
+test('attribute one Scout handoff from the same-site job guide only, without copying referrer data',()=>{
+ const origin='https://www.aibin.me',referrer=origin+jobGuidePath+'?discard=private';
+ let time=0;
+ const params={slug:jobScoutSlug,referrer,origin,now:()=>time};
+ const record=jobGuideHandoff(params);
+ assert.equal(record(),true);assert.equal(record(),false);
+ assert.equal(jobGuideHandoff({...params,referrer:'https://other.example'+jobGuidePath})(),false);
+ assert.equal(jobGuideHandoff({...params,referrer:''})(),false);
+ assert.equal(jobGuideHandoff({...params,slug:'other'})(),false);
+ const expired=jobGuideHandoff(params);time+=30*60*1000;assert.equal(expired(),false);
+ assert.throws(()=>normalizeEngagement({type:'copy',slug:jobGuideHandoffSlug}));
+ assert.deepEqual(normalizeEngagement({type:'open_chat',slug:jobGuideHandoffSlug,referrer,prompt:'discard'}),{type:'open_chat',slug:jobGuideHandoffSlug});
+});

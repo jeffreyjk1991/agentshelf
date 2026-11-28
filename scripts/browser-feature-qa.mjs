@@ -50,6 +50,35 @@ try{
    assert.deepEqual(errors,[]);
   }finally{await c.close();}}
  });
+ await run('Job-search guide shows an employer shortlist and attributes a Scout handoff, respecting opt-out',async()=>{
+  const {c,p,errors}=await ctx(390);
+  try{
+   await c.route('https://chatgpt.com/**',r=>r.fulfill({body:'Mock provider'}));
+   const guide='/blog/ai-agent-for-job-search',scout='/automations/job-opening-scout',handoff='job-opening-scout-from-job-guide';
+   const hits=()=>events.filter(e=>e.slug===handoff);
+   const start=hits().length;
+   await go(p,guide+'?private=discard');
+   const shortlist=p.locator('section[aria-labelledby="job-sample"]');
+   await shortlist.waitFor();assert.equal(await shortlist.locator('li a').count(),2);
+   assert.match(await shortlist.textContent(),/Excluded:/);
+   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   assert.equal(await p.locator('.blog-cta a').count(),1);
+   await p.locator('.blog-cta a').click();await p.waitForURL('**'+scout);
+   assert.equal(hits().length,start);
+   await p.locator('.chat-select').selectOption('chatgpt');
+   const recorded=p.waitForResponse(r=>r.url().endsWith('/api/engagement')&&r.request().postDataJSON()?.slug===handoff);
+   const popup=p.waitForEvent('popup');
+   await p.locator('.ready-use').click();await recorded;await (await popup).close();
+   assert.deepEqual(hits().slice(start),[{type:'open_chat',slug:handoff}]);
+   const repeat=p.waitForEvent('popup');await p.locator('.ready-use').click();await (await repeat).close();
+   await go(p,'/privacy');await p.locator('#analytics-opt-out').check();
+   await go(p,guide);await p.locator('.blog-cta a').click();await p.waitForURL('**'+scout);
+   await p.locator('.chat-select').selectOption('chatgpt');
+   const optedOut=p.waitForEvent('popup');await p.locator('.ready-use').click();await (await optedOut).close();
+   await p.waitForLoadState('networkidle');assert.equal(hits().length,start+1);
+   assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
  await run('Anonymous traffic records each page, distinguishes first and returning visits, and honors opt-out',async()=>{
   const {c,p,errors}=await ctx(390);try{
    traffic.length=0;
