@@ -2,8 +2,8 @@ import {database,respond,validateRequest} from '../lib/api.mjs';
 import {rate} from '../lib/marketplace.mjs';
 import {blogPaths} from '../scripts/blog-data.mjs';
 
-const pages=new Set(['/','/open-source','/agent-teams','/agent-packs','/tools','/automations','/live-agents','/my-agents','/make-agent','/shared-agent','/community','/about','/privacy','/developers','/start','/how-to','/agent-research','/agent-runner','/popular-ai-agents','/competitor-research','/top-ai-agents','/agent-checks','/creators','/ai-agent-directory','/ai-marketplace-platforms','/ai-agents-for-chatgpt','/ai-agents-for-claude','/ai-agents-for-gemini','/categories','/tools/category','/offline']);
-const sources=new Set(['chatgpt','perplexity','gemini','claude','copilot','google','bing','other_referral','direct_or_unknown']);
+const pages=new Set(['/','/open-source','/agent-teams','/agent-packs','/tools','/automations','/live-agents','/my-agents','/make-agent','/shared-agent','/community','/about','/privacy','/newsletter','/developers','/start','/how-to','/agent-research','/agent-runner','/popular-ai-agents','/competitor-research','/top-ai-agents','/agent-checks','/creators','/ai-agent-directory','/ai-marketplace-platforms','/ai-agents-for-chatgpt','/ai-agents-for-claude','/ai-agents-for-gemini','/categories','/tools/category','/offline']);
+const sources=new Set(['chatgpt','perplexity','gemini','claude','copilot','google','bing','other_referral','direct_or_unknown','instagram','tiktok','youtube','reddit','linkedin','facebook','whatsapp','x','producthunt','newsletter','agent_share']);
 const kinds=new Set(['first_visit','return_visit','page_view']);
 export function normalizeTraffic(body,headers={}){
  if(!body||typeof body!=='object'||!kinds.has(body.kind)||!sources.has(body.source)||typeof body.path!=='string'||body.path.length>150||!/^\/(?:[a-z0-9-]+(?:\/[a-z0-9-]+)*)?$/.test(body.path))throw Error('Invalid traffic event.');
