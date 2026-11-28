@@ -146,3 +146,12 @@ test('six verified tool examples are rendered with actual results and evidence l
   assert.ok(h.includes('href="/agent-checks"'),c.slug);
  }
 });
+
+test('growth pages retain all catalog entries and record only known referral channels',()=>{
+ const origin='https://www.aibin.me';
+ for(const name of ['instagram','tiktok','youtube','reddit','linkedin','newsletter','agent_share']){assert.equal(classifyReferral('?utm_source='+name,'',origin),name);assert.equal(normalizeEngagement({type:'first_visit',slug:'site',source:name,landingKind:'home'}).source,name);}
+ assert.equal(classifyReferral('','https://www.reddit.com/r/example/',origin),'reddit');assert.equal(classifyReferral('','https://instagram.com.evil.test/',origin),'other_referral');
+ const picks=JSON.parse(read('growth-picks.json'));assert.equal(picks.rotation.length,14);assert.ok(picks.rotation.every(id=>picks.agents.some(a=>a.slug===id)));assert.equal(picks.agents.length,213);
+ assert.ok(home.includes('id="daily-agent"')&&home.includes('class="weekly-form"')&&home.includes('href="/newsletter">Newsletter'));
+ assert.ok(read('blog.html').includes('class="weekly-form"'));assert.ok(read('newsletter.html').includes('id="weekly-manage"'));assert.ok(read('privacy.html').includes('AIBin Weekly newsletter'));
+});
