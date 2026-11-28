@@ -82,3 +82,12 @@ test('blog publishes fifty distinct referenced guides, linked resources and cano
  assert.ok(cfg.rewrites.some(r=>r.source==='/blog'&&r.destination==='/blog.html'));
  assert.ok(cfg.rewrites.some(r=>r.source==='/blog/:slug([a-z0-9-]+)'&&r.destination==='/blog/:slug.html'));
 });
+
+test('marketplace search intent has useful distinct canonical destinations',()=>{
+ const guide=read('ai-marketplace-platforms.html');
+ for(const phrase of ['What is an AI marketplace?','Is there a free AI marketplace?','AWS Marketplace','Facebook Marketplace','Optum AI Marketplace','Hugging Face Hub','GPT Store','AgentMarket','No tool or marketplace can guarantee that income'])assert.ok(guide.includes(phrase),phrase);
+ for(const [file,phrase] of [['index.html','Free AI Agent Marketplace'],['agent-packs.html','Free AI Prompt Marketplace'],['creators.html','AI Creator Marketplace'],['developers.html','Open-Source AI Agent Marketplace']]){const html=read(file);assert.ok(html.includes(phrase),file);assert.ok(html.includes('href="/ai-marketplace-platforms"'),file);}
+ assert.ok(guide.includes('href="/make-agent"'));assert.ok(guide.includes('href="/community"'));assert.ok(read('llms.txt').includes('/ai-marketplace-platforms'));
+ if(indexed){assert.ok(map.includes('/ai-marketplace-platforms</loc>'));assert.ok(guide.includes('rel="canonical" href="https://www.aibin.me/ai-marketplace-platforms"'));}
+ const cfg=JSON.parse(fs.readFileSync('vercel.json','utf8'));assert.ok(cfg.rewrites.some(r=>r.source==='/ai-marketplace-platforms'&&r.destination==='/ai-marketplace-platforms.html'));
+});

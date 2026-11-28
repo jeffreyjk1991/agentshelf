@@ -223,6 +223,11 @@
       "permanent": true
     },
     {
+      "source": "/ai-marketplace-platforms.html",
+      "destination": "/ai-marketplace-platforms",
+      "permanent": true
+    },
+    {
       "source": "/blog.html",
       "destination": "/blog",
       "permanent": true
@@ -377,6 +382,10 @@
     {
       "source": "/tools",
       "destination": "/tools.html"
+    },
+    {
+      "source": "/ai-marketplace-platforms",
+      "destination": "/ai-marketplace-platforms.html"
     },
     {
       "source": "/blog",
