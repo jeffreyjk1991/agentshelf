@@ -1,5 +1,6 @@
 import {database,respond,validateRequest} from '../lib/api.mjs';
 import {rate} from '../lib/marketplace.mjs';
+import {blogPaths} from '../scripts/blog-data.mjs';
 
 const pages=new Set(['/','/open-source','/agent-teams','/agent-packs','/tools','/automations','/live-agents','/my-agents','/make-agent','/shared-agent','/community','/about','/privacy','/developers','/start','/how-to','/agent-research','/agent-runner','/popular-ai-agents','/competitor-research','/top-ai-agents','/agent-checks','/creators','/ai-agent-directory','/ai-agents-for-chatgpt','/ai-agents-for-claude','/ai-agents-for-gemini','/categories','/tools/category','/offline']);
 const sources=new Set(['chatgpt','perplexity','gemini','claude','copilot','google','bing','other_referral','direct_or_unknown']);
@@ -12,7 +13,7 @@ export function normalizeTraffic(body,headers={}){
  const country=String(headers['x-vercel-ip-country']||'').toUpperCase();
  const ua=String(headers['user-agent']||'');
  const device=!ua?'unknown':/ipad|tablet|android(?!.*mobile)/i.test(ua)?'tablet':/mobi|iphone|ipod|android/i.test(ua)?'mobile':'desktop';
- return {path:pages.has(path)||match?path:group,slug:match?.[2]??null,source:body.source,kind:body.kind,country:/^[A-Z]{2}$/.test(country)?country:'ZZ',device};
+ return {path:pages.has(path)||blogPaths.has(path)||match?path:group,slug:match?.[2]??null,source:body.source,kind:body.kind,country:/^[A-Z]{2}$/.test(country)?country:'ZZ',device};
 }
 export function createTrafficHandler({getDatabase=database,limit=rate,env=process.env}={}){
  return async function handler(req,res){
