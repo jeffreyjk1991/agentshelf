@@ -6,12 +6,14 @@ import path from 'node:path';
 import {createServer} from 'node:http';
 const root=path.resolve('dist');
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png','.svg':'image/svg+xml','.txt':'text/plain'};
-const events=[],traffic=[];
+const events=[],traffic=[],newsletterRequests=[];
 let community=[],catalogFailures=0;
 const server=createServer(async(req,res)=>{
  const url=new URL(req.url,'http://localhost');const name=url.pathname;
  if(name.startsWith('/api/')){
   res.setHeader('Content-Type','application/json');
+  if(name==='/api/trending'&&req.method==='GET'){res.end(JSON.stringify({items:[{slug:'job-opening-scout',actions:5},{slug:'flight-price-watcher',actions:2},{slug:'unknown-agent',actions:100}]}));return;}
+  if(name==='/api/newsletter'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;const data=JSON.parse(body);newsletterRequests.push(data);res.end(JSON.stringify(data.action==='subscribe'?{message:'Signup request received. Email delivery is not yet available.',withdrawToken:'a'.repeat(43)}:{message:'Subscription request canceled if the link was valid.'}));return;}
   if(name==='/api/submissions'&&req.method==='GET'){res.end(JSON.stringify({agents:community}));return;}
   if(name==='/api/traffic'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;traffic.push(JSON.parse(body));res.end('{}');return;}
   if(name==='/api/engagement'&&req.method==='POST'){let body='';for await(const chunk of req)body+=chunk;events.push(JSON.parse(body));res.end('{}');return;}
@@ -32,6 +34,13 @@ async function visible(p,selector){await p.locator(selector).first().waitFor({st
 async function go(p,route){await p.goto(base+route);await p.waitForLoadState('domcontentloaded');}
 async function create(p,goal){await p.locator('#vibe-goal').fill(goal);await p.locator('.vibe-form button[type=submit]').click();await visible(p,'.vibe-result');}
 try{
+ await run('Growth features are compact, consent-based, responsive and linked to real catalog items',async()=>{
+  for(const w of [320,390,1280]){const {c,p,errors}=await ctx(w);try{
+   await go(p,'/');await visible(p,'#daily-agent');await p.waitForFunction(()=>document.querySelector('#daily-label').textContent==='AGENT OF THE DAY');await visible(p,'#trending-panel summary');await p.locator('#trending-panel summary').click();assert.equal(await p.locator('#trending-list a').count(),2);assert.equal(await p.locator('#trending-list a').first().getAttribute('href'),'/automations/job-opening-scout');assert.ok(await p.locator('#daily-agent').getAttribute('href'));assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.equal(await p.locator('.weekly-form').count(),1);
+   const before=newsletterRequests.length;await p.locator('.weekly-email-visible').fill('reader@example.test');await p.locator('.weekly-form button').click();assert.equal(newsletterRequests.length,before);await p.locator('.weekly-consent input').check();await p.locator('.weekly-form button').click();await visible(p,'.weekly-withdraw');assert.deepEqual(newsletterRequests.at(-1),{action:'subscribe',email:'reader@example.test',consent:true});assert.ok((await p.locator('.weekly-status').textContent()).includes('not yet available'));
+   await p.locator('.weekly-withdraw').click();await visible(p,'#weekly-manage-action');await p.locator('#weekly-manage-action').click();await p.waitForFunction(()=>document.querySelector('#weekly-manage-status').textContent.includes('canceled'));assert.deepEqual(newsletterRequests.at(-1),{action:'withdraw',token:'a'.repeat(43)});assert.equal(new URL(p.url()).hash,'');assert.deepEqual(errors,[]);
+  }finally{await c.close();}}
+ });
  await run('Blog footer, responsive topic library, search, article references and agent links',async()=>{
   for(const w of [320,390,1280]){const {c,p,errors}=await ctx(w);try{
    await go(p,'/');const footer=p.locator('.footlinks');assert.equal(await footer.locator(':scope > a[href="/blog"]').count(),1);
@@ -248,9 +257,10 @@ try{
    await go(p,'/agents/professional-headshot-maker');await visible(p,'.worked-example');assert.match(await p.locator('.worked-example').textContent(),/Editorial sample, not a live response/);
    await visible(p,'.qa-line summary');await p.locator('.qa-line summary').click();assert.match(await p.locator('.qa-line').textContent(),/not independently certified/);
    assert.equal(await p.getByRole('button',{name:'Share ↗',exact:true}).count(),1);await p.getByRole('button',{name:'Share ↗',exact:true}).click();await visible(p,'.share-dialog');const dimensions=await p.locator('.share-dialog img').evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));assert.deepEqual(dimensions,{w:1080,h:1080});
-   await p.getByRole('button',{name:'Copy link',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.share-dialog [role=status]').textContent.includes('copied'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),'https://www.aibin.me/agents/professional-headshot-maker');
+   await p.getByRole('button',{name:'Copy link',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.share-dialog [role=status]').textContent.includes('copied'));assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),'https://www.aibin.me/agents/professional-headshot-maker?utm_source=agent_share');
    const download=p.waitForEvent('download');await p.getByRole('button',{name:'Download PNG'}).click();const d=await download;assert.equal(d.suggestedFilename(),'aibin-agent-card.png');const b=await fs.readFile(await d.path());assert.equal(b.readUInt32BE(16),1080);assert.equal(b.readUInt32BE(20),1080);
    await p.getByRole('button',{name:'Close ×'}).click();await p.locator('.share-dialog').waitFor({state:'detached'});
+   await go(p,'/make-agent');await create(p,'Find vegetarian recipes every week');p.once('dialog',d=>d.accept());await p.locator('.vibe-share').click();await visible(p,'.share-dialog');assert.equal(await p.locator('.share-dialog img').getAttribute('alt'),'AIBin share card for My AI agent');const link=await p.locator('.share-direct-link').getAttribute('href');assert.ok(link.startsWith('https://www.aibin.me/shared-agent?utm_source=agent_share#'));const item=JSON.parse(decodeURIComponent(new URL(link).hash.slice(1)));assert.ok(item.prompt.includes('Find vegetarian recipes every week'));await p.getByRole('button',{name:'Close ×'}).click();await p.locator('.share-dialog').waitFor({state:'detached'});
    await go(p,'/my-agents');await visible(p,'#recent-list .starter-row');assert.match(await p.locator('#recent-list').textContent(),/Professional Headshot/);await p.locator('#clear-recent').click();assert.equal(await p.locator('#recent-panel').isVisible(),false);assert.deepEqual(errors,[]);
   }finally{await c.close();}
  });
@@ -268,7 +278,7 @@ try{
    await go(p,'/creators');await p.waitForFunction(()=>document.querySelector('#creator-status').textContent.includes('No approved community creators'));
    community=[{id:'91',creator:'sample-maker',name:'Sample workflow',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Write an itinerary using public sources.',provider:'chatgpt',usage_count:3},{id:'92',creator:'SAMPLE-MAKER',name:'Second fixture',description:'Reviewed fixture only.',category:'Travel',kind:'instructions',instructions:'Check route options.',provider:'chatgpt',usage_count:2}];
    await go(p,'/creators#sample-maker');await p.reload();await visible(p,'.creator-card');assert.equal(await p.locator('.creator-card').count(),1);assert.match(await p.locator('.creator-card').textContent(),/5 recorded chat\/agent opens/);
-   await p.getByRole('button',{name:'Share collection ↗',exact:true}).click();await visible(p,'.share-dialog');assert.match(await p.locator('.share-direct-link').textContent(),/creators#sample-maker/);await p.getByRole('button',{name:'Close ×'}).click();
+   await p.getByRole('button',{name:'Share collection ↗',exact:true}).click();await visible(p,'.share-dialog');assert.match(await p.locator('.share-direct-link').textContent(),/creators\?utm_source=agent_share#sample-maker/);await p.getByRole('button',{name:'Close ×'}).click();
    await go(p,'/community#agent-91');await visible(p,'#agent-91');assert.match(await p.locator('#agent-91').textContent(),/3 recorded opens/);assert.equal(await p.locator('#agent-91 .agent-creator a').getAttribute('href'),'/creators#sample-maker');assert.deepEqual(errors,[]);
   }finally{community=[];await c.close();}
  });

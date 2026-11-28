@@ -1,7 +1,7 @@
 import {buildVibeAgent,frequencies,groupCreators,publicAgentPath} from './experience-core.mjs';
 import {CHATS} from './chat-fit.mjs';
 import {copyAgentText} from './chat-launch.mjs';
-import {event,saveItem} from './my-agents.mjs';
+import {event,saveItem,shareUrl} from './my-agents.mjs';
 import {readCommunity,node,usernameLabel} from './community-cards.mjs';
 const $=(s,root=document)=>root.querySelector(s);
 function el(tag,txt,cls){const e=document.createElement(tag);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e;}
@@ -33,6 +33,7 @@ for(const form of document.querySelectorAll('.vibe-form')){
  open.addEventListener('click',async()=>{if(!item)return;const active=item;open.disabled=true;try{const copied=await copyAgentText(active.prompt);if(item!==active)return;if(copied){event('copy','custom');event('open_chat','custom');fallback.hidden=false;message.textContent='Copied. Paste into your chat to start.';location.assign(CHATS[item.provider].url);}else{fallback.hidden=false;prompt.closest('details').open=true;prompt.focus();prompt.select();message.textContent='Clipboard blocked. Copy the selected instructions and open your chat.';}}finally{open.disabled=false;}});
  $('.vibe-copy',parent).addEventListener('click',async()=>{if(!item)return;if(await copyAgentText(item.prompt)){event('copy','custom');message.textContent='Instructions copied.';}else{prompt.closest('details').open=true;prompt.focus();prompt.select();message.textContent='Copy the selected instructions manually.';}});
  $('.vibe-download',parent).addEventListener('click',()=>{if(item)download(new Blob([item.prompt+'\n'],{type:'text/plain;charset=utf-8'}),'aibin-custom-agent.txt');});
+ $('.vibe-share',parent)?.addEventListener('click',()=>{if(!item||!confirm('Your share link contains the complete instructions and anyone with the link can read them. The card itself contains no personal task details. Continue only if the instructions contain no private information.'))return;try{shareCard('My AI agent','Reusable AI instructions. Share the link to open your exact agent.','/make-agent',item);}catch{message.textContent='Unable to create a share card.';}});
  $('.vibe-save',parent).addEventListener('click',()=>{if(!item)return;try{savedKey||='custom:'+crypto.randomUUID();saveItem({key:savedKey,name:item.name,prompt:item.prompt,provider:item.provider});event('save','custom');message.textContent='Saved to My Agents on this device.';$('.vibe-save',parent).disabled=true;}catch{message.textContent='Device storage unavailable; download instead.';}});
 }
 // Branded square PNGs are generated locally, contain only public listing titles and URLs.
@@ -51,19 +52,20 @@ function renderShareCard(title,description,path){
  return c;
 }
 let shareDialog;
-function shareCard(title,description,path){
- if(!publicAgentPath(path))return;
- const url='https://www.aibin.me'+path;let canvas;try{canvas=renderShareCard(title,description,path);}catch{if(navigator.share)navigator.share({title,text:'Explore on AIBin',url}).catch(()=>{});else copyAgentText(url);return;}
+function shareCard(title,description,path,customItem=null){
+ if(!publicAgentPath(path)&&!(customItem&&path==='/make-agent'))return;
+ const publicUrl=new URL(path,'https://www.aibin.me');publicUrl.searchParams.set('utm_source','agent_share');
+ const url=customItem?'https://www.aibin.me/shared-agent?utm_source=agent_share'+new URL(shareUrl(customItem)).hash:publicUrl.href;let canvas;try{canvas=renderShareCard(title,description,path);}catch{if(navigator.share)navigator.share({title,text:'Explore on AIBin',url}).catch(()=>{});else copyAgentText(url);return;}
  if(shareDialog){shareDialog.close?.();shareDialog.remove();}const d=el('dialog',undefined,'share-dialog');shareDialog=d;
  const close=button('Close ×',()=>{if(d.close)d.close();else d.remove();});const h=el('h2','Share this agent'),image=el('img');image.src=canvas.toDataURL('image/png');image.alt='AIBin share card for '+title;
- const actions=el('div',undefined,'share-buttons'),status=el('p','','vibe-status'),direct=link(url,url);direct.className='vibe-status';direct.classList.add('share-direct-link');status.setAttribute('role','status');
+ const actions=el('div',undefined,'share-buttons'),status=el('p','','vibe-status'),direct=link(customItem?'Open shared instructions ↗':url,url);direct.className='vibe-status';direct.classList.add('share-direct-link');status.setAttribute('role','status');
  const blob=()=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('No image')),'image/png'));let shareFile;blob().then(b=>{shareFile=new File([b],'aibin-agent-card.png',{type:'image/png'});}).catch(()=>{});
- const slug=path.match(/\/(?:agents|tools|automations|live-agents)\/([a-z0-9-]+)$/)?.[1]||path.match(/#agent-(\d+)$/)?.[1]&&'community-'+path.match(/#agent-(\d+)$/)[1]||'custom';
- actions.append(button('Download PNG',async()=>{try{download(await blob(),'aibin-agent-card.png');event('share',slug);status.textContent='Card downloaded. Share it together with the direct link.';}catch{status.textContent='Could not create image.';}},'btn secondary'),button('Copy link',async()=>{status.textContent=await copyAgentText(url)?'Direct link copied.':'Select the link below to copy.';event('share',slug);},'btn secondary'),button('Share',async()=>{if(!navigator.share){status.textContent=await copyAgentText(url)?'Link copied. Download the PNG to attach it.':'Download the PNG and copy the link.';return;}try{const payload={title,text:'Explore this AI helper on AIBin',url};if(shareFile&&navigator.canShare?.({files:[shareFile]}))payload.files=[shareFile];await navigator.share(payload);event('share',slug);}catch(e){if(e.name!=='AbortError')status.textContent='Use Download PNG and Copy link instead.';}},'btn primary'));
+ const slug=path.match(/\/(?:agents|tools|automations|live-agents|agent-teams)\/([a-z0-9-]+)$/)?.[1]||path.match(/#agent-(\d+)$/)?.[1]&&'community-'+path.match(/#agent-(\d+)$/)[1]||'custom';
+ actions.append(button('Download PNG',async()=>{try{download(await blob(),'aibin-agent-card.png');event('share',slug);status.textContent='Card downloaded. Share it together with the direct link.';}catch{status.textContent='Could not create image.';}},'btn secondary'),button('Copy link',async()=>{const copied=await copyAgentText(url);status.textContent=copied?'Direct link copied.':'Select the link below to copy.';if(copied)event('share',slug);},'btn secondary'),button('Share',async()=>{if(!navigator.share){const copied=await copyAgentText(url);status.textContent=copied?'Link copied. Download the PNG to attach it.':'Download the PNG and copy the link.';if(copied)event('share',slug);return;}try{const payload={title,text:'Explore this AI helper on AIBin',url};if(shareFile&&navigator.canShare?.({files:[shareFile]}))payload.files=[shareFile];await navigator.share(payload);event('share',slug);}catch(e){if(e.name!=='AbortError')status.textContent='Use Download PNG and Copy link instead.';}},'btn primary'));
  d.append(close,h,image,actions,direct,status);document.body.append(d);d.addEventListener('close',()=>{d.remove();if(shareDialog===d)shareDialog=null;});if(d.showModal)d.showModal();else d.setAttribute('open','');
 }
 const current=location.pathname.replace(/\/$/,'')||'/';
-const listing=/^\/(?:agents|tools|automations|live-agents)\/([a-z0-9-]+)$/.exec(current);
+const listing=/^\/(?:agents|tools|automations|live-agents|agent-teams)\/([a-z0-9-]+)$/.exec(current);
 if(listing){
  const header=$('.toolhead')||$('h1')?.parentElement,name=$('h1')?.textContent||'AI helper',desc=$('.toolhead .lead')?.textContent||'Explore this free AI helper.';
  if(header){const existing=$('.agent-actions');const area=existing||el('div',undefined,'experience-actions');area.append(button('Share ↗',()=>shareCard(name,desc,current)));if(!existing)header.after(area);}

@@ -236,6 +236,11 @@
       "source": "/blog/:slug([a-z0-9-]+).html",
       "destination": "/blog/:slug",
       "permanent": true
+    },
+    {
+      "source": "/newsletter.html",
+      "destination": "/newsletter",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -394,6 +399,10 @@
     {
       "source": "/blog/:slug([a-z0-9-]+)",
       "destination": "/blog/:slug.html"
+    },
+    {
+      "source": "/newsletter",
+      "destination": "/newsletter.html"
     }
   ]
 }
