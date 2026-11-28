@@ -118,3 +118,31 @@ test('search intent guides add useful prompts and real tool links without duplic
   else assert.ok(html.includes('content="noindex,follow"'),slug);
  }
 });
+
+test('AI discovery directory provides task-first recommendations and real guide links',()=>{
+ const h=read('ai-agent-directory.html');
+ assert.ok(h.includes('Choose an AI helper by the result you need'));
+ for(const [label,path,guide] of [
+  ['Find real job openings','/automations/job-opening-scout','/blog/ai-agent-for-job-search'],
+  ['Compare shopping prices','/tools/price-compare','/blog/ai-agent-for-online-shopping'],
+  ['Find and monitor cheap flights','/automations/flight-price-watcher','/blog/ai-agent-for-flight-deals'],
+  ['Summarize a PDF','/agents/pdf-question-helper','/blog/ai-agent-for-document-summaries'],
+  ['Plan meals on a budget','/tools/meal-planner','/blog/ai-agent-for-meal-planning'],
+  ['Review customer support replies','/agents/support-response-helper','/blog/ai-customer-support-agent']
+ ]){
+  assert.ok(h.includes(label),label);
+  for(const p of [path,guide]){assert.ok(h.includes('href="'+p+'"'),p);assert.ok(fs.existsSync('dist'+p+'.html'),p);}
+ }
+});
+test('six verified tool examples are rendered with actual results and evidence links',()=>{
+ const evidence=JSON.parse(read('browser-tool-evidence.json'));
+ const checked=evidence.cases.filter(c=>c.expectedTitle);assert.equal(checked.length,6);
+ for(const c of checked){
+  const h=read(c.path.slice(1)+'.html');
+  assert.ok(h.includes('Reproducible worked example'),c.slug);
+  assert.ok(h.includes(c.expectedTitle),c.slug);
+  assert.ok(h.includes('Synthetic inputs executed'),c.slug);
+  assert.ok(h.includes('href="/browser-tool-evidence.json"'),c.slug);
+  assert.ok(h.includes('href="/agent-checks"'),c.slug);
+ }
+});
